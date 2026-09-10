@@ -1,1 +1,912 @@
+<!DOCTYPE html>
 
+<html lang="it">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>
+Cronaca del Giorno negli Annali degli Eldar
+</title>
+
+
+<style>
+
+:root {
+
+    --bg1: #171521;
+    --bg2: #302845;
+
+    --primary: #F5E7B2;
+    --secondary: #C8BEDA;
+
+    --accent: #E8C75A;
+
+    --card:
+        rgba(255,255,255,0.055);
+
+    --border:
+        rgba(232,199,90,0.18);
+
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at top,
+            var(--bg2),
+            var(--bg1) 65%
+        );
+
+    color:
+        var(--primary);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Helvetica Neue",
+        sans-serif;
+
+}
+
+
+.page {
+
+    width: 100%;
+
+    max-width: 760px;
+
+    margin: auto;
+
+    padding:
+        45px
+        22px
+        70px;
+
+}
+
+
+/* ======================================
+   TESTATA
+   ====================================== */
+
+.header {
+
+    text-align: center;
+
+}
+
+
+.header-symbol {
+
+    font-size: 42px;
+
+    color:
+        var(--accent);
+
+    margin-bottom: 18px;
+
+}
+
+
+.header-title {
+
+    font-size: 28px;
+
+    line-height: 1.2;
+
+    font-weight: 700;
+
+    letter-spacing:
+        -0.4px;
+
+}
+
+
+.header-subtitle {
+
+    margin-top: 12px;
+
+    font-size: 15px;
+
+    font-style: italic;
+
+    color:
+        var(--secondary);
+
+}
+
+
+.divider {
+
+    margin:
+        30px
+        0;
+
+    text-align: center;
+
+    color:
+        var(--accent);
+
+    opacity: .75;
+
+    letter-spacing:
+        4px;
+
+}
+
+
+/* ======================================
+   CARTA PRINCIPALE
+   ====================================== */
+
+.hero {
+
+    text-align: center;
+
+    padding:
+        28px
+        18px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        24px;
+
+    background:
+        var(--card);
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
+
+}
+
+
+.hero-period {
+
+    font-size: 31px;
+
+    font-weight: 700;
+
+}
+
+
+.hero-day {
+
+    margin-top: 8px;
+
+    font-size: 17px;
+
+    color:
+        var(--secondary);
+
+}
+
+
+.hero-poetic {
+
+    margin-top: 18px;
+
+    font-size: 15px;
+
+    font-style: italic;
+
+    color:
+        var(--accent);
+
+}
+
+
+/* ======================================
+   GRIGLIA
+   ====================================== */
+
+.grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 14px;
+
+    margin-top: 16px;
+
+}
+
+
+.card {
+
+    padding: 20px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        20px;
+
+    background:
+        var(--card);
+
+}
+
+
+.label {
+
+    font-size: 11px;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        1.4px;
+
+    color:
+        var(--accent);
+
+    margin-bottom: 9px;
+
+}
+
+
+.value {
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    line-height: 1.35;
+
+}
+
+
+.secondary {
+
+    margin-top: 5px;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    color:
+        var(--secondary);
+
+}
+
+
+/* ======================================
+   DESCRIZIONE
+   ====================================== */
+
+.chronicle {
+
+    margin-top: 16px;
+
+    padding: 25px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        22px;
+
+    background:
+        var(--card);
+
+}
+
+
+.chronicle-title {
+
+    text-align: center;
+
+    font-size: 13px;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        1.6px;
+
+    color:
+        var(--accent);
+
+    margin-bottom: 20px;
+
+}
+
+
+.chronicle p {
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    color:
+        var(--secondary);
+
+    margin:
+        0 0 18px;
+
+}
+
+
+.quote {
+
+    margin-top: 20px;
+
+    text-align: center;
+
+    font-size: 16px;
+
+    line-height: 1.7;
+
+    font-style: italic;
+
+    color:
+        var(--primary);
+
+}
+
+
+/* ======================================
+   FOOTER
+   ====================================== */
+
+.footer {
+
+    margin-top: 40px;
+
+    text-align: center;
+
+    color:
+        var(--secondary);
+
+    opacity: .7;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+}
+
+
+/* ======================================
+   MOBILE
+   ====================================== */
+
+@media (
+    max-width: 520px
+) {
+
+    .page {
+
+        padding:
+            35px
+            16px
+            55px;
+
+    }
+
+
+    .header-title {
+
+        font-size: 24px;
+
+    }
+
+
+    .grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .hero-period {
+
+        font-size: 28px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+<!-- ==================================
+     TESTATA
+     ================================== -->
+
+<header class="header">
+
+
+<div class="header-symbol">
+✦
+</div>
+
+
+<div class="header-title">
+
+Cronaca del Giorno<br>
+negli Annali degli Eldar
+
+</div>
+
+
+<div class="header-subtitle">
+
+Computo del Tempo secondo gli antichi
+Eldar
+
+</div>
+
+
+</header>
+
+
+<div class="divider">
+
+✦ ─────── ✧ ─────── ✦
+
+</div>
+
+
+<!-- ==================================
+     HERO
+     ================================== -->
+
+<section class="hero">
+
+
+<div
+    id="periodo"
+    class="hero-period">
+</div>
+
+
+<div
+    id="giorno"
+    class="hero-day">
+</div>
+
+
+<div
+    id="poetico"
+    class="hero-poetic">
+</div>
+
+
+</section>
+
+
+<!-- ==================================
+     INFORMAZIONI
+     ================================== -->
+
+<div class="grid">
+
+
+<div class="card">
+
+<div class="label">
+Giorno degli Eldar
+</div>
+
+<div
+    id="giornoElfico"
+    class="value">
+</div>
+
+<div
+    id="significatoGiorno"
+    class="secondary">
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+Computo del Loa
+</div>
+
+<div
+    id="loa"
+    class="value">
+</div>
+
+<div
+    id="quartaEra"
+    class="secondary">
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+Isil
+</div>
+
+<div
+    id="luna"
+    class="value">
+</div>
+
+<div
+    id="lunaItaliano"
+    class="secondary">
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+Albero Sacro
+</div>
+
+<div
+    id="albero"
+    class="value">
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+Stella del Giorno
+</div>
+
+<div
+    id="stella"
+    class="value">
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+Costellazione
+</div>
+
+<div
+    id="costellazione"
+    class="value">
+</div>
+
+<div
+    id="descrizioneCostellazione"
+    class="secondary">
+</div>
+
+</div>
+
+
+</div>
+
+
+<!-- ==================================
+     CRONACA
+     ================================== -->
+
+<section class="chronicle">
+
+
+<div class="chronicle-title">
+
+✧ Dal Libro degli Annali ✧
+
+</div>
+
+
+<p id="testo">
+</p>
+
+
+<div class="quote"
+     id="citazione">
+</div>
+
+
+</section>
+
+
+<!-- ==================================
+     DIVISORE
+     ================================== -->
+
+<div class="divider">
+
+✦ ─────── ✧ ─────── ✦
+
+</div>
+
+
+<!-- ==================================
+     FOOTER
+     ================================== -->
+
+<footer class="footer">
+
+<div id="footer">
+</div>
+
+<br>
+
+Così viene annotato questo giorno
+negli annali degli Eldar,<br>
+
+affinché il ricordo delle antiche luci
+non venga meno finché durerà il mondo.
+
+</footer>
+
+
+</div>
+
+
+<script>
+
+
+// =====================================
+// LETTURA PARAMETRI
+// =====================================
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    )
+
+
+function get(nome) {
+
+    return params.get(nome) || ""
+
+}
+
+
+// =====================================
+// DATI
+// =====================================
+
+const periodo =
+    get("periodo")
+
+const sindarin =
+    get("sindarin")
+
+const significato =
+    get("significato")
+
+const simbolo =
+    get("simbolo")
+
+const nomePoetico =
+    get("nomePoetico")
+
+const giornoElfico =
+    get("giornoElfico")
+
+const significatoGiorno =
+    get("significatoGiorno")
+
+const giornoPeriodo =
+    get("giornoPeriodo")
+
+const durataPeriodo =
+    get("durataPeriodo")
+
+const annoElfico =
+    get("annoElfico")
+
+const annoQuartaEra =
+    get("annoQuartaEra")
+
+const lunaSimbolo =
+    get("lunaSimbolo")
+
+const lunaNome =
+    get("lunaNome")
+
+const lunaItaliano =
+    get("lunaItaliano")
+
+const albero =
+    get("albero")
+
+const stella =
+    get("stella")
+
+const costellazione =
+    get("costellazione")
+
+const descrizioneCostellazione =
+    get("descrizioneCostellazione")
+
+const descrizione =
+    get("descrizione")
+
+
+// =====================================
+// PAGINA
+// =====================================
+
+document.getElementById(
+    "periodo"
+).textContent =
+    simbolo + " " + periodo
+
+
+document.getElementById(
+    "giorno"
+).textContent =
+    giornoPeriodo +
+    "° giorno · " +
+    (sindarin || significato)
+
+
+document.getElementById(
+    "poetico"
+).textContent =
+    nomePoetico
+
+
+document.getElementById(
+    "giornoElfico"
+).textContent =
+    giornoElfico
+
+
+document.getElementById(
+    "significatoGiorno"
+).textContent =
+    significatoGiorno
+
+
+document.getElementById(
+    "loa"
+).textContent =
+    "Loa " + annoElfico
+
+
+document.getElementById(
+    "quartaEra"
+).textContent =
+    annoQuartaEra + " Q.E."
+
+
+document.getElementById(
+    "luna"
+).textContent =
+    lunaSimbolo +
+    " " +
+    lunaNome
+
+
+document.getElementById(
+    "lunaItaliano"
+).textContent =
+    lunaItaliano
+
+
+document.getElementById(
+    "albero"
+).textContent =
+    albero
+
+
+document.getElementById(
+    "stella"
+).textContent =
+    "⭐ " + stella
+
+
+document.getElementById(
+    "costellazione"
+).textContent =
+    "✨ " + costellazione
+
+
+document.getElementById(
+    "descrizioneCostellazione"
+).textContent =
+    descrizioneCostellazione
+
+
+// =====================================
+// CRONACA
+// =====================================
+
+const cronaca =
+
+    `Nel giorno di ${giornoElfico}, ` +
+    `il ${giornoPeriodo}° giorno di ${periodo}, ` +
+    `${sindarin ? `chiamato ${sindarin} dagli Elfi Sindar, ` : ""}` +
+    `nel tempo conosciuto come ${significato}, ` +
+    `gli annali registrano il corso ordinato ` +
+    `del cielo e delle stagioni.`
+
+
+document.getElementById(
+    "testo"
+).textContent =
+    cronaca
+
+
+document.getElementById(
+    "citazione"
+).textContent =
+    "“" + descrizione + "”"
+
+
+// =====================================
+// FOOTER
+// =====================================
+
+document.getElementById(
+    "footer"
+).textContent =
+
+    "Loa " +
+    annoElfico +
+    " · " +
+    annoQuartaEra +
+    " Q.E."
+
+
+// =====================================
+// TITOLO SAFARI
+// =====================================
+
+document.title =
+    "Cronaca del Giorno — " +
+    periodo
+
+
+</script>
+
+
+</body>
+
+</html>
