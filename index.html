@@ -698,94 +698,927 @@ Costellazione
 
 <script>
 
+// =====================================
+// IMLADRIS ELVEN CALENDAR
+// CALCOLO AUTONOMO — NO SCRIPTABLE
+// =====================================
+
 
 // =====================================
-// LETTURA PARAMETRI
+// DATA
 // =====================================
 
-const params =
-    new URLSearchParams(
-        window.location.search
+const data = new Date()
+
+
+// =====================================
+// TEMA
+// Come Scriptable:
+// 22:00 → 06:59 = dark
+// =====================================
+
+const ora = data.getHours()
+
+const dark =
+    ora >= 22 ||
+    ora < 7
+
+
+// =====================================
+// FASE LUNARE ELFICA
+// =====================================
+
+function getFaseLunareElfica() {
+
+    const riferimento =
+        new Date(
+            "2000-01-06T18:14:00Z"
+        )
+
+    const giorni =
+        (
+            data.getTime() -
+            riferimento.getTime()
+        ) / 86400000
+
+    const etaLuna =
+        (
+            (giorni % 29.530588) +
+            29.530588
+        ) % 29.530588
+
+
+    if (etaLuna < 1.84566)
+
+        return {
+            simbolo: "🌑",
+            nome: "Isil Núra",
+            italiano: "Luna Nuova"
+        }
+
+
+    if (etaLuna < 5.53699)
+
+        return {
+            simbolo: "🌒",
+            nome: "Isil Orta",
+            italiano: "Falce Crescente"
+        }
+
+
+    if (etaLuna < 9.22831)
+
+        return {
+            simbolo: "🌓",
+            nome: "Perian Isil",
+            italiano: "Primo Quarto"
+        }
+
+
+    if (etaLuna < 12.91963)
+
+        return {
+            simbolo: "🌔",
+            nome: "Isil Alata",
+            italiano: "Gibbosa Crescente"
+        }
+
+
+    if (etaLuna < 16.61096)
+
+        return {
+            simbolo: "🌕",
+            nome: "Isil Rána",
+            italiano: "Luna Piena"
+        }
+
+
+    if (etaLuna < 20.30228)
+
+        return {
+            simbolo: "🌖",
+            nome: "Isil Lanta",
+            italiano: "Gibbosa Calante"
+        }
+
+
+    if (etaLuna < 23.99361)
+
+        return {
+            simbolo: "🌗",
+            nome: "Perian Isil Núnquerna",
+            italiano: "Ultimo Quarto"
+        }
+
+
+    if (etaLuna < 27.68493)
+
+        return {
+            simbolo: "🌘",
+            nome: "Isil Núrala",
+            italiano: "Falce Calante"
+        }
+
+
+    return {
+        simbolo: "🌑",
+        nome: "Isil Núra",
+        italiano: "Luna Nuova"
+    }
+}
+
+
+const faseLunare =
+    getFaseLunareElfica()
+
+
+// =====================================
+// GIORNI ELFICI
+// =====================================
+
+const giorniElfici = [
+
+    {
+        nome: "Elenya",
+        significato: "Giorno delle Stelle"
+    },
+
+    {
+        nome: "Anarya",
+        significato: "Giorno del Sole"
+    },
+
+    {
+        nome: "Isilya",
+        significato: "Giorno della Luna"
+    },
+
+    {
+        nome: "Aldúya",
+        significato: "Giorno dei Due Alberi"
+    },
+
+    {
+        nome: "Menelya",
+        significato: "Giorno dei Cieli"
+    },
+
+    {
+        nome: "Valanya",
+        significato: "Giorno dei Valar"
+    }
+
+]
+
+
+// =====================================
+// CALCOLO LOA
+// =====================================
+
+const annoGreg =
+    data.getFullYear()
+
+
+let yestare =
+    new Date(
+        annoGreg,
+        2,
+        21
     )
 
 
-function get(nome) {
+let annoElfico
 
-    return params.get(nome) || ""
+
+if (data >= yestare) {
+
+    annoElfico =
+        annoGreg
+
+} else {
+
+    annoElfico =
+        annoGreg - 1
+
+    yestare =
+        new Date(
+            annoGreg - 1,
+            2,
+            21
+        )
+}
+
+
+// =====================================
+// ENDERI
+// =====================================
+
+let enderi = 3
+
+
+const multiplo12 =
+    annoElfico % 12 === 0
+
+
+const multiplo432 =
+    annoElfico % 432 === 0
+
+
+if (
+    multiplo12 &&
+    !multiplo432
+) {
+
+    enderi = 6
+}
+
+
+// =====================================
+// GIORNO DELL'ANNO ELFICO
+// =====================================
+
+const giornoAnno =
+    Math.floor(
+        (
+            data.getTime() -
+            yestare.getTime()
+        ) / 86400000
+    )
+
+
+// =====================================
+// GIORNO ELFICO
+// =====================================
+
+const nomeGiorno =
+    giorniElfici[
+        (
+            (giornoAnno % 6) +
+            6
+        ) % 6
+    ]
+
+
+// =====================================
+// STELLA DEL GIORNO
+// =====================================
+
+const stelleDelGiorno = {
+
+    "Elenya":
+        "Eärendil, la Stella del Vespro",
+
+    "Anarya":
+        "Anar, il Sole Dorato",
+
+    "Isilya":
+        "Isil, la Luna Bianca",
+
+    "Aldúya":
+        "Telperion e Laurelin, i Due Alberi di Valinor",
+
+    "Menelya":
+        "Menelmacar, il Guerriero Celeste",
+
+    "Valanya":
+        "Elbereth Gilthoniel, la Signora delle Stelle"
+
+}
+
+
+const stellaDelGiorno =
+    stelleDelGiorno[
+        nomeGiorno.nome
+    ]
+
+
+// =====================================
+// CALENDARIO DEL LOA
+// =====================================
+
+const calendario = [
+
+    {
+        nome: "Yestarë",
+        sindarin: "",
+        significato: "Primo giorno dell'anno",
+        simbolo: "✦",
+        durata: 1,
+        stagione: "yestare"
+    },
+
+    {
+        nome: "Tuilë",
+        sindarin: "Ethuil",
+        significato: "Primavera",
+        simbolo: "❧",
+        durata: 54,
+        stagione: "tuile"
+    },
+
+    {
+        nome: "Lairë",
+        sindarin: "Laer",
+        significato: "Estate",
+        simbolo: "☼",
+        durata: 72,
+        stagione: "laire"
+    },
+
+    {
+        nome: "Yávië",
+        sindarin: "Iavas",
+        significato: "Autunno",
+        simbolo: "❦",
+        durata: 54,
+        stagione: "yavie"
+    },
+
+    {
+        nome: "Enderi",
+        sindarin: "",
+        significato: "Giorni centrali dell'anno",
+        simbolo: "✧",
+        durata: enderi,
+        stagione: "enderi"
+    },
+
+    {
+        nome: "Quellë",
+        sindarin: "Firith",
+        significato: "Fine dell'autunno",
+        simbolo: "❋",
+        durata: 54,
+        stagione: "quelle"
+    },
+
+    {
+        nome: "Hrívë",
+        sindarin: "Rhîw",
+        significato: "Inverno",
+        simbolo: "❄",
+        durata: 72,
+        stagione: "hrive"
+    },
+
+    {
+        nome: "Coirë",
+        sindarin: "Echuir",
+        significato: "Risveglio della primavera",
+        simbolo: "✿",
+        durata: 54,
+        stagione: "coire"
+    },
+
+    {
+        nome: "Mettarë",
+        sindarin: "",
+        significato: "Ultimo giorno dell'anno",
+        simbolo: "✺",
+        durata: 1,
+        stagione: "mettare"
+    }
+
+]
+
+
+// =====================================
+// DETERMINAZIONE PERIODO
+// =====================================
+
+let restante =
+    giornoAnno
+
+
+let periodo =
+    null
+
+
+let giornoPeriodo =
+    1
+
+
+for (
+    const elemento of calendario
+) {
+
+    if (
+        restante <
+        elemento.durata
+    ) {
+
+        periodo =
+            elemento
+
+        giornoPeriodo =
+            restante + 1
+
+        break
+    }
+
+    restante -=
+        elemento.durata
+}
+
+
+// =====================================
+// COSTELLAZIONE
+// =====================================
+
+const costellazioni = [
+
+    "Menelmacar",
+    "Valacirca",
+    "Wilwarin",
+    "Remmirath",
+    "Soronúmë",
+    "Telumendil",
+    "Anarríma",
+    "Elenath"
+
+]
+
+
+const indiceCostellazione =
+    Math.floor(
+        giornoAnno / 45
+    ) %
+    costellazioni.length
+
+
+const costellazione =
+    costellazioni[
+        indiceCostellazione
+    ]
+
+
+// =====================================
+// DESCRIZIONI COSTELLAZIONI
+// =====================================
+
+const descrizioniCostellazioni = {
+
+    "Menelmacar":
+        "il Guerriero del Cielo",
+
+    "Valacirca":
+        "la Falce dei Valar",
+
+    "Wilwarin":
+        "la Farfalla Stellata",
+
+    "Remmirath":
+        "la Rete delle Stelle",
+
+    "Soronúmë":
+        "l'Aquila Occidentale",
+
+    "Telumendil":
+        "l'Amante della Volta Celeste",
+
+    "Anarríma":
+        "ai Confini del Sole",
+
+    "Elenath":
+        "l'Ospite delle Stelle"
+
+}
+
+
+const descrizioneCostellazione =
+    descrizioniCostellazioni[
+        costellazione
+    ]
+
+
+// =====================================
+// NOME POETICO
+// =====================================
+
+let nomePoetico =
+    "Tempo degli Eldar"
+
+
+switch (
+    periodo.nome
+) {
+
+    case "Yestarë":
+
+        nomePoetico =
+            "Il Rinnovarsi della Luce"
+
+        break
+
+
+    case "Tuilë":
+
+        nomePoetico =
+            "Tempo dei Primi Germogli"
+
+        break
+
+
+    case "Lairë":
+
+        nomePoetico =
+            "Tempo della Piena Luce"
+
+        break
+
+
+    case "Yávië":
+
+        nomePoetico =
+            "Tempo della Raccolta"
+
+        break
+
+
+    case "Enderi":
+
+        nomePoetico =
+            "Giorni fuori dal Tempo"
+
+        break
+
+
+    case "Quellë":
+
+        nomePoetico =
+            "Tempo delle Foglie Cadenti"
+
+        break
+
+
+    case "Hrívë":
+
+        nomePoetico =
+            "Tempo del Gelo e delle Stelle"
+
+        break
+
+
+    case "Coirë":
+
+        nomePoetico =
+            "Tempo del Risveglio"
+
+        break
+
+
+    case "Mettarë":
+
+        nomePoetico =
+            "Il Compimento dell’Anno"
+
+        break
+}
+
+
+// =====================================
+// ALBERO SACRO
+// =====================================
+
+const alberiSacri = {
+
+    "Yestarë":
+        "🌳 Galathilion",
+
+    "Tuilë":
+        "🌿 Mallorn",
+
+    "Lairë":
+        "☀️ Laurelin",
+
+    "Yávië":
+        "🍎 Galmadh",
+
+    "Enderi":
+        "✨ I Due Alberi",
+
+    "Quellë":
+        "🍂 Hirilorn",
+
+    "Hrívë":
+        "🌙 Telperion",
+
+    "Coirë":
+        "🌱 Nimloth",
+
+    "Mettarë":
+        "🌳 Galathilion"
+
+}
+
+
+const alberoSacro =
+    alberiSacri[
+        periodo.nome
+    ]
+
+
+// =====================================
+// TESTO DESCRITTIVO
+// =====================================
+
+const testodescrittivo =
+    `Nel giorno di ${nomeGiorno.nome}, ` +
+    `il ${giornoPeriodo}° giorno di ${periodo.nome}, ` +
+    `sotto ${costellazione}, ` +
+    `${descrizioneCostellazione}, ` +
+    `splende ${stellaDelGiorno}.`
+
+
+// =====================================
+// PALETTE STAGIONALE
+// IDENTICA A SCRIPTABLE
+// =====================================
+
+const palettes = {
+
+    yestare: {
+
+        dark: {
+            bg1: "#171521",
+            bg2: "#302845",
+            primary: "#F5E7B2",
+            secondary: "#C8BEDA",
+            accent: "#E8C75A"
+        },
+
+        light: {
+            bg1: "#F9F5E8",
+            bg2: "#E8DDC1",
+            primary: "#4A3A22",
+            secondary: "#76684F",
+            accent: "#C49A27"
+        }
+
+    },
+
+
+    tuile: {
+
+        dark: {
+            bg1: "#15251F",
+            bg2: "#294437",
+            primary: "#E5F0D8",
+            secondary: "#B7CCB7",
+            accent: "#78B86A"
+        },
+
+        light: {
+            bg1: "#F2F7ED",
+            bg2: "#DCEBD3",
+            primary: "#31452E",
+            secondary: "#65745F",
+            accent: "#4F963F"
+        }
+
+    },
+
+
+    laire: {
+
+        dark: {
+            bg1: "#172333",
+            bg2: "#354C61",
+            primary: "#F6E9B8",
+            secondary: "#C5D1D9",
+            accent: "#E2B84B"
+        },
+
+        light: {
+            bg1: "#F7F5E9",
+            bg2: "#E4E0C8",
+            primary: "#493D25",
+            secondary: "#716A58",
+            accent: "#C99724"
+        }
+
+    },
+
+
+    yavie: {
+
+        dark: {
+            bg1: "#291D18",
+            bg2: "#51372A",
+            primary: "#F1D8B5",
+            secondary: "#CBB5A0",
+            accent: "#D88743"
+        },
+
+        light: {
+            bg1: "#F8F0E5",
+            bg2: "#E8D3B9",
+            primary: "#513723",
+            secondary: "#786653",
+            accent: "#B96F32"
+        }
+
+    },
+
+
+    enderi: {
+
+        dark: {
+            bg1: "#211C2B",
+            bg2: "#44384F",
+            primary: "#F2E4C7",
+            secondary: "#C8BFD0",
+            accent: "#D7B86A"
+        },
+
+        light: {
+            bg1: "#F6F1E7",
+            bg2: "#E3D8C7",
+            primary: "#493D32",
+            secondary: "#746B60",
+            accent: "#B28B38"
+        }
+
+    },
+
+
+    quelle: {
+
+        dark: {
+            bg1: "#251C19",
+            bg2: "#493128",
+            primary: "#EFD7C1",
+            secondary: "#C8AEA0",
+            accent: "#C56B43"
+        },
+
+        light: {
+            bg1: "#F7EEE7",
+            bg2: "#E6D0C1",
+            primary: "#503629",
+            secondary: "#766055",
+            accent: "#A95532"
+        }
+
+    },
+
+
+    hrive: {
+
+        dark: {
+            bg1: "#141E2B",
+            bg2: "#2B4055",
+            primary: "#E3EDF4",
+            secondary: "#B6C7D6",
+            accent: "#8FC4E8"
+        },
+
+        light: {
+            bg1: "#F0F5F8",
+            bg2: "#D9E6ED",
+            primary: "#30414D",
+            secondary: "#657580",
+            accent: "#5797BF"
+        }
+
+    },
+
+
+    coire: {
+
+        dark: {
+            bg1: "#18251F",
+            bg2: "#30483A",
+            primary: "#E3EEDB",
+            secondary: "#B9CBB8",
+            accent: "#79A86A"
+        },
+
+        light: {
+            bg1: "#F3F7EF",
+            bg2: "#DDE9D5",
+            primary: "#34472F",
+            secondary: "#687661",
+            accent: "#5A934D"
+        }
+
+    },
+
+
+    mettare: {
+
+        dark: {
+            bg1: "#1D1827",
+            bg2: "#392A48",
+            primary: "#F2E2B7",
+            secondary: "#C7BBD2",
+            accent: "#D8B45A"
+        },
+
+        light: {
+            bg1: "#F8F3E8",
+            bg2: "#E4D8C5",
+            primary: "#4C3A25",
+            secondary: "#74695A",
+            accent: "#B48A2C"
+        }
+
+    }
 
 }
 
 
 // =====================================
-// DATI
+// SELEZIONE PALETTE
 // =====================================
 
-const periodo =
-    get("periodo")
-
-const sindarin =
-    get("sindarin")
-
-const significato =
-    get("significato")
-
-const simbolo =
-    get("simbolo")
-
-const nomePoetico =
-    get("nomePoetico")
-
-const giornoElfico =
-    get("giornoElfico")
-
-const significatoGiorno =
-    get("significatoGiorno")
-
-const giornoPeriodo =
-    get("giornoPeriodo")
-
-const durataPeriodo =
-    get("durataPeriodo")
-
-const annoElfico =
-    get("annoElfico")
-
-const annoQuartaEra =
-    get("annoQuartaEra")
-
-const lunaSimbolo =
-    get("lunaSimbolo")
-
-const lunaNome =
-    get("lunaNome")
-
-const lunaItaliano =
-    get("lunaItaliano")
-
-const albero =
-    get("albero")
-
-const stella =
-    get("stella")
-
-const costellazione =
-    get("costellazione")
-
-const descrizioneCostellazione =
-    get("descrizioneCostellazione")
-
-const descrizione =
-    get("descrizione")
+const palette =
+    palettes[
+        periodo.stagione
+    ][
+        dark
+            ? "dark"
+            : "light"
+    ]
 
 
 // =====================================
-// PAGINA
+// APPLICA PALETTE AL CSS
+// =====================================
+
+document.documentElement.style.setProperty(
+    "--bg1",
+    palette.bg1
+)
+
+document.documentElement.style.setProperty(
+    "--bg2",
+    palette.bg2
+)
+
+document.documentElement.style.setProperty(
+    "--primary",
+    palette.primary
+)
+
+document.documentElement.style.setProperty(
+    "--secondary",
+    palette.secondary
+)
+
+document.documentElement.style.setProperty(
+    "--accent",
+    palette.accent
+)
+
+
+// =====================================
+// AGGIORNAMENTO SFONDO
+// equivalente al LinearGradient di Scriptable
+// =====================================
+
+document.body.style.background =
+    `radial-gradient(
+        circle at top,
+        ${palette.bg2},
+        ${palette.bg1} 65%
+    )`
+
+
+// =====================================
+// AGGIORNA BORDER
+// =====================================
+
+document.documentElement.style.setProperty(
+    "--border",
+    dark
+        ? "rgba(255,255,255,0.12)"
+        : "rgba(90,70,30,0.18)"
+)
+
+
+// =====================================
+// AGGIORNA CARD
+// =====================================
+
+document.documentElement.style.setProperty(
+    "--card",
+    dark
+        ? "rgba(255,255,255,0.055)"
+        : "rgba(255,255,255,0.42)"
+)
+
+
+// =====================================
+// VALORI PAGINA
 // =====================================
 
 document.getElementById(
     "periodo"
 ).textContent =
-    simbolo + " " + periodo
+    periodo.simbolo +
+    " " +
+    periodo.nome
 
 
 document.getElementById(
@@ -793,7 +1626,10 @@ document.getElementById(
 ).textContent =
     giornoPeriodo +
     "° giorno · " +
-    (sindarin || significato)
+    (
+        periodo.sindarin ||
+        periodo.significato
+    )
 
 
 document.getElementById(
@@ -805,57 +1641,65 @@ document.getElementById(
 document.getElementById(
     "giornoElfico"
 ).textContent =
-    giornoElfico
+    nomeGiorno.nome
 
 
 document.getElementById(
     "significatoGiorno"
 ).textContent =
-    significatoGiorno
+    nomeGiorno.significato
 
 
 document.getElementById(
     "loa"
 ).textContent =
-    "Loa " + annoElfico
+    "Loa " +
+    annoElfico
+
+
+const annoQuartaEra =
+    annoGreg + 4021
 
 
 document.getElementById(
     "quartaEra"
 ).textContent =
-    annoQuartaEra + " Q.E."
+    annoQuartaEra +
+    " Q.E."
 
 
 document.getElementById(
     "luna"
 ).textContent =
-    lunaSimbolo +
+    faseLunare.simbolo +
     " " +
-    lunaNome
+    faseLunare.nome
 
 
 document.getElementById(
     "lunaItaliano"
 ).textContent =
-    lunaItaliano
+    faseLunare.italiano
 
 
 document.getElementById(
     "albero"
 ).textContent =
-    albero
+    alberoSacro
 
 
 document.getElementById(
     "stella"
 ).textContent =
-    "⭐ " + stella
+    "⭐ " +
+    stellaDelGiorno
 
 
 document.getElementById(
     "costellazione"
 ).textContent =
-    "✨ " + costellazione
+    "✨ " +
+    costellazione
 
 
 document.getElementById(
@@ -863,77 +1707,110 @@ document.getElementById(
 ).textContent =
     descrizioneCostellazione
 
+
 // =====================================
 // CRONACA
 // =====================================
 
 const cronaca = `
-🍂 Oggi ricorre ${giornoElfico}, il ${giornoPeriodo}° di ${periodo},
-${sindarin ? `chiamato ${sindarin} dagli Elfi Sindar, ` : ""}
-nella stagione conosciuta tra gli Uomini come ${significato},
-in cui vengono registrati i moti del tempo e del cielo secondo
-l'antico computo degli Eldar.
+
+🍂 Oggi ricorre ${nomeGiorno.nome},
+il ${giornoPeriodo}° di ${periodo.nome},
+${periodo.sindarin
+    ? `chiamato ${periodo.sindarin} dagli Elfi Sindar, `
+    : ""}
+nella stagione conosciuta tra gli Uomini come
+${periodo.significato}.
 
 <br><br>
 
-📖 Questo è il tempo denominato ${nomePoetico},
-quando le potenze della natura seguono il ciclo ordinato posto
-in principio dai Valar e custodito nella memoria degli Elfi.
+📖 Questo è il tempo denominato
+${nomePoetico},
+quando le potenze della natura seguono il ciclo
+ordinato posto in principio dai Valar e custodito
+nella memoria degli Elfi.
 
 <br><br>
 
-${albero.split(" ")[0]} Sotto la protezione di ${albero.split(" ")[1]}
+🍎 Sotto la protezione di ${alberoSacro}
 si svolge questa stagione, e il suo simbolo richiama
 le virtù proprie di questo periodo dell'anno.
 
 <br><br>
 
-🌑 ${lunaNome}, ${lunaItaliano}.
-Così appare Isil nei cieli di Arda, mentre il suo corso continua
-immutabile attraverso le ere del mondo.
+🌑 ${faseLunare.nome},
+${faseLunare.italiano}.
+Così appare Isil nei cieli di Arda,
+mentre il suo corso continua immutabile
+attraverso le ere del mondo.
 
 <br><br>
 
-⭐ La luce di ${stella}
-veglia su questo giorno, guidando lo sguardo di coloro che cercano
-nei cieli memoria, speranza e conoscenza.
+⭐ La luce di ${stellaDelGiorno}
+veglia su questo giorno, guidando lo sguardo
+di coloro che cercano nei cieli memoria,
+speranza e conoscenza.
 
 <br><br>
 
-✨ Nelle alte regioni del firmamento risplende ${costellazione};
-${descrizioneCostellazione}; la sua presenza è considerata di buon auspicio e ricorda agli osservatori la grande armonia delle stelle.
+✨ Nelle alte regioni del firmamento
+risplende ${costellazione};
+${descrizioneCostellazione};
+la sua presenza è considerata di buon auspicio
+e ricorda agli osservatori la grande armonia
+delle stelle.
 
 <br><br>
 
-🌳 Questo giorno appartiene all'anno elfico ${annoElfico}
-e corrisponde all'anno ${annoQuartaEra}
-della Quarta Era secondo il computo del Reame Riunito.
+🌳 Questo giorno appartiene all'anno elfico
+${annoElfico}
+e corrisponde all'anno
+${annoQuartaEra}
+della Quarta Era secondo il computo
+del Reame Riunito.
 
 <br><br>
 
-Così viene annotato questo giorno negli annali degli Eldar,
-affinché il ricordo del cielo, delle stagioni e delle antiche luci
+Così viene annotato questo giorno
+negli annali degli Eldar,
+affinché il ricordo del cielo,
+delle stagioni e delle antiche luci
 non venga meno finché durerà il mondo.
-`;
 
-document.getElementById("testo").innerHTML = cronaca;
+`
 
-document.getElementById("citazione").textContent =
-    simbolo;
+
+document.getElementById(
+    "testo"
+).innerHTML =
+    cronaca
+
+
+document.getElementById(
+    "citazione"
+).textContent =
+    periodo.simbolo
+
 
 // =====================================
 // FOOTER
 // =====================================
 
-document.getElementById(
-    "footer"
-).textContent =
+const footer =
+    document.getElementById(
+        "footer"
+    )
 
-    "Loa " +
-    annoElfico +
-    " · " +
-    annoQuartaEra +
-    " Q.E."
+if (footer) {
+
+    footer.textContent =
+        "Loa " +
+        annoElfico +
+        " · " +
+        annoQuartaEra +
+        " Q.E."
+
+}
 
 
 // =====================================
@@ -942,8 +1819,47 @@ document.getElementById(
 
 document.title =
     "Cronaca del Giorno — " +
-    periodo
+    periodo.nome
 
+
+// =====================================
+// AGGIORNAMENTO AUTOMATICO
+// =====================================
+
+// Ricarica la pagina all'inizio
+// dell'ora successiva.
+//
+// Questo permette di aggiornare:
+// - giorno
+// - fase lunare
+// - tema
+// - palette
+//
+// senza bisogno di Scriptable.
+
+const prossimoAggiornamento =
+    new Date(data)
+
+prossimoAggiornamento.setHours(
+    data.getHours() + 1
+)
+
+prossimoAggiornamento.setMinutes(0)
+prossimoAggiornamento.setSeconds(0)
+prossimoAggiornamento.setMilliseconds(0)
+
+
+const tempo =
+    prossimoAggiornamento.getTime() -
+    data.getTime()
+
+
+setTimeout(
+    () => {
+        location.reload()
+    },
+    tempo
+)
 
 </script>
 
