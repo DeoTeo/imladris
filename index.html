@@ -853,32 +853,66 @@ document.getElementById(
 ).textContent =
     descrizioneCostellazione
 
-
 // =====================================
 // CRONACA
 // =====================================
 
-const cronaca =
+const cronaca = `
+📜 <strong>Cronaca del Giorno negli Annali degli Eldar</strong>
+<br><br>
 
-    `Nel giorno di ${giornoElfico}, ` +
-    `il ${giornoPeriodo}° giorno di ${periodo}, ` +
-    `${sindarin ? `chiamato ${sindarin} dagli Elfi Sindar, ` : ""}` +
-    `nel tempo conosciuto come ${significato}, ` +
-    `gli annali registrano il corso ordinato ` +
-    `del cielo e delle stagioni.`
+🍂 Oggi ricorre ${giornoElfico}, il ${giornoPeriodo}° di ${periodo},
+${sindarin ? `chiamato ${sindarin} dagli Elfi Sindar, ` : ""}
+nella stagione conosciuta tra gli Uomini come ${significato},
+in cui vengono registrati i moti del tempo e del cielo secondo
+l'antico computo degli Eldar.
 
+<br><br>
 
-document.getElementById(
-    "testo"
-).textContent =
-    cronaca
+📖 Questo è il tempo denominato ${nomePoetico},
+quando le potenze della natura seguono il ciclo ordinato posto
+in principio dai Valar e custodito nella memoria degli Elfi.
 
+<br><br>
 
-document.getElementById(
-    "citazione"
-).textContent =
-    "“" + descrizione + "”"
+🍎 Sotto la protezione di ${albero}
+si svolge questa stagione, e il suo simbolo richiama
+le virtù proprie di questo periodo dell'anno.
 
+<br><br>
+
+🌑 ${lunaNome}, ${lunaItaliano}.
+Così appare Isil nei cieli di Arda, mentre il suo corso continua
+immutabile attraverso le ere del mondo.
+
+<br><br>
+
+⭐ La luce di ${stella}
+veglia su questo giorno, guidando lo sguardo di coloro che cercano
+nei cieli memoria, speranza e conoscenza.
+
+<br><br>
+
+✨ Nelle alte regioni del firmamento risplende ${costellazione};
+${descrizioneCostellazione}.
+
+<br><br>
+
+🌳 Questo giorno appartiene all'anno elfico ${annoElfico}
+e corrisponde all'anno ${annoQuartaEra}
+della Quarta Era secondo il computo del Reame Riunito.
+
+<br><br>
+
+Così viene annotato questo giorno negli annali degli Eldar,
+affinché il ricordo del cielo, delle stagioni e delle antiche luci
+non venga meno finché durerà il mondo.
+`;
+
+document.getElementById("testo").innerHTML = cronaca;
+
+document.getElementById("citazione").textContent =
+    "❦ " + descrizione;
 
 // =====================================
 // FOOTER
