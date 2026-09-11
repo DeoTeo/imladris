@@ -137,17 +137,18 @@ backdrop-filter:blur(18px);
 .hero-period{
 font-size:31px;
 font-weight:700;
+line-height:1.2;
 }
 
 .hero-day{
-margin-top:8px;
-font-size:17px;
+margin-top:9px;
+font-size:16px;
 color:var(--secondary);
 }
 
 .hero-poetic{
-margin-top:18px;
-font-size:15px;
+margin-top:12px;
+font-size:14px;
 font-style:italic;
 color:var(--accent);
 }
@@ -158,7 +159,7 @@ color:var(--accent);
 ========================================= */
 
 .period-progress{
-margin:20px auto 0;
+margin:23px auto 0;
 width:100%;
 max-width:360px;
 }
@@ -175,7 +176,6 @@ white-space:nowrap;
 .progress-segment{
 font-size:7px;
 line-height:1;
-font-weight:400;
 display:inline-block;
 width:7px;
 text-align:center;
@@ -198,17 +198,23 @@ font-weight:600;
 text-shadow:0 0 5px rgba(232,199,90,.35);
 }
 
-.progress-label{
-margin-top:7px;
-font-size:10px;
-font-style:italic;
-color:var(--secondary);
-opacity:.7;
+
+/* =========================================
+   NUMERO DEL GIORNO
+========================================= */
+
+.progress-number{
+margin-top:10px;
+font-size:27px;
+line-height:1;
+font-weight:700;
+letter-spacing:-.4px;
+color:var(--primary);
 }
 
 
 /* =========================================
-   GRIGLIA DEI BOX
+   GRIGLIA
 ========================================= */
 
 .grid{
@@ -703,7 +709,7 @@ Computo del Tempo secondo gli Annali degli Eldar
 
 
 <!-- =========================================
-     HERO
+     BLOCCO PRINCIPALE
 ========================================= -->
 
 <section class="hero">
@@ -716,22 +722,27 @@ Computo del Tempo secondo gli Annali degli Eldar
 
 
 <!-- =========================================
-     BARRA DI AVANZAMENTO
+     BARRA DEL PERIODO
 ========================================= -->
 
 <div class="period-progress">
 
 <div id="progressTrack" class="progress-track"></div>
 
-<div id="progressLabel" class="progress-label"></div>
-
 </div>
+
+
+<!-- =========================================
+     GIORNO / TOTALE
+========================================= -->
+
+<div id="progressNumber" class="progress-number"></div>
 
 </section>
 
 
 <!-- =========================================
-     INFORMAZIONI PRINCIPALI
+     INFORMAZIONI
 ========================================= -->
 
 <div class="grid">
@@ -949,14 +960,14 @@ Documento degli Annali
 
 
 <!-- =========================================
-     JAVASCRIPT
+     CALCOLO DEL CALENDARIO
 ========================================= -->
 
 <script>
 
 
 /* =========================================
-   DATA E TEMA
+   DATA
 ========================================= */
 
 const data=new Date();
@@ -967,14 +978,13 @@ const dark=ora>=22||ora<7;
 
 
 /* =========================================
-   FASE LUNARE ELFICA
+   FASE LUNARE
 ========================================= */
 
 function getFaseLunareElfica(){
 
-const riferimento=new Date(
-"2000-01-06T18:14:00Z"
-);
+const riferimento=
+new Date("2000-01-06T18:14:00Z");
 
 const giorni=
 (data.getTime()-riferimento.getTime())
@@ -985,7 +995,7 @@ const etaLuna=
 %29.530588;
 
 
-if(etaLuna<1.84566)
+if(etaLuna<1.84566){
 
 return{
 simbolo:"🌑",
@@ -993,8 +1003,9 @@ nome:"Isil Núra",
 italiano:"Luna Nuova"
 };
 
+}
 
-if(etaLuna<5.53699)
+if(etaLuna<5.53699){
 
 return{
 simbolo:"🌒",
@@ -1002,8 +1013,9 @@ nome:"Isil Orta",
 italiano:"Falce Crescente"
 };
 
+}
 
-if(etaLuna<9.22831)
+if(etaLuna<9.22831){
 
 return{
 simbolo:"🌓",
@@ -1011,8 +1023,9 @@ nome:"Perian Isil",
 italiano:"Primo Quarto"
 };
 
+}
 
-if(etaLuna<12.91963)
+if(etaLuna<12.91963){
 
 return{
 simbolo:"🌔",
@@ -1020,8 +1033,9 @@ nome:"Isil Alata",
 italiano:"Gibbosa Crescente"
 };
 
+}
 
-if(etaLuna<16.61096)
+if(etaLuna<16.61096){
 
 return{
 simbolo:"🌕",
@@ -1029,8 +1043,9 @@ nome:"Isil Rána",
 italiano:"Luna Piena"
 };
 
+}
 
-if(etaLuna<20.30228)
+if(etaLuna<20.30228){
 
 return{
 simbolo:"🌖",
@@ -1038,8 +1053,9 @@ nome:"Isil Lanta",
 italiano:"Gibbosa Calante"
 };
 
+}
 
-if(etaLuna<23.99361)
+if(etaLuna<23.99361){
 
 return{
 simbolo:"🌗",
@@ -1047,8 +1063,9 @@ nome:"Perian Isil Núnquerna",
 italiano:"Ultimo Quarto"
 };
 
+}
 
-if(etaLuna<27.68493)
+if(etaLuna<27.68493){
 
 return{
 simbolo:"🌘",
@@ -1056,6 +1073,7 @@ nome:"Isil Núrala",
 italiano:"Falce Calante"
 };
 
+}
 
 return{
 simbolo:"🌑",
@@ -1117,11 +1135,7 @@ const annoGreg=
 data.getFullYear();
 
 let yestare=
-new Date(
-annoGreg,
-2,
-21
-);
+new Date(annoGreg,2,21);
 
 let annoElfico;
 
@@ -1135,11 +1149,7 @@ annoElfico=annoGreg;
 annoElfico=annoGreg-1;
 
 yestare=
-new Date(
-annoGreg-1,
-2,
-21
-);
+new Date(annoGreg-1,2,21);
 
 }
 
@@ -1240,7 +1250,7 @@ stellaDelGiorno.descrizione;
 
 
 /* =========================================
-   CALENDARIO DEL LOA
+   CALENDARIO
 ========================================= */
 
 const calendario=[
@@ -1387,10 +1397,8 @@ const costellazioni=[
 
 
 const indiceCostellazione=
-Math.floor(
-giornoAnno/45
-)%
-costellazioni.length;
+Math.floor(giornoAnno/45)
+%costellazioni.length;
 
 
 const costellazione=
@@ -1455,14 +1463,12 @@ nomePoetico=
 
 break;
 
-
 case "Tuilë":
 
 nomePoetico=
 "Tempo dei Primi Germogli";
 
 break;
-
 
 case "Lairë":
 
@@ -1471,14 +1477,12 @@ nomePoetico=
 
 break;
 
-
 case "Yávië":
 
 nomePoetico=
 "Tempo della Raccolta";
 
 break;
-
 
 case "Enderi":
 
@@ -1487,14 +1491,12 @@ nomePoetico=
 
 break;
 
-
 case "Quellë":
 
 nomePoetico=
 "Tempo delle Foglie Cadenti";
 
 break;
-
 
 case "Hrívë":
 
@@ -1503,14 +1505,12 @@ nomePoetico=
 
 break;
 
-
 case "Coirë":
 
 nomePoetico=
 "Tempo del Risveglio";
 
 break;
-
 
 case "Mettarë":
 
@@ -1528,32 +1528,15 @@ break;
 
 const alberiSacri={
 
-Yestarë:
-"🌳 Galathilion",
-
-Tuilë:
-"🌿 Mallorn",
-
-Lairë:
-"☀️ Laurelin",
-
-Yávië:
-"🍎 Galmadh",
-
-Enderi:
-"✨ I Due Alberi",
-
-Quellë:
-"🍂 Hirilorn",
-
-Hrívë:
-"🌙 Telperion",
-
-Coirë:
-"🌱 Nimloth",
-
-Mettarë:
-"🌳 Galathilion"
+Yestarë:"🌳 Galathilion",
+Tuilë:"🌿 Mallorn",
+Lairë:"☀️ Laurelin",
+Yávië:"🍎 Galmadh",
+Enderi:"✨ I Due Alberi",
+Quellë:"🍂 Hirilorn",
+Hrívë:"🌙 Telperion",
+Coirë:"🌱 Nimloth",
+Mettarë:"🌳 Galathilion"
 
 };
 
@@ -1565,11 +1548,10 @@ periodo.nome
 
 
 /* =========================================
-   PALETTE STAGIONALI
+   PALETTE
 ========================================= */
 
 const palettes={
-
 
 yestare:{
 
@@ -1591,7 +1573,6 @@ accent:"#C49A27"
 
 },
 
-
 tuile:{
 
 dark:{
@@ -1611,7 +1592,6 @@ accent:"#4F963F"
 }
 
 },
-
 
 laire:{
 
@@ -1633,7 +1613,6 @@ accent:"#C99724"
 
 },
 
-
 yavie:{
 
 dark:{
@@ -1653,7 +1632,6 @@ accent:"#B96F32"
 }
 
 },
-
 
 enderi:{
 
@@ -1675,7 +1653,6 @@ accent:"#B28B38"
 
 },
 
-
 quelle:{
 
 dark:{
@@ -1695,7 +1672,6 @@ accent:"#A95532"
 }
 
 },
-
 
 hrive:{
 
@@ -1717,7 +1693,6 @@ accent:"#5797BF"
 
 },
 
-
 coire:{
 
 dark:{
@@ -1737,7 +1712,6 @@ accent:"#5A934D"
 }
 
 },
-
 
 mettare:{
 
@@ -1763,7 +1737,7 @@ accent:"#B48A2C"
 
 
 /* =========================================
-   APPLICAZIONE DELLA PALETTE
+   APPLICAZIONE PALETTE
 ========================================= */
 
 const palette=
@@ -1799,10 +1773,8 @@ document.documentElement.style.setProperty(
 palette.accent
 );
 
-
 document.body.style.background=
 `radial-gradient(circle at top,${palette.bg2},${palette.bg1} 65%)`;
-
 
 document.documentElement.style.setProperty(
 "--border",
@@ -1810,7 +1782,6 @@ dark
 ?"rgba(255,255,255,.12)"
 :"rgba(90,70,30,.18)"
 );
-
 
 document.documentElement.style.setProperty(
 "--card",
@@ -1821,7 +1792,7 @@ dark
 
 
 /* =========================================
-   VISUALIZZAZIONE HERO
+   BLOCCO PRINCIPALE
 ========================================= */
 
 document.getElementById(
@@ -1835,116 +1806,19 @@ periodo.nome;
 document.getElementById(
 "giorno"
 ).textContent=
-giornoPeriodo+
-"° giorno · "+
-(periodo.sindarin||periodo.significato);
+periodo.sindarin
+?
+periodo.sindarin+
+" · "+
+periodo.significato
+:
+periodo.significato;
 
 
 document.getElementById(
 "poetico"
 ).textContent=
 nomePoetico;
-
-
-/* =========================================
-   VISUALIZZAZIONE GIORNO ELFICO
-========================================= */
-
-document.getElementById(
-"giornoElfico"
-).textContent=
-nomeGiorno.nome;
-
-
-document.getElementById(
-"significatoGiorno"
-).textContent=
-nomeGiorno.significato;
-
-
-/* =========================================
-   VISUALIZZAZIONE LOA
-========================================= */
-
-document.getElementById(
-"loa"
-).textContent=
-"Loa "+
-annoElfico;
-
-
-const annoQuartaEra=
-annoGreg+
-4021;
-
-
-document.getElementById(
-"quartaEra"
-).textContent=
-annoQuartaEra+
-" Q.E.";
-
-
-/* =========================================
-   VISUALIZZAZIONE LUNA
-========================================= */
-
-document.getElementById(
-"luna"
-).textContent=
-faseLunare.simbolo+
-" "+
-faseLunare.nome;
-
-
-document.getElementById(
-"lunaItaliano"
-).textContent=
-faseLunare.italiano;
-
-
-/* =========================================
-   VISUALIZZAZIONE ALBERO
-========================================= */
-
-document.getElementById(
-"albero"
-).textContent=
-alberoSacro;
-
-
-/* =========================================
-   VISUALIZZAZIONE STELLA
-========================================= */
-
-document.getElementById(
-"stella"
-).textContent=
-"⭐ "+
-nomeStella;
-
-
-document.getElementById(
-"descrizioneStella"
-).textContent=
-descrizioneStella;
-
-
-/* =========================================
-   VISUALIZZAZIONE COSTELLAZIONE
-========================================= */
-
-document.getElementById(
-"costellazione"
-).textContent=
-"✨ "+
-costellazione;
-
-
-document.getElementById(
-"descrizioneCostellazione"
-).textContent=
-descrizioneCostellazione;
 
 
 /* =========================================
@@ -1956,11 +1830,10 @@ document.getElementById(
 "progressTrack"
 );
 
-const progressLabel=
+const progressNumber=
 document.getElementById(
-"progressLabel"
+"progressNumber"
 );
-
 
 const segmenti=
 40;
@@ -1998,7 +1871,6 @@ const segmento=
 document.createElement(
 "span"
 );
-
 
 segmento.className=
 "progress-segment";
@@ -2047,10 +1919,91 @@ segmento
 }
 
 
-progressLabel.textContent=
+/* =========================================
+   GIORNO ATTUALE / TOTALE
+========================================= */
+
+progressNumber.textContent=
 giornoPeriodo+
-" di "+
+"° giorno di "+
 periodo.durata;
+
+
+/* =========================================
+   INFORMAZIONI
+========================================= */
+
+document.getElementById(
+"giornoElfico"
+).textContent=
+nomeGiorno.nome;
+
+document.getElementById(
+"significatoGiorno"
+).textContent=
+nomeGiorno.significato;
+
+
+document.getElementById(
+"loa"
+).textContent=
+"Loa "+
+annoElfico;
+
+
+const annoQuartaEra=
+annoGreg+
+4021;
+
+
+document.getElementById(
+"quartaEra"
+).textContent=
+annoQuartaEra+
+" Q.E.";
+
+
+document.getElementById(
+"luna"
+).textContent=
+faseLunare.simbolo+
+" "+
+faseLunare.nome;
+
+document.getElementById(
+"lunaItaliano"
+).textContent=
+faseLunare.italiano;
+
+
+document.getElementById(
+"albero"
+).textContent=
+alberoSacro;
+
+
+document.getElementById(
+"stella"
+).textContent=
+"⭐ "+
+nomeStella;
+
+document.getElementById(
+"descrizioneStella"
+).textContent=
+descrizioneStella;
+
+
+document.getElementById(
+"costellazione"
+).textContent=
+"✨ "+
+costellazione;
+
+document.getElementById(
+"descrizioneCostellazione"
+).textContent=
+descrizioneCostellazione;
 
 
 /* =========================================
@@ -2130,7 +2083,6 @@ periodo.nome;
 const prossimoAggiornamento=
 new Date(data);
 
-
 prossimoAggiornamento.setHours(
 data.getHours()+1
 );
@@ -2185,7 +2137,7 @@ navigator.serviceWorker.register(
 
 
 <!-- =========================================
-     NASCONDI LOADER
+     LOADER 3 SECONDI
 ========================================= -->
 
 <script>
