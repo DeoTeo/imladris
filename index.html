@@ -630,6 +630,11 @@ Stella del Giorno
     class="value">
 </div>
 
+<div
+    id="descrizioneStella"
+    class="secondary">
+</div>
+
 </div>
 
 
@@ -968,33 +973,49 @@ const nomeGiorno =
 
 const stelleDelGiorno = {
 
-    "Elenya":
-        "Eärendil, la Stella del Vespro",
+    "Elenya": {
+        nome: "Eärendil",
+        descrizione: "la Stella del Vespro"
+    },
 
-    "Anarya":
-        "Anar, il Sole Dorato",
+    "Anarya": {
+        nome: "Anar",
+        descrizione: "il Sole Dorato"
+    },
 
-    "Isilya":
-        "Isil, la Luna Bianca",
+    "Isilya": {
+        nome: "Isil",
+        descrizione: "la Luna Bianca"
+    },
 
-    "Aldúya":
-        "Telperion e Laurelin, i Due Alberi di Valinor",
+    "Aldúya": {
+        nome: "Telperion e Laurelin",
+        descrizione: "i Due Alberi di Valinor"
+    },
 
-    "Menelya":
-        "Menelmacar, il Guerriero Celeste",
+    "Menelya": {
+        nome: "Menelmacar",
+        descrizione: "il Guerriero Celeste"
+    },
 
-    "Valanya":
-        "Elbereth Gilthoniel, la Signora delle Stelle"
+    "Valanya": {
+        nome: "Elbereth Gilthoniel",
+        descrizione: "la Signora delle Stelle"
+    }
 
 }
-
 
 const stellaDelGiorno =
     stelleDelGiorno[
         nomeGiorno.nome
     ]
 
+const nomeStella =
+    stellaDelGiorno.nome
 
+const descrizioneStella =
+    stellaDelGiorno.descrizione
+    
 // =====================================
 // CALENDARIO DEL LOA
 // =====================================
@@ -1695,7 +1716,12 @@ document.getElementById(
     "stella"
 ).textContent =
     "⭐ " +
-    stellaDelGiorno
+    nomeStella
+    
+document.getElementById(
+    "descrizioneStella"
+).textContent =
+    descrizioneStella
 
 
 document.getElementById(
@@ -1749,7 +1775,7 @@ attraverso le ere del mondo.
 
 <br><br>
 
-⭐ La luce di ${stellaDelGiorno}
+⭐ La luce di ${nomeStella}, ${descrizioneStella},
 veglia su questo giorno, guidando lo sguardo
 di coloro che cercano nei cieli memoria,
 speranza e conoscenza.
