@@ -8,5 +8,13 @@
     "display": "standalone",
     "orientation": "portrait",
     "background_color": "#171521",
-    "theme_color": "#171521"
+    "theme_color": "#171521",
+    "icons": [
+    {
+      "src": "icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
 }
