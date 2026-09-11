@@ -706,6 +706,386 @@ Costellazione
 
 <script>
 
+/* ======================================
+   LOADER ELFICO — IMLADRIS
+   ====================================== */
+
+#elven-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #302845 0%,
+            #171521 62%,
+            #10101a 100%
+        );
+
+    opacity: 1;
+    visibility: visible;
+
+    transition:
+        opacity 0.9s ease,
+        visibility 0.9s ease;
+}
+
+#elven-loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loader-content {
+    position: relative;
+
+    width: 230px;
+    height: 260px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+/* ======================================
+   ORNAMENTO CIRCOLARE
+   ====================================== */
+
+.elven-orbit {
+    position: absolute;
+
+    width: 135px;
+    height: 135px;
+
+    border: 1px solid
+        rgba(232,199,90,0.25);
+
+    border-radius: 50%;
+
+    animation:
+        orbitAppear 1.5s ease-out forwards,
+        orbitRotate 12s linear infinite;
+}
+
+.elven-orbit::before,
+.elven-orbit::after {
+    content: "✦";
+
+    position: absolute;
+
+    color: #E8C75A;
+
+    font-size: 13px;
+
+    text-shadow:
+        0 0 8px
+        rgba(232,199,90,0.75);
+}
+
+.elven-orbit::before {
+    top: -8px;
+    left: 50%;
+
+    transform: translateX(-50%);
+}
+
+.elven-orbit::after {
+    bottom: -8px;
+    left: 50%;
+
+    transform: translateX(-50%);
+}
+
+/* ======================================
+   SIMBOLO CENTRALE
+   ====================================== */
+
+.elven-symbol {
+    position: relative;
+
+    width: 90px;
+    height: 90px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #E8C75A;
+
+    font-size: 52px;
+
+    text-shadow:
+        0 0 10px rgba(232,199,90,0.35),
+        0 0 25px rgba(232,199,90,0.18);
+
+    animation:
+        symbolAppear 1.4s
+        cubic-bezier(.2,.8,.2,1)
+        forwards;
+}
+
+/* piccoli raggi elfici */
+
+.elven-symbol::before {
+    content: "✧";
+
+    position: absolute;
+
+    font-size: 82px;
+
+    opacity: 0.16;
+
+    transform:
+        rotate(45deg)
+        scale(0.8);
+
+    animation:
+        symbolGlow 2.2s
+        ease-in-out
+        infinite alternate;
+}
+
+.elven-symbol::after {
+    content: "☾";
+
+    position: absolute;
+
+    font-size: 26px;
+
+    right: -8px;
+    top: 3px;
+
+    opacity: 0;
+
+    animation:
+        moonAppear 1.8s
+        ease-out
+        0.4s
+        forwards;
+}
+
+/* ======================================
+   STELLA ORBITANTE
+   ====================================== */
+
+.elven-star {
+    position: absolute;
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #F5E7B2;
+
+    box-shadow:
+        0 0 6px #E8C75A,
+        0 0 14px rgba(232,199,90,0.8);
+
+    animation:
+        starOrbit 3.8s
+        linear
+        infinite;
+}
+
+/* ======================================
+   TESTO
+   ====================================== */
+
+.loader-title {
+    position: absolute;
+
+    top: 184px;
+
+    width: 100%;
+
+    color: #F5E7B2;
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+    letter-spacing: 5px;
+
+    opacity: 0;
+
+    animation:
+        textAppear 1s
+        ease-out
+        0.7s
+        forwards;
+}
+
+.loader-subtitle {
+    position: absolute;
+
+    top: 217px;
+
+    width: 100%;
+
+    color: #C8BEDA;
+
+    font-size: 11px;
+
+    font-style: italic;
+
+    letter-spacing: 1.5px;
+
+    opacity: 0;
+
+    animation:
+        textAppear 1s
+        ease-out
+        1s
+        forwards;
+}
+
+/* ======================================
+   ANIMAZIONI
+   ====================================== */
+
+@keyframes orbitAppear {
+
+    from {
+        opacity: 0;
+        transform: scale(0.55);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes orbitRotate {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes symbolAppear {
+
+    0% {
+        opacity: 0;
+        transform:
+            scale(0.3)
+            rotate(-25deg);
+    }
+
+    60% {
+        opacity: 1;
+        transform:
+            scale(1.12)
+            rotate(5deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform:
+            scale(1)
+            rotate(0deg);
+    }
+}
+
+@keyframes symbolGlow {
+
+    from {
+        opacity: 0.08;
+        transform:
+            rotate(45deg)
+            scale(0.75);
+    }
+
+    to {
+        opacity: 0.25;
+        transform:
+            rotate(225deg)
+            scale(1);
+    }
+}
+
+@keyframes moonAppear {
+
+    from {
+        opacity: 0;
+        transform:
+            translate(10px, -5px)
+            rotate(-30deg);
+    }
+
+    to {
+        opacity: 0.8;
+        transform:
+            translate(0, 0)
+            rotate(0deg);
+    }
+}
+
+@keyframes starOrbit {
+
+    from {
+        transform:
+            rotate(0deg)
+            translateX(78px)
+            rotate(0deg);
+    }
+
+    to {
+        transform:
+            rotate(360deg)
+            translateX(78px)
+            rotate(-360deg);
+    }
+}
+
+@keyframes textAppear {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0);
+    }
+}
+
+/* ======================================
+   RIDUZIONE MOVIMENTO
+   ====================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    #elven-loader,
+    .elven-orbit,
+    .elven-symbol,
+    .elven-symbol::before,
+    .elven-symbol::after,
+    .elven-star,
+    .loader-title,
+    .loader-subtitle {
+
+        animation: none !important;
+    }
+
+}
+
 // =====================================
 // IMLADRIS ELVEN CALENDAR
 // CALCOLO AUTONOMO — NO SCRIPTABLE
@@ -1908,6 +2288,31 @@ if ("serviceWorker" in navigator) {
     );
 
 }
+
+</script>
+
+<script>
+
+/* ======================================
+   AVVIO IMLADRIS
+   ====================================== */
+
+window.addEventListener("load", function () {
+
+    const loader =
+        document.getElementById("elven-loader")
+
+    /*
+     * Lasciamo respirare l'animazione
+     * prima di mostrare la Cronaca.
+     */
+    setTimeout(function () {
+
+        loader.classList.add("hidden")
+
+    }, 1800)
+
+})
 
 </script>
 
