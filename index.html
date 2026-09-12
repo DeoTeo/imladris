@@ -124,33 +124,255 @@ letter-spacing:4px;
    HERO
 ========================================= */
 
+/* =========================================
+   BOX PRINCIPALE — STILE STAGIONALE
+========================================= */
+
 .hero{
+position:relative;
+overflow:hidden;
 text-align:center;
-padding:28px 18px 25px;
+padding:34px 18px 27px;
 border:1px solid var(--border);
-border-radius:24px;
-background:var(--card);
+border-radius:26px;
+
+background:
+radial-gradient(
+circle at 50% 0%,
+color-mix(in srgb,var(--accent) 22%,transparent),
+transparent 52%
+),
+radial-gradient(
+circle at 0% 100%,
+color-mix(in srgb,var(--secondary) 10%,transparent),
+transparent 45%
+),
+var(--card);
+
 backdrop-filter:blur(18px);
 -webkit-backdrop-filter:blur(18px);
+
+box-shadow:
+0 0 35px color-mix(in srgb,var(--accent) 12%,transparent),
+inset 0 1px 0 color-mix(in srgb,var(--primary) 14%,transparent),
+inset 0 -1px 0 color-mix(in srgb,var(--accent) 8%,transparent);
+
 }
+
+/* Cornice luminosa interna */
+
+.hero::before{
+content:"";
+position:absolute;
+inset:7px;
+border:1px solid color-mix(in srgb,var(--accent) 18%,transparent);
+border-radius:20px;
+pointer-events:none;
+}
+
+/* Simbolo stagionale grande */
+
+.hero::after{
+content:var(--season-symbol);
+position:absolute;
+
+left:50%;
+top:50%;
+
+transform:translate(-50%,-50%);
+
+font-size:170px;
+line-height:1;
+
+color:var(--accent);
+
+opacity:.045;
+
+text-shadow:
+0 0 30px var(--accent),
+0 0 70px var(--accent);
+
+pointer-events:none;
+}
+
+/* Tutto il contenuto sopra la decorazione */
+
+.hero > *{
+position:relative;
+z-index:2;
+}
+
+/* =========================================
+   SIMBOLI DECORATIVI LATERALI
+========================================= */
+
+.hero-decoration{
+display:flex;
+align-items:center;
+justify-content:center;
+
+gap:14px;
+
+margin-bottom:10px;
+
+color:var(--accent);
+
+font-size:15px;
+
+opacity:.9;
+
+text-shadow:
+0 0 8px var(--accent),
+0 0 18px color-mix(in srgb,var(--accent) 45%,transparent);
+}
+
+.hero-decoration::before,
+.hero-decoration::after{
+content:"";
+
+width:55px;
+height:1px;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+var(--accent)
+);
+}
+
+.hero-decoration::after{
+background:
+linear-gradient(
+90deg,
+var(--accent),
+transparent
+);
+}
+
+/* =========================================
+   PERIODO
+========================================= */
 
 .hero-period{
 font-size:31px;
 font-weight:700;
 line-height:1.2;
+
+text-shadow:
+0 0 12px color-mix(in srgb,var(--accent) 30%,transparent),
+0 0 28px color-mix(in srgb,var(--accent) 12%,transparent);
 }
+
+/* =========================================
+   GIORNO — CORSIVO
+========================================= */
 
 .hero-day{
 margin-top:9px;
+
 font-size:16px;
+
+font-style:italic;
+
 color:var(--secondary);
+
+text-shadow:
+0 0 8px color-mix(in srgb,var(--secondary) 18%,transparent);
 }
 
+/* =========================================
+   TESTO POETICO
+========================================= */
+
 .hero-poetic{
-margin-top:12px;
+margin-top:13px;
+
 font-size:14px;
+
 font-style:italic;
+
 color:var(--accent);
+
+text-shadow:
+0 0 10px color-mix(in srgb,var(--accent) 25%,transparent);
+}
+
+/* =========================================
+   ORNAMENTO INFERIORE
+========================================= */
+
+.hero-bottom-decoration{
+margin-top:18px;
+
+font-size:13px;
+
+letter-spacing:5px;
+
+color:var(--accent);
+
+opacity:.75;
+
+text-shadow:
+0 0 8px var(--accent);
+}
+
+/* =========================================
+   VARIANTI STAGIONALI
+========================================= */
+
+.hero.season-yestare{
+box-shadow:
+0 0 42px rgba(232,199,90,.18),
+inset 0 0 35px rgba(232,199,90,.04);
+}
+
+.hero.season-tuilë{
+box-shadow:
+0 0 42px color-mix(in srgb,var(--accent) 18%,transparent),
+inset 0 0 35px color-mix(in srgb,var(--secondary) 5%,transparent);
+}
+
+.hero.season-lairë{
+box-shadow:
+0 0 48px color-mix(in srgb,var(--accent) 22%,transparent),
+inset 0 0 40px color-mix(in srgb,var(--accent) 5%,transparent);
+}
+
+.hero.season-yávië{
+box-shadow:
+0 0 42px color-mix(in srgb,var(--secondary) 16%,transparent),
+inset 0 0 35px color-mix(in srgb,var(--secondary) 5%,transparent);
+}
+
+.hero.season-enderi{
+box-shadow:
+0 0 48px color-mix(in srgb,var(--accent) 24%,transparent),
+inset 0 0 40px color-mix(in srgb,var(--accent) 6%,transparent);
+}
+
+.hero.season-quellë{
+box-shadow:
+0 0 45px color-mix(in srgb,var(--secondary) 18%,transparent),
+inset 0 0 35px color-mix(in srgb,var(--secondary) 6%,transparent);
+}
+
+.hero.season-hrívë{
+box-shadow:
+0 0 50px color-mix(in srgb,var(--secondary) 20%,transparent),
+inset 0 0 45px color-mix(in srgb,var(--primary) 5%,transparent);
+}
+
+.hero.season-coirë{
+box-shadow:
+0 0 42px color-mix(in srgb,var(--accent) 18%,transparent),
+inset 0 0 35px color-mix(in srgb,var(--accent) 5%,transparent);
+}
+
+.hero.season-mettarë{
+box-shadow:
+0 0 48px color-mix(in srgb,var(--accent) 25%,transparent),
+inset 0 0 40px color-mix(in srgb,var(--accent) 7%,transparent);
 }
 
 
@@ -713,6 +935,12 @@ Computo del Tempo secondo gli Annali degli Eldar
 ========================================= -->
 
 <section class="hero">
+   
+<div id="heroDecoration" class="hero-decoration">
+✦
+<span id="heroSymbol">✧</span>
+✦
+</div>
 
 <div id="periodo" class="hero-period"></div>
 
@@ -737,6 +965,10 @@ Computo del Tempo secondo gli Annali degli Eldar
 ========================================= -->
 
 <div id="progressNumber" class="progress-number"></div>
+
+<div class="hero-bottom-decoration">
+✧ · · · ✦ · · · ✧
+</div>
 
 </section>
 
@@ -1346,6 +1578,58 @@ elemento.durata;
 
 }
 
+/* =========================================
+   DECORAZIONE STAGIONALE
+========================================= */
+
+const hero =
+document.querySelector(".hero");
+
+const heroSymbol =
+document.getElementById("heroSymbol");
+
+const seasonSymbols = {
+    "Yestarë":"✦",
+    "Tuilë":"❧",
+    "Lairë":"☼",
+    "Yávië":"❦",
+    "Enderi":"✧",
+    "Quellë":"❄",
+    "Hrívë":"❄",
+    "Coirë":"❧",
+    "Mettarë":"✺"
+};
+
+const seasonClasses = {
+    "Yestarë":"season-yestare",
+    "Tuilë":"season-tuilë",
+    "Lairë":"season-lairë",
+    "Yávië":"season-yávië",
+    "Enderi":"season-enderi",
+    "Quellë":"season-quellë",
+    "Hrívë":"season-hrívë",
+    "Coirë":"season-coirë",
+    "Mettarë":"season-mettarë"
+};
+
+const symbol =
+seasonSymbols[periodo.nome] || "✦";
+
+heroSymbol.textContent = symbol;
+
+hero.style.setProperty(
+    "--season-symbol",
+    `"${symbol}"`
+);
+
+Object.values(seasonClasses)
+.forEach(c => hero.classList.remove(c));
+
+if(seasonClasses[periodo.nome]){
+    hero.classList.add(
+        seasonClasses[periodo.nome]
+    );
+}
 
 /* =========================================
    COSTELLAZIONI
