@@ -128,12 +128,9 @@ letter-spacing:4px;
 position:relative;
 overflow:hidden;
 text-align:center;
-
 padding:34px 18px 27px;
-
 border:1px solid var(--border);
 border-radius:26px;
-
 background:
 radial-gradient(
 circle at 50% 0%,
@@ -141,7 +138,6 @@ color-mix(in srgb,var(--accent) 7%,transparent),
 transparent 55%
 ),
 var(--card);
-
 backdrop-filter:blur(18px);
 -webkit-backdrop-filter:blur(18px);
 }
@@ -152,12 +148,9 @@ backdrop-filter:blur(18px);
 content:"";
 position:absolute;
 inset:7px;
-
 border:1px solid
 color-mix(in srgb,var(--accent) 18%,transparent);
-
 border-radius:20px;
-
 pointer-events:none;
 }
 
@@ -165,21 +158,14 @@ pointer-events:none;
 
 .hero::after{
 content:var(--season-symbol);
-
 position:absolute;
-
 left:50%;
 top:50%;
-
 transform:translate(-50%,-50%);
-
 font-size:170px;
 line-height:1;
-
 color:var(--accent);
-
 opacity:.035;
-
 pointer-events:none;
 }
 
@@ -192,27 +178,25 @@ z-index:2;
 
 .hero-day{
 margin-top:9px;
-
 font-size:16px;
-
 font-style:italic;
-
 color:var(--secondary);
 }
 
+.hero-period{
+    font-size:31px;
+    font-weight:700;
+    line-height:1.2;
+}
 /* =========================================
    TESTO POETICO
 ========================================= */
 
 .hero-poetic{
 margin-top:13px;
-
 font-size:14px;
-
 font-style:italic;
-
 color:var(--accent);
-
 text-shadow:
 0 0 10px color-mix(in srgb,var(--accent) 25%,transparent);
 }
@@ -223,15 +207,10 @@ text-shadow:
 
 .hero-bottom-decoration{
 margin-top:18px;
-
 font-size:13px;
-
 letter-spacing:5px;
-
 color:var(--accent);
-
 opacity:.75;
-
 text-shadow:
 0 0 8px var(--accent);
 }
