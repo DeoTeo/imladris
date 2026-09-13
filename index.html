@@ -718,22 +718,35 @@ margin-bottom:0;
 --------------------------------------------------------- */
 
 body{
+    margin:0;
+    min-height:100vh;
+    min-height:100dvh;
+
     background:
         radial-gradient(
-            ellipse at 50% -10%,
-            color-mix(in srgb,var(--accent) 9%,transparent),
-            transparent 38%
-        ),
-        radial-gradient(
             ellipse at 50% 110%,
-            color-mix(in srgb,var(--secondary) 5%,transparent),
-            transparent 42%
+            color-mix(in srgb,var(--accent) 13%,transparent),
+            transparent 48%
         ),
         linear-gradient(
-            180deg,
-            var(--bg2),
-            var(--bg1) 72%
+            0deg,
+            var(--bg2) 0%,
+            var(--bg1) 72%,
+            var(--bg1) 100%
         );
+
+    color:var(--primary);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Helvetica Neue",
+        sans-serif;
+
+    padding-top:env(safe-area-inset-top);
+    padding-bottom:env(safe-area-inset-bottom);
+
     transition:
         background 1.2s ease,
         color .8s ease;
@@ -976,14 +989,51 @@ body{
 }
 
 /* piccoli angoli ornamentali */
-.card::before,
-.card::after{
-    content:"✧";
+.card::before{
+    content:var(--season-symbol);
     position:absolute;
-    font-size:8px;
+    top:8px;
+    left:10px;
+
+    font-size:11px;
+    line-height:1;
+
     color:var(--accent);
-    opacity:.38;
+    opacity:.55;
+
+    text-shadow:
+        0 0 7px
+        color-mix(
+            in srgb,
+            var(--accent) 35%,
+            transparent
+        );
+
     pointer-events:none;
+
+    transition:
+        color .8s ease,
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.card::after{
+    content:var(--season-symbol);
+    position:absolute;
+    bottom:7px;
+    right:10px;
+
+    font-size:8px;
+    line-height:1;
+
+    color:var(--accent);
+    opacity:.25;
+
+    pointer-events:none;
+
+    transition:
+        color .8s ease,
+        opacity .8s ease;
 }
 
 .card::before{
@@ -2030,7 +2080,14 @@ seasonSymbols[periodo.nome] || "✦";
 
 heroSymbol.textContent = symbol;
 
+heroSymbol.textContent = symbol;
+
 hero.style.setProperty(
+    "--season-symbol",
+    `"${symbol}"`
+);
+
+document.documentElement.style.setProperty(
     "--season-symbol",
     `"${symbol}"`
 );
@@ -2439,8 +2496,19 @@ document.documentElement.style.setProperty(
 palette.accent
 );
 
-document.body.style.background=
-`radial-gradient(circle at top,${palette.bg2},${palette.bg1} 65%)`;
+document.body.style.background=`
+radial-gradient(
+    ellipse at 50% 110%,
+    color-mix(in srgb,${palette.accent} 13%,transparent),
+    transparent 48%
+),
+linear-gradient(
+    0deg,
+    ${palette.bg2} 0%,
+    ${palette.bg1} 72%,
+    ${palette.bg1} 100%
+)
+`;
 
 document.documentElement.style.setProperty(
 "--border",
