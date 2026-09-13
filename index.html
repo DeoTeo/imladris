@@ -842,6 +842,7 @@ Computo del Loa
 <div id="loa" class="value"></div>
 
 <div id="quartaEra" class="secondary"></div>
+<div id="tipoEnderi" class="secondary"></div>
 
 </div>
 
@@ -2056,6 +2057,13 @@ document.getElementById(
 ).textContent=
 annoQuartaEra+
 " Q.E.";
+
+document.getElementById(
+"tipoEnderi"
+).textContent=
+enderi===6
+?"✧ Enderi raddoppiati · 6"
+:"✧ Enderi normali · 3";
 
 
 document.getElementById(
