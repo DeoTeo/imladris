@@ -1,4 +1,4 @@
-Formatta la card dell’albero sacro come quella della stella o costellazione <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 
 <head>
@@ -1427,6 +1427,10 @@ Formatta la card dell’albero sacro come quella della stella o costellazione <!
             <div class="header-symbol">
                 ✦
             </div>
+            
+            <div id="alberoOrnamento"
+                class="tree-ornament">
+            </div>
 
             <div class="header-title">
                 Cronaca del Giorno
@@ -1508,10 +1512,6 @@ Formatta la card dell’albero sacro come quella della stella o costellazione <!
                 <div id="significatoGiorno"
                      class="secondary">
                 </div>
-                
-                <div id="alberoOrnamento"
-                     class="tree-ornament">
-                </div>
 
             </div>
 
@@ -1576,45 +1576,25 @@ Formatta la card dell’albero sacro come quella della stella o costellazione <!
                 <div id="lunaItaliano"
                      class="secondary">
                 </div>
-                
-                <div id="alberoOrnamento"
-                     class="tree-ornament">
-                </div>
-
+            
             </div>
 
             <!-- ALBERO SACRO -->
 
-            <div class="card sacred-tree-card">
+            <div class="card">
 
                 <div class="label">
                     Albero Sacro
                 </div>
 
-                <div class="tree-display">
-
-                    <div id="alberoSimbolo"
-                         class="tree-symbol">
-                    </div>
-
-                    <div class="tree-info">
-
-                        <div id="albero"
-                             class="value">
-                        </div>
-
-                        <div id="alberoDescrizione"
-                             class="tree-description">
-                        </div>
-
-                    </div>
-
+                <div id="alberoCompleto"
+                     class="value">
                 </div>
 
-                <div id="alberoOrnamento"
-                     class="tree-ornament">
+                <div id="alberoDescrizione"
+                     class="secondary">
                 </div>
-
+            
             </div>
 
             <!-- STELLA -->
@@ -1633,10 +1613,6 @@ Formatta la card dell’albero sacro come quella della stella o costellazione <!
                      class="secondary">
                 </div>
                 
-                <div id="alberoOrnamento"
-                     class="tree-ornament">
-                </div>
-
             </div>
 
             <!-- COSTELLAZIONE -->
@@ -1655,10 +1631,6 @@ Formatta la card dell’albero sacro come quella della stella o costellazione <!
                      class="secondary">
                 </div>
                 
-                <div id="alberoOrnamento"
-                     class="tree-ornament">
-                </div>
-
             </div>
 
         </div>
@@ -2877,6 +2849,11 @@ Formatta la card dell’albero sacro come quella della stella o costellazione <!
             "albero"
         ).textContent =
             alberoSacro.nome;
+            
+        document.getElementById(
+            "alberoCompleto"
+        ).textContent =
+            alberoSacro.simbolo+" "+alberoSacro.nome;
 
         document.getElementById(
             "alberoDescrizione"
