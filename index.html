@@ -3,1334 +3,1483 @@
 
 <head>
 
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#171521">
-<meta charset="UTF-8">
-
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Ainulindalë">
-
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-180.PNG">
-
-<title>Cronaca del Giorno negli Annali degli Eldar</title>
-
-
-<style>
-
-/* =========================================
-   VARIABILI
-========================================= */
-
-:root{
---bg1:#171521;
---bg2:#302845;
---primary:#F5E7B2;
---secondary:#C8BEDA;
---accent:#E8C75A;
---card:rgba(255,255,255,.055);
---border:rgba(232,199,90,.18);
-}
-
-
-/* =========================================
-   RESET
-========================================= */
-
-*{
-box-sizing:border-box;
-}
-
-html{
-margin:0;
-padding:0;
-min-height:100%;
-background:var(--bg1);
-}
-
-
-/* =========================================
-   BODY
-========================================= */
-
-body{
-margin:0;
-min-height:100vh;
-min-height:100dvh;
-background:radial-gradient(circle at top,var(--bg2),var(--bg1) 65%);
-color:var(--primary);
-font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",sans-serif;
-padding-top:env(safe-area-inset-top);
-padding-bottom:env(safe-area-inset-bottom);
-}
-
-
-/* =========================================
-   PAGINA
-========================================= */
-
-.page{
-width:100%;
-max-width:760px;
-margin:auto;
-padding:45px 22px 70px;
-}
-
-
-/* =========================================
-   HEADER
-========================================= */
-
-.header{
-text-align:center;
-}
-
-.header-symbol{
-font-size:42px;
-color:var(--accent);
-margin-bottom:18px;
-}
-
-.header-title{
-font-size:28px;
-line-height:1.2;
-font-weight:700;
-letter-spacing:-.4px;
-}
-
-.header-subtitle{
-margin-top:12px;
-font-size:15px;
-font-style:italic;
-color:var(--secondary);
-}
-
-
-/* =========================================
-   DIVISORI
-========================================= */
-
-.divider{
-margin:30px 0;
-text-align:center;
-color:var(--accent);
-opacity:.75;
-letter-spacing:4px;
-}
-
-
-/* =========================================
-   HERO
-========================================= */
-
-.hero{
-position:relative;
-overflow:hidden;
-text-align:center;
-padding:34px 18px 27px;
-border:1px solid var(--border);
-border-radius:26px;
-background:
-radial-gradient(
-circle at 50% 0%,
-color-mix(in srgb,var(--accent) 7%,transparent),
-transparent 55%
-),
-var(--card);
-backdrop-filter:blur(18px);
--webkit-backdrop-filter:blur(18px);
-}
-
-/* Cornice interna */
-
-.hero::before{
-content:"";
-position:absolute;
-inset:7px;
-border:1px solid
-color-mix(in srgb,var(--accent) 18%,transparent);
-border-radius:20px;
-pointer-events:none;
-}
-
-/* Grande simbolo stagionale */
-
-.hero::after{
-content:var(--season-symbol);
-position:absolute;
-left:50%;
-top:50%;
-transform:translate(-50%,-50%);
-font-size:170px;
-line-height:1;
-color:var(--accent);
-opacity:.035;
-pointer-events:none;
-}
-
-.hero > *{
-position:relative;
-z-index:2;
-}
-
-/* Giorno */
-
-.hero-day{
-margin-top:9px;
-font-size:16px;
-font-style:italic;
-color:var(--secondary);
-}
-
-.hero-period{
-    font-size:31px;
-    font-weight:700;
-    line-height:1.2;
-}
-/* =========================================
-   TESTO POETICO
-========================================= */
-
-.hero-poetic{
-margin-top:13px;
-font-size:14px;
-font-style:italic;
-color:var(--accent);
-text-shadow:
-0 0 10px color-mix(in srgb,var(--accent) 25%,transparent);
-}
-
-/* =========================================
-   ORNAMENTO INFERIORE
-========================================= */
-
-.hero-bottom-decoration{
-margin-top:18px;
-font-size:13px;
-letter-spacing:5px;
-color:var(--accent);
-opacity:.75;
-text-shadow:
-0 0 8px var(--accent);
-}
-
-
-/* =========================================
-   BARRA DI AVANZAMENTO
-========================================= */
-
-.period-progress{
-margin:23px auto 0;
-width:100%;
-max-width:360px;
-}
-
-.progress-track{
-display:flex;
-align-items:center;
-justify-content:center;
-width:100%;
-overflow:hidden;
-white-space:nowrap;
-}
-
-.progress-segment{
-font-size:7px;
-line-height:1;
-display:inline-block;
-width:7px;
-text-align:center;
-}
-
-.progress-filled{
-color:var(--accent);
-opacity:.9;
-}
-
-.progress-empty{
-color:var(--secondary);
-opacity:.25;
-}
-
-.progress-current{
-color:var(--accent);
-font-size:9px;
-font-weight:600;
-text-shadow:0 0 5px rgba(232,199,90,.35);
-}
-
-
-/* =========================================
-   NUMERO DEL GIORNO
-========================================= */
-
-.progress-number{
-margin-top:10px;
-font-size:14px;
-line-height:1;
-font-weight:300;
-letter-spacing:-.4px;
-color:var(--primary);
-}
-
-
-/* =========================================
-   GRIGLIA
-========================================= */
-
-.grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:14px;
-margin-top:16px;
-}
-
-.card{
-padding:20px;
-border:1px solid var(--border);
-border-radius:20px;
-background:var(--card);
-}
-
-.label{
-font-size:11px;
-text-transform:uppercase;
-letter-spacing:1.4px;
-color:var(--accent);
-margin-bottom:9px;
-}
-
-.value{
-font-size:17px;
-font-weight:600;
-line-height:1.35;
-}
-
-.secondary{
-margin-top:5px;
-font-size:13px;
-line-height:1.5;
-color:var(--secondary);
-}
-
-
-/* =========================================
-   CRONACA
-========================================= */
-
-.chronicle{
-margin-top:16px;
-padding:25px;
-border:1px solid var(--border);
-border-radius:22px;
-background:var(--card);
-}
-
-.chronicle-title{
-text-align:center;
-font-size:13px;
-text-transform:uppercase;
-letter-spacing:1.6px;
-color:var(--accent);
-margin-bottom:20px;
-}
-
-.chronicle p{
-font-size:16px;
-line-height:1.8;
-color:var(--secondary);
-margin:0 0 18px;
-text-align:justify;
-hyphens:auto;
--webkit-hyphens:auto;
-}
-
-.quote{
-margin-top:20px;
-text-align:center;
-font-size:16px;
-line-height:1.7;
-font-style:italic;
-color:var(--primary);
-}
-
-
-/* =========================================
-   RISORSE DI ARDA
-========================================= */
-
-.resources{
-margin-top:16px;
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-}
-
-.resource{
-display:flex;
-align-items:center;
-justify-content:center;
-min-height:86px;
-padding:15px 10px;
-border:1px solid var(--border);
-border-radius:20px;
-background:var(--card);
-color:var(--primary);
-text-decoration:none;
--webkit-tap-highlight-color:transparent;
-transition:transform .2s ease,background .2s ease,border-color .2s ease;
-}
-
-.resource:active{
-transform:scale(.97);
-}
-
-.resource-content{
-text-align:center;
-}
-
-.resource-icon{
-font-size:24px;
-margin-bottom:7px;
-}
-
-.resource-title{
-font-size:12px;
-font-weight:600;
-line-height:1.3;
-}
-
-.resource-subtitle{
-margin-top:3px;
-font-size:9px;
-color:var(--secondary);
-opacity:.75;
-}
-
-
-/* =========================================
-   FOOTER
-========================================= */
-
-.footer{
-margin-top:40px;
-text-align:center;
-color:var(--secondary);
-opacity:.7;
-font-size:12px;
-line-height:1.7;
-}
-
-
-/* =========================================
-   LOADER
-========================================= */
-
-#elven-loader{
-position:fixed;
-inset:0;
-z-index:99999;
-display:flex;
-align-items:center;
-justify-content:center;
-background:radial-gradient(circle at center,#302845 0%,#171521 70%,#10101a 100%);
-opacity:1;
-visibility:visible;
-transition:opacity .8s ease,visibility .8s ease;
-}
-
-#elven-loader.hidden{
-opacity:0;
-visibility:hidden;
-pointer-events:none;
-}
-
-.loader-content{
-position:relative;
-width:230px;
-height:260px;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-text-align:center;
-}
-
-.elven-orbit{
-position:absolute;
-width:135px;
-height:135px;
-border:1px solid rgba(232,199,90,.25);
-border-radius:50%;
-animation:orbitAppear 1.5s ease-out forwards,orbitRotate 12s linear infinite;
-}
-
-.elven-orbit:before,
-.elven-orbit:after{
-content:"✦";
-position:absolute;
-color:#E8C75A;
-font-size:13px;
-text-shadow:0 0 8px rgba(232,199,90,.75);
-}
-
-.elven-orbit:before{
-top:-8px;
-left:50%;
-transform:translateX(-50%);
-}
-
-.elven-orbit:after{
-bottom:-8px;
-left:50%;
-transform:translateX(-50%);
-}
-
-.elven-symbol{
-position:relative;
-width:90px;
-height:90px;
-display:flex;
-align-items:center;
-justify-content:center;
-color:#E8C75A;
-font-size:52px;
-text-shadow:0 0 10px rgba(232,199,90,.35),0 0 25px rgba(232,199,90,.18);
-animation:symbolAppear 1.4s cubic-bezier(.2,.8,.2,1) forwards;
-}
-
-.elven-symbol:before{
-content:"✧";
-position:absolute;
-font-size:82px;
-opacity:.16;
-transform:rotate(45deg) scale(.8);
-animation:symbolGlow 2.2s ease-in-out infinite alternate;
-}
-
-.elven-symbol:after{
-content:"☾";
-position:absolute;
-font-size:26px;
-right:-8px;
-top:3px;
-opacity:0;
-animation:moonAppear 1.8s ease-out .4s forwards;
-}
-
-.elven-star{
-position:absolute;
-width:6px;
-height:6px;
-border-radius:50%;
-background:#F5E7B2;
-box-shadow:0 0 6px #E8C75A,0 0 14px rgba(232,199,90,.8);
-animation:starOrbit 3.8s linear infinite;
-}
-
-.loader-title{
-position:absolute;
-top:184px;
-width:100%;
-color:#F5E7B2;
-font-size:20px;
-font-weight:600;
-letter-spacing:5px;
-opacity:0;
-animation:textAppear 1s ease-out .7s forwards;
-margin-top:25px;
-}
-
-.loader-subtitle{
-position:absolute;
-top:217px;
-width:100%;
-color:#C8BEDA;
-font-size:11px;
-font-style:italic;
-letter-spacing:1.5px;
-opacity:0;
-animation:textAppear 1s ease-out 1s forwards;
-margin-top:50px;
-}
-
-
-/* =========================================
-   ANIMAZIONI
-========================================= */
-
-@keyframes orbitAppear{
-from{
-opacity:0;
-transform:scale(.55);
-}
-to{
-opacity:1;
-transform:scale(1);
-}
-}
-
-@keyframes orbitRotate{
-from{
-rotate:0deg;
-}
-to{
-rotate:360deg;
-}
-}
-
-@keyframes symbolAppear{
-0%{
-opacity:0;
-transform:scale(.3) rotate(-25deg);
-}
-60%{
-opacity:1;
-transform:scale(1.12) rotate(5deg);
-}
-100%{
-opacity:1;
-transform:scale(1) rotate(0deg);
-}
-}
-
-@keyframes symbolGlow{
-from{
-opacity:.08;
-transform:rotate(45deg) scale(.75);
-}
-to{
-opacity:.25;
-transform:rotate(225deg) scale(1);
-}
-}
-
-@keyframes moonAppear{
-from{
-opacity:0;
-transform:translate(10px,-5px) rotate(-30deg);
-}
-to{
-opacity:.8;
-transform:translate(0,0) rotate(0deg);
-}
-}
-
-@keyframes starOrbit{
-from{
-transform:rotate(0deg) translateX(78px) rotate(0deg);
-}
-to{
-transform:rotate(360deg) translateX(78px) rotate(-360deg);
-}
-}
-
-@keyframes textAppear{
-from{
-opacity:0;
-transform:translateY(8px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-
-/* =========================================
-   ACCESSIBILITÀ
-========================================= */
-
-@media(prefers-reduced-motion:reduce){
-
-#elven-loader,
-.elven-orbit,
-.elven-symbol,
-.elven-symbol:before,
-.elven-symbol:after,
-.elven-star,
-.loader-title,
-.loader-subtitle{
-animation:none!important;
-}
-
-}
-
-
-/* =========================================
-   RESPONSIVE
-========================================= */
-
-@media(max-width:520px){
-
-.page{
-padding:35px 16px 55px;
-}
-
-.header-title{
-font-size:24px;
-}
-
-.grid{
-grid-template-columns:repeat(2,minmax(0,1fr));
-gap:12px;
-}
-
-.card{
-padding:16px;
-}
-
-.hero-period{
-font-size:28px;
-}
-
-.resources{
-grid-template-columns:1fr;
-gap:10px;
-}
-
-.resource{
-min-height:72px;
-}
-
-.resource-content{
-display:flex;
-align-items:center;
-gap:12px;
-text-align:left;
-}
-
-.resource-icon{
-font-size:22px;
-margin-bottom:0;
-}
-
-}
-
-/* =========================================================
-   IMLADRIS — VERSIONE 2.6
-   Rifinitura estetica degli Annali degli Eldar
-========================================================= */
-
-/* ---------------------------------------------------------
-   ATMOSFERA GENERALE
---------------------------------------------------------- */
-
-body{
-    margin:0;
-    min-height:100vh;
-    min-height:100dvh;
-
-    background:
-        radial-gradient(
-            ellipse at 50% 110%,
-            color-mix(in srgb,var(--accent) 13%,transparent),
-            transparent 48%
-        ),
-        linear-gradient(
-            0deg,
-            var(--bg2) 0%,
-            var(--bg1) 72%,
-            var(--bg1) 100%
-        );
-
-    color:var(--primary);
-
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "SF Pro Display",
-        "Helvetica Neue",
-        sans-serif;
-
-    padding-top:env(safe-area-inset-top);
-    padding-bottom:env(safe-area-inset-bottom);
-
-    transition:
-        background 1.2s ease,
-        color .8s ease;
-}
-
-.page{
-    padding-top:42px;
-}
-
-
-/* ---------------------------------------------------------
-   HEADER — PIÙ SOLENNE
---------------------------------------------------------- */
-
-.header{
-    position:relative;
-    padding:0 8px;
-}
-
-.header-symbol{
-    font-size:34px;
-    margin-bottom:14px;
-    text-shadow:
-        0 0 8px color-mix(in srgb,var(--accent) 45%,transparent);
-}
-
-.header-title{
-    font-size:29px;
-    letter-spacing:-.5px;
-    font-weight:650;
-}
-
-.header-subtitle{
-    margin-top:11px;
-    font-size:14px;
-    letter-spacing:.2px;
-}
-
-
-/* ---------------------------------------------------------
-   DIVISORI — STILE MANOSCRITTO
---------------------------------------------------------- */
-
-.divider{
-    margin:27px 0;
-    font-size:10px;
-    letter-spacing:3px;
-    opacity:.62;
-    text-shadow:
-        0 0 7px color-mix(in srgb,var(--accent) 30%,transparent);
-}
-
-
-/* ---------------------------------------------------------
-   HERO — NUOVA CORNICE
---------------------------------------------------------- */
-
-.hero{
-    padding:30px 18px 25px;
-    border-radius:24px;
-
-    background:
-        linear-gradient(
-            135deg,
-            color-mix(in srgb,var(--accent) 3%,transparent),
-            transparent 32%,
-            color-mix(in srgb,var(--secondary) 3%,transparent)
-        ),
-        var(--card);
-
-    box-shadow:
-        0 12px 40px rgba(0,0,0,.12),
-        inset 0 0 0 1px rgba(255,255,255,.025);
-
-    transition:
-        border-color .8s ease,
-        box-shadow .8s ease;
-}
-
-/* eliminiamo definitivamente il grande simbolo opaco */
-.hero::after{
-    display:none;
-}
-
-/* doppia cornice */
-.hero::before{
-    inset:6px;
-    border-radius:19px;
-    border-color:
-        color-mix(in srgb,var(--accent) 20%,transparent);
-}
-
-/* seconda cornice interna */
-.hero{
-    isolation:isolate;
-}
-
-.hero > *{
-    z-index:3;
-}
-
-
-/* ---------------------------------------------------------
-   ORNAMENTO STAGIONALE
---------------------------------------------------------- */
-
-.hero-decoration{
-    margin-bottom:12px;
-    font-size:13px;
-    letter-spacing:7px;
-    color:var(--accent);
-    opacity:.82;
-
-    text-shadow:
-        0 0 8px color-mix(in srgb,var(--accent) 40%,transparent);
-
-    transition:
-        color .8s ease,
-        transform .8s ease;
-}
-
-.hero-decoration span{
-    display:inline-block;
-    margin:0 8px;
-    font-size:30px;
-    line-height:1;
-
-    text-shadow:
-        0 0 10px color-mix(in srgb,var(--accent) 45%,transparent);
-
-    transition:
-        transform .8s ease,
-        text-shadow .8s ease;
-}
-
-.hero:hover .hero-decoration span{
-    transform:scale(1.06);
-}
-
-
-/* ---------------------------------------------------------
-   PERIODO
---------------------------------------------------------- */
-
-.hero-period{
-    font-size:30px;
-    letter-spacing:.1px;
-    font-weight:650;
-}
-
-.hero-day{
-    margin-top:8px;
-    font-size:15px;
-}
-
-.hero-poetic{
-    margin-top:12px;
-    font-size:14px;
-    letter-spacing:.15px;
-}
-
-
-/* ---------------------------------------------------------
-   BARRA DEL PERIODO
---------------------------------------------------------- */
-
-.period-progress{
-    margin-top:21px;
-    padding:0 8px;
-}
-
-.progress-track{
-    opacity:.9;
-}
-
-.progress-segment{
-    width:7px;
-    font-size:6px;
-}
-
-.progress-current{
-    font-size:9px;
-    text-shadow:
-        0 0 5px color-mix(in srgb,var(--accent) 65%,transparent);
-}
-
-.progress-number{
-    margin-top:11px;
-    font-size:13px;
-    letter-spacing:.1px;
-}
-
-
-/* ---------------------------------------------------------
-   ORNAMENTO INFERIORE HERO
---------------------------------------------------------- */
-
-.hero-bottom-decoration{
-    margin-top:17px;
-    font-size:10px;
-    letter-spacing:5px;
-    opacity:.55;
-    text-shadow:
-        0 0 6px color-mix(in srgb,var(--accent) 30%,transparent);
-}
-
-
-/* ---------------------------------------------------------
-   CARD — PIÙ ELEGANTI
---------------------------------------------------------- */
-
-.grid{
-    gap:12px;
-    margin-top:14px;
-}
-
-.card{
-    position:relative;
-    overflow:hidden;
-
-    padding:18px;
-
-    border-radius:18px;
-
-    background:
-        linear-gradient(
-            145deg,
-            color-mix(in srgb,var(--accent) 2.5%,transparent),
-            transparent 55%
-        ),
-        var(--card);
-
-    box-shadow:
-        0 7px 24px rgba(0,0,0,.07);
-
-    transition:
-        transform .25s ease,
-        border-color .5s ease,
-        box-shadow .5s ease;
-}
-
-/* piccoli angoli ornamentali */
-.card::before{
-    content:var(--season-symbol);
-    position:absolute;
-    top:8px;
-    left:10px;
-
-    font-size:8px;
-    line-height:1;
-
-    color:var(--accent);
-    opacity:.55;
-
-    text-shadow:
-        0 0 7px
-        color-mix(
-            in srgb,
-            var(--accent) 35%,
-            transparent
-        );
-
-    pointer-events:none;
-
-    transition:
-        color .8s ease,
-        opacity .8s ease,
-        transform .8s ease;
-}
-
-.card::after{
-    content:var(--season-symbol);
-    position:absolute;
-    bottom:7px;
-    right:10px;
-
-    font-size:8px;
-    line-height:1;
-
-    color:var(--accent);
-    opacity:.25;
-
-    pointer-events:none;
-
-    transition:
-        color .8s ease,
-        opacity .8s ease;
-}
-
-.card::before{
-    top:7px;
-    left:9px;
-}
-
-.card::after{
-    bottom:6px;
-    right:9px;
-}
-
-.card:active{
-    transform:scale(.985);
-}
-
-.label{
-    font-size:10px;
-    letter-spacing:1.6px;
-    margin-bottom:8px;
-}
-
-.value{
-    font-size:16px;
-    line-height:1.4;
-}
-
-.secondary{
-    font-size:12px;
-    line-height:1.5;
-}
-
-
-/* ---------------------------------------------------------
-   LOA — ENDÈRI
---------------------------------------------------------- */
-
-#quartaEra{
-    margin-top:3px;
-}
-
-#tipoEnderi{
-    margin-top:6px;
-    font-size:10px;
-    letter-spacing:.6px;
-    font-style:italic;
-    color:var(--accent);
-    opacity:.78;
-}
-
-
-/* ---------------------------------------------------------
-   CRONACA — PAGINA DEGLI ANNALI
---------------------------------------------------------- */
-
-.chronicle{
-    position:relative;
-    margin-top:14px;
-    padding:25px 23px 24px;
-
-    border-radius:21px;
-
-    background:
-        linear-gradient(
-            145deg,
-            color-mix(in srgb,var(--accent) 2%,transparent),
-            transparent 45%
-        ),
-        var(--card);
-
-    box-shadow:
-        0 9px 30px rgba(0,0,0,.08);
-}
-
-/* cornice interna */
-.chronicle::before{
-    content:"";
-    position:absolute;
-    inset:7px;
-    border:1px solid
-        color-mix(in srgb,var(--accent) 10%,transparent);
-    border-radius:16px;
-    pointer-events:none;
-}
-
-.chronicle-title{
-    position:relative;
-    z-index:2;
-
-    margin-bottom:19px;
-    font-size:12px;
-    letter-spacing:1.8px;
-}
-
-.chronicle p{
-    position:relative;
-    z-index:2;
-
-    font-size:15px;
-    line-height:1.82;
-}
-
-/* capolettera */
-.chronicle p::first-letter{
-    color:var(--accent);
-    font-size:2.2em;
-    font-weight:500;
-    float:left;
-    line-height:.8;
-    margin:
-        5px
-        7px
-        0
-        0;
-}
-
-.quote{
-    position:relative;
-    z-index:2;
-
-    padding-top:15px;
-    border-top:1px solid
-        color-mix(in srgb,var(--accent) 12%,transparent);
-
-    font-size:14px;
-}
-
-
-/* ---------------------------------------------------------
-   RISORSE DI ARDA
---------------------------------------------------------- */
-
-.resources{
-    gap:11px;
-    margin-top:14px;
-}
-
-.resource{
-    position:relative;
-    overflow:hidden;
-
-    border-radius:18px;
-
-    background:
-        linear-gradient(
-            145deg,
-            color-mix(in srgb,var(--accent) 2.5%,transparent),
-            transparent 60%
-        ),
-        var(--card);
-
-    transition:
-        transform .25s ease,
-        border-color .35s ease;
-}
-
-.resource::after{
-    content:"✦";
-    position:absolute;
-    right:9px;
-    top:7px;
-    font-size:7px;
-    color:var(--accent);
-    opacity:.3;
-}
-
-.resource:active{
-    transform:scale(.97);
-}
-
-.resource-icon{
-    filter:
-        drop-shadow(
-            0 0 5px
-            color-mix(in srgb,var(--accent) 20%,transparent)
-        );
-}
-
-
-/* ---------------------------------------------------------
-   FOOTER — SIGILLO
---------------------------------------------------------- */
-
-.footer{
-    position:relative;
-    margin-top:34px;
-    padding-top:24px;
-    font-size:11px;
-    letter-spacing:.4px;
-}
-
-.footer::before{
-    content:"✦  ·  ✧  ·  ✦";
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-
-    font-size:9px;
-    letter-spacing:4px;
-    color:var(--accent);
-    opacity:.55;
-}
-
-
-/* ---------------------------------------------------------
-   STAGIONI
---------------------------------------------------------- */
-
-/* Primavera */
-.hero.season-tuilë,
-.hero.season-coirë{
-    --season-detail:"❧";
-}
-
-/* Estate */
-.hero.season-lairë{
-    --season-detail:"☼";
-}
-
-/* Autunno */
-.hero.season-yávië,
-.hero.season-quellë{
-    --season-detail:"❦";
-}
-
-/* Inverno */
-.hero.season-hrívë{
-    --season-detail:"❄";
-}
-
-/* Enderi */
-.hero.season-enderi{
-    --season-detail:"✧";
-}
-
-/* Yestarë */
-.hero.season-yestare{
-    --season-detail:"✦";
-}
-
-/* Mettarë */
-.hero.season-mettarë{
-    --season-detail:"✺";
-}
-
-
-/* ---------------------------------------------------------
-   RESPONSIVE
---------------------------------------------------------- */
-
-@media(max-width:520px){
-
-    .page{
-        padding:
-            32px
-            15px
-            52px;
-    }
-
-    .header-title{
-        font-size:24px;
-    }
-
-    .header-subtitle{
-        font-size:13px;
-    }
-
-    .hero{
-        padding:
-            28px
-            15px
-            23px;
-    }
-
-    .hero-period{
-        font-size:27px;
-    }
-
-    .hero-decoration span{
-        font-size:27px;
-    }
-
-    .card{
-        padding:15px;
-    }
-
-    .chronicle{
-        padding:
-            23px
-            20px
-            22px;
-    }
-
-}
-
-</style>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+    <meta name="theme-color"
+          content="#171521">
+
+    <meta charset="UTF-8">
+
+    <meta name="apple-mobile-web-app-capable"
+          content="yes">
+
+    <meta name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent">
+
+    <meta name="apple-mobile-web-app-title"
+          content="Ainulindalë">
+
+    <link rel="manifest"
+          href="manifest.json">
+
+    <link rel="apple-touch-icon"
+          href="icon-180.PNG">
+
+    <title>Cronaca del Giorno negli Annali degli Eldar</title>
+
+
+    <!-- =========================================================
+         CSS
+         ========================================================= -->
+
+    <style>
+
+        :root {
+            --bg1: #171521;
+            --bg2: #302845;
+            --primary: #F5E7B2;
+            --secondary: #C8BEDA;
+            --accent: #E8C75A;
+            --card: rgba(255,255,255,.055);
+            --border: rgba(232,199,90,.18);
+        }
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            margin: 0;
+            min-height: 100%;
+            background: var(--bg1);
+        }
+
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            min-height: 100dvh;
+
+            background:
+                radial-gradient(
+                    ellipse at 50% 110%,
+                    color-mix(
+                        in srgb,
+                        var(--accent) 13%,
+                        transparent
+                    ),
+                    transparent 48%
+                ),
+                linear-gradient(
+                    0deg,
+                    var(--bg2) 0%,
+                    var(--bg1) 72%,
+                    var(--bg1) 100%
+                );
+
+            color: var(--primary);
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "SF Pro Display",
+                "Helvetica Neue",
+                sans-serif;
+
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+
+            transition:
+                background 1.2s ease,
+                color .8s ease;
+        }
+
+
+        .page {
+            width: 100%;
+            max-width: 760px;
+            margin: auto;
+            padding: 42px 22px 70px;
+        }
+
+
+        /* =========================================================
+           HEADER
+           ========================================================= */
+
+        .header {
+            text-align: center;
+            padding: 0 8px;
+        }
+
+
+        .header-symbol {
+            font-size: 34px;
+            color: var(--accent);
+            margin-bottom: 14px;
+
+            text-shadow:
+                0 0 8px
+                color-mix(
+                    in srgb,
+                    var(--accent) 45%,
+                    transparent
+                );
+        }
+
+
+        .header-title {
+            font-size: 29px;
+            line-height: 1.2;
+            font-weight: 650;
+            letter-spacing: -.5px;
+        }
+
+
+        .header-subtitle {
+            margin-top: 11px;
+            font-size: 14px;
+            font-style: italic;
+            color: var(--secondary);
+            letter-spacing: .2px;
+        }
+
+
+        .divider {
+            margin: 27px 0;
+            text-align: center;
+            color: var(--accent);
+            font-size: 10px;
+            letter-spacing: 3px;
+            opacity: .62;
+
+            text-shadow:
+                0 0 7px
+                color-mix(
+                    in srgb,
+                    var(--accent) 30%,
+                    transparent
+                );
+        }
+
+
+        /* =========================================================
+           HERO
+           ========================================================= */
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+
+            text-align: center;
+
+            padding: 30px 18px 25px;
+
+            border: 1px solid var(--border);
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    color-mix(
+                        in srgb,
+                        var(--accent) 3%,
+                        transparent
+                    ),
+                    transparent 32%,
+                    color-mix(
+                        in srgb,
+                        var(--secondary) 3%,
+                        transparent
+                    )
+                ),
+                var(--card);
+
+            box-shadow:
+                0 12px 40px rgba(0,0,0,.12),
+                inset 0 0 0 1px rgba(255,255,255,.025);
+
+            isolation: isolate;
+        }
+
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+            inset: 6px;
+
+            border:
+                1px solid
+                color-mix(
+                    in srgb,
+                    var(--accent) 20%,
+                    transparent
+                );
+
+            border-radius: 19px;
+
+            pointer-events: none;
+        }
+
+
+        .hero::after {
+            display: none;
+        }
+
+
+        .hero > * {
+            position: relative;
+            z-index: 3;
+        }
+
+
+        .hero-decoration {
+            margin-bottom: 12px;
+
+            font-size: 13px;
+            letter-spacing: 7px;
+
+            color: var(--accent);
+            opacity: .82;
+
+            text-shadow:
+                0 0 8px
+                color-mix(
+                    in srgb,
+                    var(--accent) 40%,
+                    transparent
+                );
+        }
+
+
+        .hero-decoration span {
+            display: inline-block;
+
+            margin: 0 8px;
+
+            font-size: 30px;
+            line-height: 1;
+
+            text-shadow:
+                0 0 10px
+                color-mix(
+                    in srgb,
+                    var(--accent) 45%,
+                    transparent
+                );
+
+            transition:
+                transform .8s ease;
+        }
+
+
+        .hero-period {
+            font-size: 30px;
+            letter-spacing: .1px;
+            font-weight: 650;
+            line-height: 1.2;
+        }
+
+
+        .hero-day {
+            margin-top: 8px;
+
+            font-size: 15px;
+            font-style: italic;
+
+            color: var(--secondary);
+        }
+
+
+        .hero-poetic {
+            margin-top: 12px;
+
+            font-size: 14px;
+            font-style: italic;
+            letter-spacing: .15px;
+
+            color: var(--accent);
+
+            text-shadow:
+                0 0 10px
+                color-mix(
+                    in srgb,
+                    var(--accent) 25%,
+                    transparent
+                );
+        }
+
+
+        .hero-bottom-decoration {
+            margin-top: 17px;
+
+            font-size: 10px;
+            letter-spacing: 5px;
+
+            color: var(--accent);
+            opacity: .55;
+
+            text-shadow:
+                0 0 6px
+                color-mix(
+                    in srgb,
+                    var(--accent) 30%,
+                    transparent
+                );
+        }
+
+
+        /* =========================================================
+           PROGRESSO PERIODO
+           ========================================================= */
+
+        .period-progress {
+            margin: 21px auto 0;
+            padding: 0 8px;
+
+            width: 100%;
+            max-width: 360px;
+        }
+
+
+        .progress-track {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 100%;
+
+            overflow: hidden;
+            white-space: nowrap;
+
+            opacity: .9;
+        }
+
+
+        .progress-segment {
+            font-size: 6px;
+            line-height: 1;
+
+            display: inline-block;
+
+            width: 7px;
+
+            text-align: center;
+        }
+
+
+        .progress-filled {
+            color: var(--accent);
+            opacity: .9;
+        }
+
+
+        .progress-empty {
+            color: var(--secondary);
+            opacity: .25;
+        }
+
+
+        .progress-current {
+            color: var(--accent);
+            font-size: 9px;
+            font-weight: 600;
+
+            text-shadow:
+                0 0 5px
+                color-mix(
+                    in srgb,
+                    var(--accent) 65%,
+                    transparent
+                );
+        }
+
+
+        .progress-number {
+            margin-top: 11px;
+
+            font-size: 13px;
+            line-height: 1;
+
+            font-weight: 300;
+            letter-spacing: .1px;
+
+            color: var(--primary);
+
+            font-style: italic;
+        }
+
+
+        /* =========================================================
+           GRID / CARD
+           ========================================================= */
+
+        .grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 12px;
+
+            margin-top: 14px;
+        }
+
+
+        .card {
+            position: relative;
+            overflow: hidden;
+
+            padding: 18px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    color-mix(
+                        in srgb,
+                        var(--accent) 2.5%,
+                        transparent
+                    ),
+                    transparent 55%
+                ),
+                var(--card);
+
+            box-shadow:
+                0 7px 24px rgba(0,0,0,.07);
+
+            transition:
+                transform .25s ease,
+                border-color .5s ease;
+        }
+
+
+        .card::before {
+            content: var(--season-symbol);
+
+            position: absolute;
+
+            top: 7px;
+            left: 9px;
+
+            font-size: 8px;
+            line-height: 1;
+
+            color: var(--accent);
+            opacity: .55;
+
+            text-shadow:
+                0 0 7px
+                color-mix(
+                    in srgb,
+                    var(--accent) 35%,
+                    transparent
+                );
+
+            pointer-events: none;
+        }
+
+
+        .card::after {
+            content: var(--season-symbol);
+
+            position: absolute;
+
+            bottom: 6px;
+            right: 9px;
+
+            font-size: 8px;
+            line-height: 1;
+
+            color: var(--accent);
+            opacity: .25;
+
+            pointer-events: none;
+        }
+
+
+        .card:active {
+            transform: scale(.985);
+        }
+
+
+        .label {
+            font-size: 10px;
+
+            text-transform: uppercase;
+            letter-spacing: 1.6px;
+
+            color: var(--accent);
+
+            margin-bottom: 8px;
+        }
+
+
+        .value {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+
+        .secondary {
+            margin-top: 5px;
+
+            font-size: 12px;
+            line-height: 1.5;
+
+            color: var(--secondary);
+        }
+
+
+        #quartaEra {
+            margin-top: 3px;
+        }
+
+
+        #tipoEnderi {
+            margin-top: 6px;
+
+            font-size: 10px;
+            letter-spacing: .6px;
+
+            font-style: italic;
+
+            color: var(--accent);
+            opacity: .78;
+        }
+
+
+        /* =========================================================
+           PROGRESSO ANNO ELFICO
+           ========================================================= */
+
+        .loa-progress {
+            margin-top: 10px;
+        }
+
+
+        .loa-progress-track {
+            height: 4px;
+            width: 100%;
+
+            overflow: hidden;
+
+            border-radius: 99px;
+
+            background:
+                color-mix(
+                    in srgb,
+                    var(--secondary) 18%,
+                    transparent
+                );
+        }
+
+
+        .loa-progress-fill {
+            height: 100%;
+            width: 0;
+
+            border-radius: inherit;
+
+            background: var(--accent);
+
+            box-shadow:
+                0 0 7px
+                color-mix(
+                    in srgb,
+                    var(--accent) 35%,
+                    transparent
+                );
+
+            transition:
+                width 1s ease;
+        }
+
+
+        .loa-progress-info {
+            display: flex;
+            justify-content: space-between;
+
+            gap: 8px;
+
+            margin-top: 7px;
+
+            font-size: 10px;
+
+            color: var(--secondary);
+
+            font-style: italic;
+        }
+
+
+        .loa-progress-info span:last-child {
+            text-align: right;
+        }
+
+
+        /* =========================================================
+           ALBERO SACRO
+           ========================================================= */
+
+        .sacred-tree-card {
+            min-height: 142px;
+        }
+
+
+        .tree-display {
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            margin-top: 2px;
+        }
+
+
+        .tree-symbol {
+            width: 40px;
+            height: 40px;
+
+            flex: 0 0 40px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 27px;
+
+            color: var(--accent);
+
+            filter:
+                drop-shadow(
+                    0 0 6px
+                    color-mix(
+                        in srgb,
+                        var(--accent) 25%,
+                        transparent
+                    )
+                );
+        }
+
+
+        .tree-info {
+            min-width: 0;
+        }
+
+
+        .tree-info .value {
+            font-size: 16px;
+        }
+
+
+        .tree-description {
+            margin-top: 4px;
+
+            font-size: 11px;
+            line-height: 1.4;
+
+            color: var(--secondary);
+        }
+
+
+        .tree-ornament {
+            margin-top: 11px;
+
+            text-align: center;
+
+            font-size: 9px;
+            letter-spacing: 4px;
+
+            color: var(--accent);
+
+            opacity: .55;
+        }
+
+
+        /* =========================================================
+           CRONACA
+           ========================================================= */
+
+        .chronicle {
+            position: relative;
+
+            margin-top: 14px;
+
+            padding: 25px 23px 24px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 21px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    color-mix(
+                        in srgb,
+                        var(--accent) 2%,
+                        transparent
+                    ),
+                    transparent 45%
+                ),
+                var(--card);
+
+            box-shadow:
+                0 9px 30px rgba(0,0,0,.08);
+        }
+
+
+        .chronicle::before {
+            content: "";
+
+            position: absolute;
+
+            inset: 7px;
+
+            border:
+                1px solid
+                color-mix(
+                    in srgb,
+                    var(--accent) 10%,
+                    transparent
+                );
+
+            border-radius: 16px;
+
+            pointer-events: none;
+        }
+
+
+        .chronicle-title {
+            position: relative;
+            z-index: 2;
+
+            text-align: center;
+
+            font-size: 12px;
+
+            text-transform: uppercase;
+            letter-spacing: 1.8px;
+
+            color: var(--accent);
+
+            margin-bottom: 19px;
+        }
+
+
+        .chronicle p {
+            position: relative;
+            z-index: 2;
+
+            font-size: 15px;
+            line-height: 1.82;
+
+            color: var(--secondary);
+
+            margin: 0 0 18px;
+
+            text-align: justify;
+
+            hyphens: auto;
+            -webkit-hyphens: auto;
+        }
+
+
+        .chronicle p::first-letter {
+            color: var(--accent);
+
+            font-size: 2.2em;
+            font-weight: 500;
+
+            float: left;
+
+            line-height: .8;
+
+            margin:
+                5px 7px 0 0;
+        }
+
+
+        .quote {
+            position: relative;
+            z-index: 2;
+
+            margin-top: 20px;
+            padding-top: 15px;
+
+            border-top:
+                1px solid
+                color-mix(
+                    in srgb,
+                    var(--accent) 12%,
+                    transparent
+                );
+
+            text-align: center;
+
+            font-size: 14px;
+            line-height: 1.7;
+
+            font-style: italic;
+
+            color: var(--primary);
+        }
+
+
+        /* =========================================================
+           RISORSE
+           ========================================================= */
+
+        .resources {
+            margin-top: 14px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 11px;
+        }
+
+
+        .resource {
+            position: relative;
+            overflow: hidden;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-height: 86px;
+
+            padding: 15px 10px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    color-mix(
+                        in srgb,
+                        var(--accent) 2.5%,
+                        transparent
+                    ),
+                    transparent 60%
+                ),
+                var(--card);
+
+            color: var(--primary);
+
+            text-decoration: none;
+        }
+
+
+        .resource::after {
+            content: "✦";
+
+            position: absolute;
+
+            right: 9px;
+            top: 7px;
+
+            font-size: 7px;
+
+            color: var(--accent);
+            opacity: .3;
+        }
+
+
+        .resource:active {
+            transform: scale(.97);
+        }
+
+
+        .resource-content {
+            text-align: center;
+        }
+
+
+        .resource-icon {
+            font-size: 24px;
+
+            margin-bottom: 7px;
+
+            filter:
+                drop-shadow(
+                    0 0 5px
+                    color-mix(
+                        in srgb,
+                        var(--accent) 20%,
+                        transparent
+                    )
+                );
+        }
+
+
+        .resource-title {
+            font-size: 12px;
+            font-weight: 600;
+
+            line-height: 1.3;
+        }
+
+
+        .resource-subtitle {
+            margin-top: 3px;
+
+            font-size: 9px;
+
+            color: var(--secondary);
+            opacity: .75;
+        }
+
+
+        /* =========================================================
+           FOOTER
+           ========================================================= */
+
+        .footer {
+            position: relative;
+
+            margin-top: 34px;
+            padding-top: 24px;
+
+            text-align: center;
+
+            color: var(--secondary);
+            opacity: .7;
+
+            font-size: 11px;
+            line-height: 1.7;
+
+            letter-spacing: .4px;
+        }
+
+
+        .footer::before {
+            content: "✦  ·  ✧  ·  ✦";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+            right: 0;
+
+            font-size: 9px;
+
+            letter-spacing: 4px;
+
+            color: var(--accent);
+            opacity: .55;
+        }
+
+
+        /* =========================================================
+           LOADER
+           ========================================================= */
+
+        #elven-loader {
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 99999;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    #302845 0%,
+                    #171521 70%,
+                    #10101a 100%
+                );
+
+            opacity: 1;
+            visibility: visible;
+
+            transition:
+                opacity .8s ease,
+                visibility .8s ease;
+        }
+
+
+        #elven-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+
+        .loader-content {
+            position: relative;
+
+            width: 230px;
+            height: 260px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+        }
+
+
+        .elven-orbit {
+            position: absolute;
+
+            width: 135px;
+            height: 135px;
+
+            border:
+                1px solid
+                rgba(232,199,90,.25);
+
+            border-radius: 50%;
+
+            animation:
+                orbitAppear 1.5s ease-out forwards,
+                orbitRotate 12s linear infinite;
+        }
+
+
+        .elven-orbit::before,
+        .elven-orbit::after {
+            content: "✦";
+
+            position: absolute;
+
+            color: #E8C75A;
+
+            font-size: 13px;
+
+            text-shadow:
+                0 0 8px
+                rgba(232,199,90,.75);
+        }
+
+
+        .elven-orbit::before {
+            top: -8px;
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+        }
+
+
+        .elven-orbit::after {
+            bottom: -8px;
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+        }
+
+
+        .elven-symbol {
+            position: relative;
+
+            width: 90px;
+            height: 90px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            color: #E8C75A;
+
+            font-size: 52px;
+
+            text-shadow:
+                0 0 10px
+                rgba(232,199,90,.35),
+                0 0 25px
+                rgba(232,199,90,.18);
+
+            animation:
+                symbolAppear
+                1.4s
+                cubic-bezier(.2,.8,.2,1)
+                forwards;
+        }
+
+
+        .elven-symbol::before {
+            content: "✧";
+
+            position: absolute;
+
+            font-size: 82px;
+
+            opacity: .16;
+
+            transform:
+                rotate(45deg)
+                scale(.8);
+
+            animation:
+                symbolGlow
+                2.2s
+                ease-in-out
+                infinite alternate;
+        }
+
+
+        .elven-symbol::after {
+            content: "☾";
+
+            position: absolute;
+
+            font-size: 26px;
+
+            right: -8px;
+            top: 3px;
+
+            opacity: 0;
+
+            animation:
+                moonAppear
+                1.8s
+                ease-out
+                .4s
+                forwards;
+        }
+
+
+        .elven-star {
+            position: absolute;
+
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: #F5E7B2;
+
+            box-shadow:
+                0 0 6px #E8C75A,
+                0 0 14px
+                rgba(232,199,90,.8);
+
+            animation:
+                starOrbit
+                3.8s
+                linear
+                infinite;
+        }
+
+
+        .loader-title {
+            position: absolute;
+
+            top: 184px;
+
+            width: 100%;
+
+            color: #F5E7B2;
+
+            font-size: 20px;
+            font-weight: 600;
+
+            letter-spacing: 5px;
+
+            opacity: 0;
+
+            animation:
+                textAppear
+                1s
+                ease-out
+                .7s
+                forwards;
+
+            margin-top: 25px;
+        }
+
+
+        .loader-subtitle {
+            position: absolute;
+
+            top: 217px;
+
+            width: 100%;
+
+            color: #C8BEDA;
+
+            font-size: 11px;
+
+            font-style: italic;
+
+            letter-spacing: 1.5px;
+
+            opacity: 0;
+
+            animation:
+                textAppear
+                1s
+                ease-out
+                1s
+                forwards;
+
+            margin-top: 50px;
+        }
+
+
+        /* =========================================================
+           ANIMAZIONI
+           ========================================================= */
+
+        @keyframes orbitAppear {
+
+            from {
+                opacity: 0;
+                transform: scale(.55);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+
+        @keyframes orbitRotate {
+
+            from {
+                rotate: 0deg;
+            }
+
+            to {
+                rotate: 360deg;
+            }
+        }
+
+
+        @keyframes symbolAppear {
+
+            0% {
+                opacity: 0;
+                transform:
+                    scale(.3)
+                    rotate(-25deg);
+            }
+
+            60% {
+                opacity: 1;
+                transform:
+                    scale(1.12)
+                    rotate(5deg);
+            }
+
+            100% {
+                opacity: 1;
+                transform:
+                    scale(1)
+                    rotate(0deg);
+            }
+        }
+
+
+        @keyframes symbolGlow {
+
+            from {
+                opacity: .08;
+
+                transform:
+                    rotate(45deg)
+                    scale(.75);
+            }
+
+            to {
+                opacity: .25;
+
+                transform:
+                    rotate(225deg)
+                    scale(1);
+            }
+        }
+
+
+        @keyframes moonAppear {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translate(10px,-5px)
+                    rotate(-30deg);
+            }
+
+            to {
+                opacity: .8;
+
+                transform:
+                    translate(0,0)
+                    rotate(0deg);
+            }
+        }
+
+
+        @keyframes starOrbit {
+
+            from {
+                transform:
+                    rotate(0deg)
+                    translateX(78px)
+                    rotate(0deg);
+            }
+
+            to {
+                transform:
+                    rotate(360deg)
+                    translateX(78px)
+                    rotate(-360deg);
+            }
+        }
+
+
+        @keyframes textAppear {
+
+            from {
+                opacity: 0;
+                transform:
+                    translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        /* =========================================================
+           ACCESSIBILITÀ / MOBILE
+           ========================================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            #elven-loader,
+            .elven-orbit,
+            .elven-symbol,
+            .elven-symbol::before,
+            .elven-symbol::after,
+            .elven-star,
+            .loader-title,
+            .loader-subtitle {
+                animation: none !important;
+            }
+        }
+
+
+        @media (max-width: 520px) {
+
+            .page {
+                padding:
+                    32px
+                    15px
+                    52px;
+            }
+
+
+            .header-title {
+                font-size: 24px;
+            }
+
+
+            .header-subtitle {
+                font-size: 13px;
+            }
+
+
+            .hero {
+                padding:
+                    28px
+                    15px
+                    23px;
+            }
+
+
+            .hero-period {
+                font-size: 27px;
+            }
+
+
+            .hero-decoration span {
+                font-size: 27px;
+            }
+
+
+            .card {
+                padding: 15px;
+            }
+
+
+            .resources {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+
+            .resource {
+                min-height: 72px;
+            }
+
+
+            .resource-content {
+                display: flex;
+
+                align-items: center;
+
+                gap: 12px;
+
+                text-align: left;
+            }
+
+
+            .resource-icon {
+                font-size: 22px;
+                margin-bottom: 0;
+            }
+
+
+            .loa-progress-info {
+                font-size: 9px;
+            }
+
+
+            .tree-symbol {
+                width: 36px;
+                flex-basis: 36px;
+                font-size: 24px;
+            }
+        }
+
+    </style>
 
 </head>
 
@@ -1338,1586 +1487,1824 @@ body{
 <body>
 
 
-<!-- =========================================
-     LOADER
-========================================= -->
+    <!-- =========================================================
+         LOADER
+         ========================================================= -->
 
-<div id="elven-loader">
+    <div id="elven-loader">
 
-<div class="loader-content">
+        <div class="loader-content">
 
-<div class="elven-orbit"></div>
+            <div class="elven-orbit"></div>
 
-<div class="elven-star"></div>
+            <div class="elven-star"></div>
 
-<div class="elven-symbol">✦</div>
+            <div class="elven-symbol">
+                ✦
+            </div>
 
-<div class="loader-title">AINULINDALË</div>
+            <div class="loader-title">
+                AINULINDALË
+            </div>
 
-<div class="loader-subtitle">La Musica degli Ainur</div>
+            <div class="loader-subtitle">
+                La Musica degli Ainur
+            </div>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
 
-<!-- =========================================
-     PAGINA PRINCIPALE
-========================================= -->
+    <!-- =========================================================
+         PAGINA
+         ========================================================= -->
 
-<div class="page">
+    <div class="page">
 
 
-<!-- =========================================
-     HEADER
-========================================= -->
+        <!-- HEADER -->
 
-<header class="header">
+        <header class="header">
 
-<div class="header-symbol">✦</div>
+            <div class="header-symbol">
+                ✦
+            </div>
 
-<div class="header-title">
-Cronaca del Giorno
-</div>
+            <div class="header-title">
+                Cronaca del Giorno
+            </div>
 
-<div class="header-subtitle">
-Computo del Tempo secondo gli Annali degli Eldar
-</div>
+            <div class="header-subtitle">
+                Computo del Tempo secondo gli Annali degli Eldar
+            </div>
 
-</header>
+        </header>
 
 
-<div class="divider">
-✦ ─────── ✧ ─────── ✦
-</div>
+        <div class="divider">
+            ✦ ─────── ✧ ─────── ✦
+        </div>
 
 
-<!-- =========================================
-     BLOCCO PRINCIPALE
-========================================= -->
+        <!-- =====================================================
+             HERO
+             ===================================================== -->
 
-<section class="hero">
-   
-<div id="heroDecoration" class="hero-decoration">
-✦
-<span id="heroSymbol">✧</span>
-✦
-</div>
+        <section class="hero">
 
-<div id="periodo" class="hero-period"></div>
+            <div id="heroDecoration"
+                 class="hero-decoration">
 
-<div id="giorno" class="hero-day"></div>
+                ✦
+                <span id="heroSymbol">✧</span>
+                ✦
 
-<div id="poetico" class="hero-poetic"></div>
+            </div>
 
 
-<!-- =========================================
-     BARRA DEL PERIODO
-========================================= -->
+            <div id="periodo"
+                 class="hero-period">
+            </div>
 
-<div class="period-progress">
 
-<div id="progressTrack" class="progress-track"></div>
+            <div id="giorno"
+                 class="hero-day">
+            </div>
 
-</div>
 
+            <div id="poetico"
+                 class="hero-poetic">
+            </div>
 
-<!-- =========================================
-     GIORNO / TOTALE
-========================================= -->
 
-<div id="progressNumber" class="progress-number" style="font-style: italic"></div>
+            <div class="period-progress">
 
-<div class="hero-bottom-decoration">
-✧ · · · ✦ · · · ✧
-</div>
+                <div id="progressTrack"
+                     class="progress-track">
+                </div>
 
-</section>
+            </div>
 
 
-<!-- =========================================
-     INFORMAZIONI
-========================================= -->
+            <div id="progressNumber"
+                 class="progress-number">
+            </div>
 
-<div class="grid">
 
+            <div class="hero-bottom-decoration">
+                ✧ · · · ✦ · · · ✧
+            </div>
 
-<div class="card">
+        </section>
 
-<div class="label">
-Giorno degli Eldar
-</div>
 
-<div id="giornoElfico" class="value"></div>
+        <!-- =====================================================
+             CARDS
+             ===================================================== -->
 
-<div id="significatoGiorno" class="secondary"></div>
+        <div class="grid">
 
-</div>
 
+            <!-- GIORNO -->
 
-<div class="card">
+            <div class="card">
 
-<div class="label">
-Computo del Loa
-</div>
+                <div class="label">
+                    Giorno degli Eldar
+                </div>
 
-<div id="loa" class="value"></div>
+                <div id="giornoElfico"
+                     class="value">
+                </div>
 
-<div id="quartaEra" class="secondary"></div>
-<div id="tipoEnderi" class="secondary"></div>
+                <div id="significatoGiorno"
+                     class="secondary">
+                </div>
 
-</div>
+            </div>
 
 
-<div class="card">
+            <!-- COMPUTO DEL LOA -->
 
-<div class="label">
-Isil
-</div>
+            <div class="card">
 
-<div id="luna" class="value"></div>
+                <div class="label">
+                    Computo del Loa
+                </div>
 
-<div id="lunaItaliano" class="secondary"></div>
+                <div id="loa"
+                     class="value">
+                </div>
 
-</div>
+                <div id="quartaEra"
+                     class="secondary">
+                </div>
 
+                <div id="tipoEnderi"
+                     class="secondary">
+                </div>
 
-<div class="card">
 
-<div class="label">
-Albero Sacro
-</div>
+                <!-- PROGRESSO ANNO -->
 
-<div id="albero" class="value"></div>
+                <div class="loa-progress">
 
-</div>
+                    <div class="loa-progress-track">
 
+                        <div id="loaProgressFill"
+                             class="loa-progress-fill">
+                        </div>
 
-<div class="card">
+                    </div>
 
-<div class="label">
-Stella del Giorno
-</div>
 
-<div id="stella" class="value"></div>
+                    <div class="loa-progress-info">
 
-<div id="descrizioneStella" class="secondary"></div>
+                        <span id="loaProgressText">
+                        </span>
 
-</div>
+                        <span id="loaDayText">
+                        </span>
 
+                    </div>
 
-<div class="card">
+                </div>
 
-<div class="label">
-Costellazione
-</div>
+            </div>
 
-<div id="costellazione" class="value"></div>
 
-<div id="descrizioneCostellazione" class="secondary"></div>
+            <!-- LUNA -->
 
-</div>
+            <div class="card">
 
+                <div class="label">
+                    Isil
+                </div>
 
-</div>
+                <div id="luna"
+                     class="value">
+                </div>
 
+                <div id="lunaItaliano"
+                     class="secondary">
+                </div>
 
-<!-- =========================================
-     CRONACA
-========================================= -->
+            </div>
 
-<section class="chronicle">
 
-<div class="chronicle-title">
-✧ Dal Libro degli Annali ✧
-</div>
+            <!-- ALBERO SACRO -->
 
-<p id="testo"></p>
+            <div class="card sacred-tree-card">
 
-<div class="quote" id="citazione"></div>
+                <div class="label">
+                    Albero Sacro
+                </div>
 
-</section>
 
+                <div class="tree-display">
 
-<div class="divider">
-✦ ─────── ✧ ─────── ✦
-</div>
+                    <div id="alberoSimbolo"
+                         class="tree-symbol">
+                    </div>
 
 
-<!-- =========================================
-     RISORSE DI ARDA
-========================================= -->
+                    <div class="tree-info">
 
-<div class="resources">
+                        <div id="albero"
+                             class="value">
+                        </div>
 
+                        <div id="alberoDescrizione"
+                             class="tree-description">
+                        </div>
 
-<a
-class="resource"
-href="https://lotrtree.com"
-target="_blank"
-rel="noopener noreferrer"
->
+                    </div>
 
-<div class="resource-content">
+                </div>
 
-<div class="resource-icon">
-🌳
-</div>
 
-<div>
+                <div id="alberoOrnamento"
+                     class="tree-ornament">
+                </div>
 
-<div class="resource-title">
-Albero Genealogico
-</div>
+            </div>
 
-<div class="resource-subtitle">
-Famiglie della Terra di Mezzo
-</div>
 
-</div>
+            <!-- STELLA -->
 
-</div>
+            <div class="card">
 
-</a>
+                <div class="label">
+                    Stella del Giorno
+                </div>
 
+                <div id="stella"
+                     class="value">
+                </div>
 
-<a
-class="resource"
-href="https://www.istaroquettar.it/p/mappe-della-terra-di-mezzo.html?m=1"
-target="_blank"
-rel="noopener noreferrer"
->
+                <div id="descrizioneStella"
+                     class="secondary">
+                </div>
 
-<div class="resource-content">
+            </div>
 
-<div class="resource-icon">
-🗺️
-</div>
 
-<div>
+            <!-- COSTELLAZIONE -->
 
-<div class="resource-title">
-Mappe di Arda
-</div>
+            <div class="card">
 
-<div class="resource-subtitle">
-Terra di Mezzo e Arda
-</div>
+                <div class="label">
+                    Costellazione
+                </div>
 
-</div>
+                <div id="costellazione"
+                     class="value">
+                </div>
 
-</div>
+                <div id="descrizioneCostellazione"
+                     class="secondary">
+                </div>
 
-</a>
+            </div>
 
-</div>
+        </div>
 
 
-<!-- =========================================
-     FOOTER
-========================================= -->
+        <!-- =====================================================
+             CRONACA
+             ===================================================== -->
 
-<div class="footer" id="footer"></div>
+        <section class="chronicle">
 
+            <div class="chronicle-title">
+                ✧ Dal Libro degli Annali ✧
+            </div>
 
-</div>
+            <p id="testo">
+            </p>
 
+            <div class="quote"
+                 id="citazione">
+            </div>
 
-<!-- =========================================
-     CALCOLO DEL CALENDARIO
-========================================= -->
+        </section>
 
-<script>
 
+        <div class="divider">
+            ✦ ─────── ✧ ─────── ✦
+        </div>
 
-/* =========================================
-   DATA
-========================================= */
 
-const data=new Date();
+        <!-- =====================================================
+             RISORSE
+             ===================================================== -->
 
-const ora=data.getHours();
+        <div class="resources">
 
-const dark=ora>=22||ora<7;
 
+            <a class="resource"
+               href="https://lotrtree.com"
+               target="_blank"
+               rel="noopener noreferrer">
 
-/* =========================================
-   FASE LUNARE
-========================================= */
+                <div class="resource-content">
 
-function getFaseLunareElfica(){
+                    <div class="resource-icon">
+                        🌳
+                    </div>
 
-const riferimento=
-new Date("2000-01-06T18:14:00Z");
+                    <div>
 
-const giorni=
-(data.getTime()-riferimento.getTime())
-/86400000;
+                        <div class="resource-title">
+                            Albero Genealogico
+                        </div>
 
-const etaLuna=
-((giorni%29.530588)+29.530588)
-%29.530588;
+                        <div class="resource-subtitle">
+                            Famiglie della Terra di Mezzo
+                        </div>
 
+                    </div>
 
-if(etaLuna<1.84566){
+                </div>
 
-return{
-simbolo:"🌑",
-nome:"Isil Núra",
-italiano:"Luna Nuova"
-};
+            </a>
 
-}
 
-if(etaLuna<5.53699){
+            <a class="resource"
+               href="https://www.istaroquettar.it/p/mappe-della-terra-di-mezzo.html?m=1"
+               target="_blank"
+               rel="noopener noreferrer">
 
-return{
-simbolo:"🌒",
-nome:"Isil Orta",
-italiano:"Falce Crescente"
-};
+                <div class="resource-content">
 
-}
+                    <div class="resource-icon">
+                        🗺️
+                    </div>
 
-if(etaLuna<9.22831){
+                    <div>
 
-return{
-simbolo:"🌓",
-nome:"Perian Isil",
-italiano:"Primo Quarto"
-};
+                        <div class="resource-title">
+                            Mappe di Arda
+                        </div>
 
-}
+                        <div class="resource-subtitle">
+                            Terra di Mezzo e Arda
+                        </div>
 
-if(etaLuna<12.91963){
+                    </div>
 
-return{
-simbolo:"🌔",
-nome:"Isil Alata",
-italiano:"Gibbosa Crescente"
-};
+                </div>
 
-}
+            </a>
 
-if(etaLuna<16.61096){
+        </div>
 
-return{
-simbolo:"🌕",
-nome:"Isil Rána",
-italiano:"Luna Piena"
-};
 
-}
+        <!-- FOOTER -->
 
-if(etaLuna<20.30228){
+        <div class="footer"
+             id="footer">
+        </div>
 
-return{
-simbolo:"🌖",
-nome:"Isil Lanta",
-italiano:"Gibbosa Calante"
-};
 
-}
+    </div>
 
-if(etaLuna<23.99361){
 
-return{
-simbolo:"🌗",
-nome:"Perian Isil Núnquerna",
-italiano:"Ultimo Quarto"
-};
+    <!-- =========================================================
+         JAVASCRIPT
+         ========================================================= -->
 
-}
+    <script>
 
-if(etaLuna<27.68493){
+        /* =========================================================
+           DATA
+           ========================================================= */
 
-return{
-simbolo:"🌘",
-nome:"Isil Núrala",
-italiano:"Falce Calante"
-};
+        const data = new Date();
 
-}
+        const ora = data.getHours();
 
-return{
-simbolo:"🌑",
-nome:"Isil Núra",
-italiano:"Luna Nuova"
-};
+        const dark =
+            ora >= 22 ||
+            ora < 7;
 
-}
 
+        /* =========================================================
+           LUNA
+           ========================================================= */
 
-const faseLunare=
-getFaseLunareElfica();
+        function getFaseLunareElfica() {
 
+            const riferimento =
+                new Date(
+                    "2000-01-06T18:14:00Z"
+                );
 
-/* =========================================
-   GIORNI ELFICI
-========================================= */
 
-const giorniElfici=[
+            const giorni =
+                (data - riferimento) /
+                86400000;
 
-{
-nome:"Elenya",
-significato:"Giorno delle Stelle"
-},
 
-{
-nome:"Anarya",
-significato:"Giorno del Sole"
-},
+            const eta =
+                (
+                    (giorni % 29.530588) +
+                    29.530588
+                ) % 29.530588;
 
-{
-nome:"Isilya",
-significato:"Giorno della Luna"
-},
 
-{
-nome:"Aldúya",
-significato:"Giorno dei Due Alberi"
-},
+            const fasi = [
 
-{
-nome:"Menelya",
-significato:"Giorno dei Cieli"
-},
+                {
+                    max: 1.84566,
+                    simbolo: "🌑",
+                    nome: "Isil Núra",
+                    italiano: "Luna Nuova"
+                },
 
-{
-nome:"Valanya",
-significato:"Giorno dei Valar"
-}
+                {
+                    max: 5.53699,
+                    simbolo: "🌒",
+                    nome: "Isil Orta",
+                    italiano: "Falce Crescente"
+                },
 
-];
+                {
+                    max: 9.22831,
+                    simbolo: "🌓",
+                    nome: "Perian Isil",
+                    italiano: "Primo Quarto"
+                },
 
+                {
+                    max: 12.91963,
+                    simbolo: "🌔",
+                    nome: "Isil Alata",
+                    italiano: "Gibbosa Crescente"
+                },
 
-/* =========================================
-   CALCOLO DEL LOA
-========================================= */
+                {
+                    max: 16.61096,
+                    simbolo: "🌕",
+                    nome: "Isil Rána",
+                    italiano: "Luna Piena"
+                },
 
-const annoGreg=
-data.getFullYear();
+                {
+                    max: 20.30228,
+                    simbolo: "🌖",
+                    nome: "Isil Lanta",
+                    italiano: "Gibbosa Calante"
+                },
 
-let yestare=
-new Date(annoGreg,2,21);
+                {
+                    max: 23.99361,
+                    simbolo: "🌗",
+                    nome: "Perian Isil Núnquerna",
+                    italiano: "Ultimo Quarto"
+                },
 
-let annoElfico;
+                {
+                    max: 27.68493,
+                    simbolo: "🌘",
+                    nome: "Isil Núrala",
+                    italiano: "Falce Calante"
+                }
 
+            ];
 
-if(data>=yestare){
 
-annoElfico=annoGreg;
+            return (
+                fasi.find(
+                    fase => eta < fase.max
+                ) || fasi[0]
+            );
+        }
 
-}else{
 
-annoElfico=annoGreg-1;
+        const faseLunare =
+            getFaseLunareElfica();
 
-yestare=
-new Date(annoGreg-1,2,21);
 
-}
+        /* =========================================================
+           GIORNI ELDAR
+           ========================================================= */
 
+        const giorniElfici = [
 
-/* =========================================
-   ENDERI
-========================================= */
+            {
+                nome: "Elenya",
+                significato: "Giorno delle Stelle"
+            },
 
-let enderi=3;
+            {
+                nome: "Anarya",
+                significato: "Giorno del Sole"
+            },
 
-const multiplo12=
-annoElfico%12===0;
+            {
+                nome: "Isilya",
+                significato: "Giorno della Luna"
+            },
 
-const multiplo432=
-annoElfico%432===0;
+            {
+                nome: "Aldúya",
+                significato: "Giorno dei Due Alberi"
+            },
 
+            {
+                nome: "Menelya",
+                significato: "Giorno dei Cieli"
+            },
 
-if(
-multiplo12 &&
-!multiplo432
-){
+            {
+                nome: "Valanya",
+                significato: "Giorno dei Valar"
+            }
 
-enderi=6;
+        ];
 
-}
 
+        /* =========================================================
+           ANNO ELFICO
+           ========================================================= */
 
-/* =========================================
-   GIORNO DELL'ANNO
-========================================= */
+        const annoGreg =
+            data.getFullYear();
 
-const giornoAnno=
-Math.floor(
-(data.getTime()-yestare.getTime())
-/86400000
-);
 
+        let yestare =
+            new Date(
+                annoGreg,
+                2,
+                21
+            );
 
-/* =========================================
-   GIORNO ELFICO
-========================================= */
 
-const nomeGiorno=
-giorniElfici[
-((giornoAnno%6)+6)%6
-];
+        let annoElfico =
+            data >= yestare
+                ? annoGreg
+                : annoGreg - 1;
 
 
-/* =========================================
-   STELLA DEL GIORNO
-========================================= */
+        if (data < yestare) {
 
-const stelleDelGiorno={
+            yestare =
+                new Date(
+                    annoGreg - 1,
+                    2,
+                    21
+                );
+        }
 
-Elenya:{
-nome:"Eärendil",
-descrizione:"la Stella del Vespro"
-},
 
-Anarya:{
-nome:"Anar",
-descrizione:"il Sole Dorato"
-},
+        /* =========================================================
+           ENDERI
+           ========================================================= */
 
-Isilya:{
-nome:"Isil",
-descrizione:"la Luna Bianca"
-},
+        let enderi = 3;
 
-Aldúya:{
-nome:"Telperion e Laurelin",
-descrizione:"i Due Alberi di Valinor"
-},
 
-Menelya:{
-nome:"Menelmacar",
-descrizione:"il Guerriero Celeste"
-},
+        if (
+            annoElfico % 12 === 0 &&
+            annoElfico % 432 !== 0
+        ) {
 
-Valanya:{
-nome:"Elbereth Gilthoniel",
-descrizione:"la Signora delle Stelle"
-}
+            enderi = 6;
+        }
 
-};
 
+        /* =========================================================
+           GIORNO DELL'ANNO
+           ========================================================= */
 
-const stellaDelGiorno=
-stelleDelGiorno[
-nomeGiorno.nome
-];
+        const giornoAnno =
+            Math.floor(
+                (data - yestare) /
+                86400000
+            );
 
-const nomeStella=
-stellaDelGiorno.nome;
 
-const descrizioneStella=
-stellaDelGiorno.descrizione;
+        const nomeGiorno =
+            giorniElfici[
+                ((giornoAnno % 6) + 6) % 6
+            ];
 
 
-/* =========================================
-   CALENDARIO
-========================================= */
+        /* =========================================================
+           STELLA DEL GIORNO
+           ========================================================= */
 
-const calendario=[
+        const stelleDelGiorno = {
 
-{
-nome:"Yestarë",
-sindarin:"",
-significato:"Primo giorno dell'anno",
-simbolo:"✦",
-durata:1,
-stagione:"yestare"
-},
+            Elenya: {
+                nome: "Eärendil",
+                descrizione: "la Stella del Vespro"
+            },
 
-{
-nome:"Tuilë",
-sindarin:"Ethuil",
-significato:"Primavera",
-simbolo:"❧",
-durata:54,
-stagione:"tuile"
-},
+            Anarya: {
+                nome: "Anar",
+                descrizione: "il Sole Dorato"
+            },
 
-{
-nome:"Lairë",
-sindarin:"Laer",
-significato:"Estate",
-simbolo:"☼",
-durata:72,
-stagione:"laire"
-},
+            Isilya: {
+                nome: "Isil",
+                descrizione: "la Luna Bianca"
+            },
 
-{
-nome:"Yávië",
-sindarin:"Iavas",
-significato:"Autunno",
-simbolo:"❦",
-durata:54,
-stagione:"yavie"
-},
+            Aldúya: {
+                nome: "Telperion e Laurelin",
+                descrizione:
+                    "i Due Alberi di Valinor"
+            },
 
-{
-nome:"Enderi",
-sindarin:"",
-significato:"Giorni centrali dell'anno",
-simbolo:"✧",
-durata:enderi,
-stagione:"enderi"
-},
+            Menelya: {
+                nome: "Menelmacar",
+                descrizione:
+                    "il Guerriero Celeste"
+            },
 
-{
-nome:"Quellë",
-sindarin:"Firith",
-significato:"Fine dell'autunno",
-simbolo:"❋",
-durata:54,
-stagione:"quelle"
-},
+            Valanya: {
+                nome: "Elbereth Gilthoniel",
+                descrizione:
+                    "la Signora delle Stelle"
+            }
 
-{
-nome:"Hrívë",
-sindarin:"Rhîw",
-significato:"Inverno",
-simbolo:"❄",
-durata:72,
-stagione:"hrive"
-},
+        };
 
-{
-nome:"Coirë",
-sindarin:"Echuir",
-significato:"Risveglio della primavera",
-simbolo:"✿",
-durata:54,
-stagione:"coire"
-},
 
-{
-nome:"Mettarë",
-sindarin:"",
-significato:"Ultimo giorno dell'anno",
-simbolo:"✺",
-durata:1,
-stagione:"mettare"
-}
+        const stellaDelGiorno =
+            stelleDelGiorno[
+                nomeGiorno.nome
+            ];
 
-];
 
+        /* =========================================================
+           CALENDARIO ELFICO
+           ========================================================= */
 
-/* =========================================
-   DETERMINAZIONE DEL PERIODO
-========================================= */
+        const calendario = [
 
-let restante=
-giornoAnno;
+            {
+                nome: "Yestarë",
+                sindarin: "",
+                significato:
+                    "Primo giorno dell'anno",
+                simbolo: "✦",
+                durata: 1,
+                stagione: "yestare"
+            },
 
-let periodo=
-null;
+            {
+                nome: "Tuilë",
+                sindarin: "Ethuil",
+                significato: "Primavera",
+                simbolo: "❧",
+                durata: 54,
+                stagione: "tuile"
+            },
 
-let giornoPeriodo=
-1;
+            {
+                nome: "Lairë",
+                sindarin: "Laer",
+                significato: "Estate",
+                simbolo: "☼",
+                durata: 72,
+                stagione: "laire"
+            },
 
+            {
+                nome: "Yávië",
+                sindarin: "Iavas",
+                significato: "Autunno",
+                simbolo: "❦",
+                durata: 54,
+                stagione: "yavie"
+            },
 
-for(
-const elemento of calendario
-){
+            {
+                nome: "Enderi",
+                sindarin: "",
+                significato:
+                    "Giorni centrali dell'anno",
+                simbolo: "✧",
+                durata: enderi,
+                stagione: "enderi"
+            },
 
-if(
-restante<
-elemento.durata
-){
+            {
+                nome: "Quellë",
+                sindarin: "Firith",
+                significato:
+                    "Fine dell'autunno",
+                simbolo: "❋",
+                durata: 54,
+                stagione: "quelle"
+            },
 
-periodo=
-elemento;
+            {
+                nome: "Hrívë",
+                sindarin: "Rhîw",
+                significato: "Inverno",
+                simbolo: "❄",
+                durata: 72,
+                stagione: "hrive"
+            },
 
-giornoPeriodo=
-restante+1;
+            {
+                nome: "Coirë",
+                sindarin: "Echuir",
+                significato:
+                    "Risveglio della primavera",
+                simbolo: "✿",
+                durata: 54,
+                stagione: "coire"
+            },
 
-break;
+            {
+                nome: "Mettarë",
+                sindarin: "",
+                significato:
+                    "Ultimo giorno dell'anno",
+                simbolo: "✺",
+                durata: 1,
+                stagione: "mettare"
+            }
 
-}
+        ];
 
-restante-=
-elemento.durata;
 
-}
+        /* =========================================================
+           DETERMINAZIONE PERIODO
+           ========================================================= */
 
-/* =========================================
-   DECORAZIONE STAGIONALE
-========================================= */
+        let restante =
+            giornoAnno;
 
-const hero =
-document.querySelector(".hero");
+        let periodo = null;
 
-const heroSymbol =
-document.getElementById("heroSymbol");
+        let giornoPeriodo = 1;
 
-const seasonSymbols = {
-    "Yestarë":"✦",
-    "Tuilë":"❧",
-    "Lairë":"☼",
-    "Yávië":"❦",
-    "Enderi":"✧",
-    "Quellë":"❋",
-    "Hrívë":"❄",
-    "Coirë":"❧",
-    "Mettarë":"✺"
-};
 
-const seasonClasses = {
-    "Yestarë":"season-yestare",
-    "Tuilë":"season-tuilë",
-    "Lairë":"season-lairë",
-    "Yávië":"season-yávië",
-    "Enderi":"season-enderi",
-    "Quellë":"season-quellë",
-    "Hrívë":"season-hrívë",
-    "Coirë":"season-coirë",
-    "Mettarë":"season-mettarë"
-};
+        for (const elemento of calendario) {
 
-const symbol =
-seasonSymbols[periodo.nome] || "✦";
+            if (
+                restante <
+                elemento.durata
+            ) {
 
-heroSymbol.textContent = symbol;
+                periodo =
+                    elemento;
 
-heroSymbol.textContent = symbol;
+                giornoPeriodo =
+                    restante + 1;
 
-hero.style.setProperty(
-    "--season-symbol",
-    `"${symbol}"`
-);
+                break;
+            }
 
-document.documentElement.style.setProperty(
-    "--season-symbol",
-    `"${symbol}"`
-);
 
-Object.values(seasonClasses)
-.forEach(c => hero.classList.remove(c));
+            restante -=
+                elemento.durata;
+        }
 
-if(seasonClasses[periodo.nome]){
-    hero.classList.add(
-        seasonClasses[periodo.nome]
-    );
-}
 
-/* =========================================
-   COSTELLAZIONI
-========================================= */
+        /* =========================================================
+           SIMBOLO STAGIONALE
+           ========================================================= */
 
-const costellazioni=[
+        const hero =
+            document.querySelector(".hero");
 
-"Menelmacar",
-"Valacirca",
-"Wilwarin",
-"Remmirath",
-"Soronúmë",
-"Telumendil",
-"Anarríma",
-"Elenath"
 
-];
+        const heroSymbol =
+            document.getElementById(
+                "heroSymbol"
+            );
 
 
-const indiceCostellazione=
-Math.floor(giornoAnno/45)
-%costellazioni.length;
+        const seasonSymbols = {
 
+            "Yestarë": "✦",
+            "Tuilë": "❧",
+            "Lairë": "☼",
+            "Yávië": "❦",
+            "Enderi": "✧",
+            "Quellë": "❋",
+            "Hrívë": "❄",
+            "Coirë": "❧",
+            "Mettarë": "✺"
 
-const costellazione=
-costellazioni[
-indiceCostellazione
-];
+        };
 
 
-/* =========================================
-   DESCRIZIONI COSTELLAZIONI
-========================================= */
+        const symbol =
+            seasonSymbols[
+                periodo.nome
+            ] || "✦";
 
-const descrizioniCostellazioni={
 
-Menelmacar:
-"il Guerriero del Cielo",
+        heroSymbol.textContent =
+            symbol;
 
-Valacirca:
-"la Falce dei Valar",
 
-Wilwarin:
-"la Farfalla Stellata",
+        hero.style.setProperty(
+            "--season-symbol",
+            `"${symbol}"`
+        );
 
-Remmirath:
-"la Rete delle Stelle",
 
-Soronúmë:
-"l'Aquila Occidentale",
+        document.documentElement.style.setProperty(
+            "--season-symbol",
+            `"${symbol}"`
+        );
 
-Telumendil:
-"l'Amante della Volta Celeste",
 
-Anarríma:
-"ai Confini del Sole",
+        /* =========================================================
+           COSTELLAZIONI
+           ========================================================= */
 
-Elenath:
-"l'Ospite delle Stelle"
+        const costellazioni = [
 
-};
+            "Menelmacar",
+            "Valacirca",
+            "Wilwarin",
+            "Remmirath",
+            "Soronúmë",
+            "Telumendil",
+            "Anarríma",
+            "Elenath"
 
+        ];
 
-const descrizioneCostellazione=
-descrizioniCostellazioni[
-costellazione
-];
 
+        const costellazione =
+            costellazioni[
+                Math.floor(
+                    giornoAnno / 45
+                ) %
+                costellazioni.length
+            ];
 
-/* =========================================
-   NOME POETICO
-========================================= */
 
-let nomePoetico=
-"Tempo degli Eldar";
+        const descrizioniCostellazioni = {
 
+            Menelmacar:
+                "il Guerriero del Cielo",
 
-switch(periodo.nome){
+            Valacirca:
+                "la Falce dei Valar",
 
-case "Yestarë":
+            Wilwarin:
+                "la Farfalla Stellata",
 
-nomePoetico=
-"Il Rinnovarsi della Luce";
+            Remmirath:
+                "la Rete delle Stelle",
 
-break;
+            Soronúmë:
+                "l'Aquila Occidentale",
 
-case "Tuilë":
+            Telumendil:
+                "l'Amante della Volta Celeste",
 
-nomePoetico=
-"Tempo dei Primi Germogli";
+            Anarríma:
+                "ai Confini del Sole",
 
-break;
+            Elenath:
+                "l'Ospite delle Stelle"
 
-case "Lairë":
+        };
 
-nomePoetico=
-"Tempo della Piena Luce";
 
-break;
+        /* =========================================================
+           TESTO POETICO
+           ========================================================= */
 
-case "Yávië":
+        let nomePoetico =
+            "Tempo degli Eldar";
 
-nomePoetico=
-"Tempo della Raccolta";
 
-break;
+        switch (periodo.nome) {
 
-case "Enderi":
+            case "Yestarë":
 
-nomePoetico=
-"Giorni fuori dal Tempo";
+                nomePoetico =
+                    "Il Rinnovarsi della Luce";
 
-break;
+                break;
 
-case "Quellë":
 
-nomePoetico=
-"Tempo delle Foglie Cadenti";
+            case "Tuilë":
 
-break;
+                nomePoetico =
+                    "Tempo dei Primi Germogli";
 
-case "Hrívë":
+                break;
 
-nomePoetico=
-"Tempo del Gelo e delle Stelle";
 
-break;
+            case "Lairë":
 
-case "Coirë":
+                nomePoetico =
+                    "Tempo della Piena Luce";
 
-nomePoetico=
-"Tempo del Risveglio";
+                break;
 
-break;
 
-case "Mettarë":
+            case "Yávië":
 
-nomePoetico=
-"Il Compimento dell’Anno";
+                nomePoetico =
+                    "Tempo della Raccolta";
 
-break;
+                break;
 
-}
 
+            case "Enderi":
 
-/* =========================================
-   ALBERO SACRO
-========================================= */
+                nomePoetico =
+                    "Giorni fuori dal Tempo";
 
-const alberiSacri={
+                break;
 
-Yestarë:"🌳 Galathilion",
-Tuilë:"🌿 Mallorn",
-Lairë:"☀️ Laurelin",
-Yávië:"🍎 Galmadh",
-Enderi:"✨ I Due Alberi",
-Quellë:"🍂 Hirilorn",
-Hrívë:"🌙 Telperion",
-Coirë:"🌱 Nimloth",
-Mettarë:"🌳 Galathilion"
 
-};
+            case "Quellë":
 
+                nomePoetico =
+                    "Tempo delle Foglie Cadenti";
 
-const alberoSacro=
-alberiSacri[
-periodo.nome
-];
+                break;
 
 
-/* =========================================
-   PALETTE
-========================================= */
+            case "Hrívë":
 
-const palettes={
+                nomePoetico =
+                    "Tempo del Gelo e delle Stelle";
 
-yestare:{
+                break;
 
-dark:{
-bg1:"#171521",
-bg2:"#302845",
-primary:"#F5E7B2",
-secondary:"#C8BEDA",
-accent:"#E8C75A"
-},
 
-light:{
-bg1:"#F9F5E8",
-bg2:"#E8DDC1",
-primary:"#4A3A22",
-secondary:"#76684F",
-accent:"#C49A27"
-}
+            case "Coirë":
 
-},
+                nomePoetico =
+                    "Tempo del Risveglio";
 
-tuile:{
+                break;
 
-dark:{
-bg1:"#15251F",
-bg2:"#294437",
-primary:"#E5F0D8",
-secondary:"#B7CCB7",
-accent:"#78B86A"
-},
 
-light:{
-bg1:"#F2F7ED",
-bg2:"#DCEBD3",
-primary:"#31452E",
-secondary:"#65745F",
-accent:"#4F963F"
-}
+            case "Mettarë":
 
-},
+                nomePoetico =
+                    "Il Compimento dell’Anno";
 
-laire:{
+                break;
+        }
 
-dark:{
-bg1:"#172333",
-bg2:"#354C61",
-primary:"#F6E9B8",
-secondary:"#C5D1D9",
-accent:"#E2B84B"
-},
 
-light:{
-bg1:"#F7F5E9",
-bg2:"#E4E0C8",
-primary:"#493D25",
-secondary:"#716A58",
-accent:"#C99724"
-}
+        /* =========================================================
+           ALBERI SACRI
+           ========================================================= */
 
-},
+        const alberiSacri = {
 
-yavie:{
+            Yestarë: {
 
-dark:{
-bg1:"#291D18",
-bg2:"#51372A",
-primary:"#F1D8B5",
-secondary:"#CBB5A0",
-accent:"#D88743"
-},
+                simbolo: "✦",
 
-light:{
-bg1:"#F8F0E5",
-bg2:"#E8D3B9",
-primary:"#513723",
-secondary:"#786653",
-accent:"#B96F32"
-}
+                nome: "Galathilion",
 
-},
+                descrizione:
+                    "Albero della memoria e della luce",
 
-enderi:{
+                ornamento:
+                    "✦ · ✧ · ✦"
+            },
 
-dark:{
-bg1:"#211C2B",
-bg2:"#44384F",
-primary:"#F2E4C7",
-secondary:"#C8BFD0",
-accent:"#D7B86A"
-},
 
-light:{
-bg1:"#F6F1E7",
-bg2:"#E3D8C7",
-primary:"#493D32",
-secondary:"#746B60",
-accent:"#B28B38"
-}
+            Tuilë: {
 
-},
+                simbolo: "❧",
 
-quelle:{
+                nome: "Mallorn",
 
-dark:{
-bg1:"#251C19",
-bg2:"#493128",
-primary:"#EFD7C1",
-secondary:"#C8AEA0",
-accent:"#C56B43"
-},
+                descrizione:
+                    "Albero dorato della primavera",
 
-light:{
-bg1:"#F7EEE7",
-bg2:"#E6D0C1",
-primary:"#503629",
-secondary:"#766055",
-accent:"#A95532"
-}
+                ornamento:
+                    "❧ · ❧ · ❧"
+            },
 
-},
 
-hrive:{
+            Lairë: {
 
-dark:{
-bg1:"#141E2B",
-bg2:"#2B4055",
-primary:"#E3EDF4",
-secondary:"#B6C7D6",
-accent:"#8FC4E8"
-},
+                simbolo: "☼",
 
-light:{
-bg1:"#F0F5F8",
-bg2:"#D9E6ED",
-primary:"#30414D",
-secondary:"#657580",
-accent:"#5797BF"
-}
+                nome: "Laurelin",
 
-},
+                descrizione:
+                    "L'Albero d'Oro di Valinor",
 
-coire:{
+                ornamento:
+                    "☼ · ✦ · ☼"
+            },
 
-dark:{
-bg1:"#18251F",
-bg2:"#30483A",
-primary:"#E3EEDB",
-secondary:"#B9CBB8",
-accent:"#79A86A"
-},
 
-light:{
-bg1:"#F3F7EF",
-bg2:"#DDE9D5",
-primary:"#34472F",
-secondary:"#687661",
-accent:"#5A934D"
-}
+            Yávië: {
 
-},
+                simbolo: "❦",
 
-mettare:{
+                nome: "Galmadh",
 
-dark:{
-bg1:"#1D1827",
-bg2:"#392A48",
-primary:"#F2E2B7",
-secondary:"#C7BBD2",
-accent:"#D8B45A"
-},
+                descrizione:
+                    "Albero dei frutti della stagione della raccolta",
 
-light:{
-bg1:"#F8F3E8",
-bg2:"#E4D8C5",
-primary:"#4C3A25",
-secondary:"#74695A",
-accent:"#B48A2C"
-}
+                ornamento:
+                    "❦ · ❧ · ❦"
+            },
 
-}
 
-};
+            Enderi: {
 
+                simbolo: "✧",
 
-/* =========================================
-   APPLICAZIONE PALETTE
-========================================= */
+                nome: "I Due Alberi",
 
-const palette=
-palettes[
-periodo.stagione
-][
-dark?"dark":"light"
-];
+                descrizione:
+                    "Telperion e Laurelin, le antiche luci di Valinor",
 
+                ornamento:
+                    "✧ · ✦ · ✧"
+            },
 
-document.documentElement.style.setProperty(
-"--bg1",
-palette.bg1
-);
 
-document.documentElement.style.setProperty(
-"--bg2",
-palette.bg2
-);
+            Quellë: {
 
-document.documentElement.style.setProperty(
-"--primary",
-palette.primary
-);
+                simbolo: "❋",
 
-document.documentElement.style.setProperty(
-"--secondary",
-palette.secondary
-);
+                nome: "Hirilorn",
 
-document.documentElement.style.setProperty(
-"--accent",
-palette.accent
-);
+                descrizione:
+                    "Grande albero dalle molte fronde",
 
-document.body.style.background=`
-radial-gradient(
-    ellipse at 50% 110%,
-    color-mix(in srgb,${palette.accent} 13%,transparent),
-    transparent 48%
-),
-linear-gradient(
-    0deg,
-    ${palette.bg2} 0%,
-    ${palette.bg1} 72%,
-    ${palette.bg1} 100%
-)
-`;
+                ornamento:
+                    "❋ · ❦ · ❋"
+            },
 
-document.documentElement.style.setProperty(
-"--border",
-dark
-?"rgba(255,255,255,.12)"
-:"rgba(90,70,30,.18)"
-);
 
-document.documentElement.style.setProperty(
-"--card",
-dark
-?"rgba(255,255,255,.055)"
-:"rgba(255,255,255,.42)"
-);
+            Hrívë: {
 
+                simbolo: "❄",
 
-/* =========================================
-   BLOCCO PRINCIPALE
-========================================= */
+                nome: "Telperion",
 
-document.getElementById(
-"periodo"
-).textContent=
-periodo.simbolo+
-" "+
-periodo.nome+
-" "+
-periodo.simbolo;
+                descrizione:
+                    "L'Albero d'Argento di Valinor",
 
+                ornamento:
+                    "❄ · ✧ · ❄"
+            },
 
-document.getElementById(
-"giorno"
-).textContent=
-periodo.sindarin
-?
-periodo.sindarin+
-" · "+
-periodo.significato
-:
-periodo.significato;
 
+            Coirë: {
 
-document.getElementById(
-"poetico"
-).textContent=
-nomePoetico;
+                simbolo: "✿",
 
+                nome: "Nimloth",
 
-/* =========================================
-   BARRA DI AVANZAMENTO
-========================================= */
+                descrizione:
+                    "L'Albero Bianco della rinascita",
 
-const progressTrack=
-document.getElementById(
-"progressTrack"
-);
+                ornamento:
+                    "✿ · ❧ · ✿"
+            },
 
-const progressNumber=
-document.getElementById(
-"progressNumber"
-);
 
-const segmenti=
-40;
+            Mettarë: {
 
+                simbolo: "✺",
 
-let progresso=
-giornoPeriodo/
-periodo.durata;
+                nome: "Galathilion",
 
+                descrizione:
+                    "Albero della memoria al compimento del ciclo",
 
-progresso=
-Math.max(
-0,
-Math.min(
-1,
-progresso
-)
-);
+                ornamento:
+                    "✺ · ✧ · ✺"
+            }
 
+        };
 
-const posizione=
-Math.round(
-progresso*
-(segmenti-1)
-);
 
+        const alberoSacro =
+            alberiSacri[
+                periodo.nome
+            ];
 
-for(
-let i=0;
-i<segmenti;
-i++
-){
 
-const segmento=
-document.createElement(
-"span"
-);
+        /* =========================================================
+           PALETTE STAGIONALI
+           ========================================================= */
 
-segmento.className=
-"progress-segment";
+        const palettes = {
 
+            yestare: {
 
-if(
-i===posizione
-){
+                dark: {
+                    bg1: "#171521",
+                    bg2: "#302845",
+                    primary: "#F5E7B2",
+                    secondary: "#C8BEDA",
+                    accent: "#E8C75A"
+                },
 
-segmento.classList.add(
-"progress-current"
-);
+                light: {
+                    bg1: "#F9F5E8",
+                    bg2: "#E8DDC1",
+                    primary: "#4A3A22",
+                    secondary: "#76684F",
+                    accent: "#C49A27"
+                }
 
-segmento.textContent=
-"◆";
+            },
 
-}else{
 
-segmento.textContent=
-"━";
+            tuile: {
 
+                dark: {
+                    bg1: "#15251F",
+                    bg2: "#294437",
+                    primary: "#E5F0D8",
+                    secondary: "#B7CCB7",
+                    accent: "#78B86A"
+                },
 
-if(
-i<posizione
-){
+                light: {
+                    bg1: "#F2F7ED",
+                    bg2: "#DCEBD3",
+                    primary: "#31452E",
+                    secondary: "#65745F",
+                    accent: "#4F963F"
+                }
 
-segmento.classList.add(
-"progress-filled"
-);
+            },
 
-}else{
 
-segmento.classList.add(
-"progress-empty"
-);
+            laire: {
 
-}
+                dark: {
+                    bg1: "#172333",
+                    bg2: "#354C61",
+                    primary: "#F6E9B8",
+                    secondary: "#C5D1D9",
+                    accent: "#E2B84B"
+                },
 
-}
+                light: {
+                    bg1: "#F7F5E9",
+                    bg2: "#E4E0C8",
+                    primary: "#493D25",
+                    secondary: "#716A58",
+                    accent: "#C99724"
+                }
 
+            },
 
-progressTrack.appendChild(
-segmento
-);
 
-}
+            yavie: {
 
+                dark: {
+                    bg1: "#291D18",
+                    bg2: "#51372A",
+                    primary: "#F1D8B5",
+                    secondary: "#CBB5A0",
+                    accent: "#D88743"
+                },
 
-/* =========================================
-   GIORNO ATTUALE / TOTALE
-========================================= */
+                light: {
+                    bg1: "#F8F0E5",
+                    bg2: "#E8D3B9",
+                    primary: "#513723",
+                    secondary: "#786653",
+                    accent: "#B96F32"
+                }
 
-progressNumber.textContent=
-giornoPeriodo+
-"° giorno di "+
-periodo.durata;
+            },
 
 
-/* =========================================
-   INFORMAZIONI
-========================================= */
+            enderi: {
 
-document.getElementById(
-"giornoElfico"
-).textContent=
-nomeGiorno.nome;
+                dark: {
+                    bg1: "#211C2B",
+                    bg2: "#44384F",
+                    primary: "#F2E4C7",
+                    secondary: "#C8BFD0",
+                    accent: "#D7B86A"
+                },
 
-document.getElementById(
-"significatoGiorno"
-).textContent=
-nomeGiorno.significato;
+                light: {
+                    bg1: "#F6F1E7",
+                    bg2: "#E3D8C7",
+                    primary: "#493D32",
+                    secondary: "#746B60",
+                    accent: "#B28B38"
+                }
 
+            },
 
-document.getElementById(
-"loa"
-).textContent=
-"Loa "+
-annoElfico;
 
+            quelle: {
 
-const annoQuartaEra=
-annoGreg+
-4021;
+                dark: {
+                    bg1: "#251C19",
+                    bg2: "#493128",
+                    primary: "#EFD7C1",
+                    secondary: "#C8AEA0",
+                    accent: "#C56B43"
+                },
 
+                light: {
+                    bg1: "#F7EEE7",
+                    bg2: "#E6D0C1",
+                    primary: "#503629",
+                    secondary: "#766055",
+                    accent: "#A95532"
+                }
 
-document.getElementById(
-"quartaEra"
-).textContent=
-annoQuartaEra+
-" Q.E.";
+            },
 
-document.getElementById(
-"tipoEnderi"
-).textContent=
-enderi===6
-?"✧ Enderi raddoppiati · 6 giorni"
-:"✧ Enderi normali · 3 giorni";
 
+            hrive: {
 
-document.getElementById(
-"luna"
-).textContent=
-faseLunare.simbolo+
-" "+
-faseLunare.nome;
+                dark: {
+                    bg1: "#141E2B",
+                    bg2: "#2B4055",
+                    primary: "#E3EDF4",
+                    secondary: "#B6C7D6",
+                    accent: "#8FC4E8"
+                },
 
-document.getElementById(
-"lunaItaliano"
-).textContent=
-faseLunare.italiano;
+                light: {
+                    bg1: "#F0F5F8",
+                    bg2: "#D9E6ED",
+                    primary: "#30414D",
+                    secondary: "#657580",
+                    accent: "#5797BF"
+                }
 
+            },
 
-document.getElementById(
-"albero"
-).textContent=
-alberoSacro;
 
+            coire: {
 
-document.getElementById(
-"stella"
-).textContent=
-"⭐ "+
-nomeStella;
+                dark: {
+                    bg1: "#18251F",
+                    bg2: "#30483A",
+                    primary: "#E3EEDB",
+                    secondary: "#B9CBB8",
+                    accent: "#79A86A"
+                },
 
-document.getElementById(
-"descrizioneStella"
-).textContent=
-descrizioneStella;
+                light: {
+                    bg1: "#F3F7EF",
+                    bg2: "#DDE9D5",
+                    primary: "#34472F",
+                    secondary: "#687661",
+                    accent: "#5A934D"
+                }
 
+            },
 
-document.getElementById(
-"costellazione"
-).textContent=
-"✨ "+
-costellazione;
 
-document.getElementById(
-"descrizioneCostellazione"
-).textContent=
-descrizioneCostellazione;
+            mettare: {
 
+                dark: {
+                    bg1: "#1D1827",
+                    bg2: "#392A48",
+                    primary: "#F2E2B7",
+                    secondary: "#C7BBD2",
+                    accent: "#D8B45A"
+                },
 
-/* =========================================
-   CRONACA
-========================================= */
+                light: {
+                    bg1: "#F8F3E8",
+                    bg2: "#E4D8C5",
+                    primary: "#4C3A25",
+                    secondary: "#74695A",
+                    accent: "#B48A2C"
+                }
 
-const cronaca=`
+            }
 
-🍂 Oggi ricorre ${nomeGiorno.nome}, il ${giornoPeriodo}° giorno di ${periodo.nome}, ${periodo.sindarin?`chiamato ${periodo.sindarin} dagli Elfi Sindar, `:""}nella stagione conosciuta tra gli Uomini come ${periodo.significato}, in cui vengono registrati i moti del tempo e del cielo secondo l'antico computo degli Eldar.
+        };
 
-<br><br>
 
-📖 Questo è il tempo denominato ${nomePoetico}, quando le potenze della natura seguono il ciclo ordinato posto in principio dai Valar e custodito nella memoria degli Elfi.
+        /* =========================================================
+           APPLICA PALETTE
+           ========================================================= */
 
-<br><br>
+        const palette =
+            palettes[
+                periodo.stagione
+            ][
+                dark
+                    ? "dark"
+                    : "light"
+            ];
 
-${alberoSacro.split(" ")[0]} Sotto la protezione di ${alberoSacro.split(" ")[1]} si svolge questa stagione e il suo simbolo richiama le virtù proprie di questo periodo dell'anno.
 
-<br><br>
+        for (
+            const k of [
+                "bg1",
+                "bg2",
+                "primary",
+                "secondary",
+                "accent"
+            ]
+        ) {
 
-🌑 ${faseLunare.nome}, ${faseLunare.italiano}. Così appare Isil nei cieli di Arda, mentre il suo corso continua immutabile attraverso le ere del mondo.
+            document.documentElement.style.setProperty(
+                `--${k}`,
+                palette[k]
+            );
+        }
 
-<br><br>
 
-⭐ La luce di ${nomeStella}, ${descrizioneStella}, veglia su questo giorno, guidando lo sguardo di coloro che cercano nei cieli memoria, speranza e conoscenza.
+        document.body.style.background =
 
-<br><br>
+            `radial-gradient(
+                ellipse at 50% 110%,
+                color-mix(
+                    in srgb,
+                    ${palette.accent} 13%,
+                    transparent
+                ),
+                transparent 48%
+            ),
+            linear-gradient(
+                0deg,
+                ${palette.bg2} 0%,
+                ${palette.bg1} 72%,
+                ${palette.bg1} 100%
+            )`;
 
-✨ Nelle alte regioni del firmamento risplende ${costellazione}; ${descrizioneCostellazione}; la sua presenza è considerata di buon auspicio e ricorda agli osservatori la grande armonia delle stelle.
 
-<br><br>
+        document.documentElement.style.setProperty(
+            "--border",
+            dark
+                ? "rgba(255,255,255,.12)"
+                : "rgba(90,70,30,.18)"
+        );
 
-🌳 Questo giorno appartiene all'anno elfico ${annoElfico} e corrisponde all'anno ${annoQuartaEra} della Quarta Era secondo il computo del Reame Riunito.
 
-<br><br>
+        document.documentElement.style.setProperty(
+            "--card",
+            dark
+                ? "rgba(255,255,255,.055)"
+                : "rgba(255,255,255,.42)"
+        );
 
-Così viene annotato questo giorno negli annali degli Eldar, affinché il ricordo del cielo, delle stagioni e delle antiche luci non venga meno finché durerà il mondo.
 
-`;
+        /* =========================================================
+           HERO
+           ========================================================= */
 
+        document.getElementById(
+            "periodo"
+        ).textContent =
+            `${periodo.simbolo} ${periodo.nome} ${periodo.simbolo}`;
 
-document.getElementById(
-"testo"
-).innerHTML=
-cronaca;
 
+        document.getElementById(
+            "giorno"
+        ).textContent =
 
-document.getElementById(
-"citazione"
-).textContent=
-periodo.simbolo;
+            periodo.sindarin
+                ? `${periodo.sindarin} · ${periodo.significato}`
+                : periodo.significato;
 
 
-/* =========================================
-   FOOTER
-========================================= */
+        document.getElementById(
+            "poetico"
+        ).textContent =
+            nomePoetico;
 
-document.getElementById(
-"footer"
-).textContent=
-"Loa "+
-annoElfico+
-" · "+
-annoQuartaEra+
-" Q.E.";
 
+        /* =========================================================
+           PROGRESSO PERIODO
+           ========================================================= */
 
-document.title=
-"Cronaca del Giorno — "+
-periodo.nome;
+        const progressTrack =
+            document.getElementById(
+                "progressTrack"
+            );
 
 
-/* =========================================
-   AGGIORNAMENTO AUTOMATICO
-========================================= */
+        const progressNumber =
+            document.getElementById(
+                "progressNumber"
+            );
 
-const prossimoAggiornamento=
-new Date(data);
 
-prossimoAggiornamento.setHours(
-data.getHours()+1
-);
+        const segmenti = 40;
 
-prossimoAggiornamento.setMinutes(0);
 
-prossimoAggiornamento.setSeconds(0);
+        const posizione =
+            Math.round(
+                (
+                    giornoPeriodo /
+                    periodo.durata
+                ) *
+                (segmenti - 1)
+            );
 
-prossimoAggiornamento.setMilliseconds(0);
 
+        for (
+            let i = 0;
+            i < segmenti;
+            i++
+        ) {
 
-const tempo=
-prossimoAggiornamento.getTime()-
-data.getTime();
+            const s =
+                document.createElement(
+                    "span"
+                );
 
 
-setTimeout(
-()=>{
-location.reload();
-},
-tempo
-);
+            s.className =
+                "progress-segment";
 
 
-</script>
+            if (i === posizione) {
 
+                s.classList.add(
+                    "progress-current"
+                );
 
-<!-- =========================================
-     SERVICE WORKER
-========================================= -->
+                s.textContent =
+                    "◆";
 
-<script>
+            } else {
 
-if(
-"serviceWorker"
-in navigator
-){
+                s.textContent =
+                    "━";
 
-window.addEventListener(
-"load",
-()=>{
+                s.classList.add(
+                    i < posizione
+                        ? "progress-filled"
+                        : "progress-empty"
+                );
+            }
 
-navigator.serviceWorker.register(
-"./sw.js"
-);
 
-});
+            progressTrack.appendChild(s);
+        }
 
-}
 
-</script>
+        progressNumber.textContent =
+            `${giornoPeriodo}° giorno di ${periodo.durata}`;
 
 
-<!-- =========================================
-     LOADER 3 SECONDI
-========================================= -->
+        /* =========================================================
+           PROGRESSO ANNO ELFICO
+           ========================================================= */
 
-<script>
+        const durataAnno =
+            calendario.reduce(
+                (totale, x) =>
+                    totale + x.durata,
+                0
+            );
 
-window.addEventListener(
-"load",
-()=>{
 
-const loader=
-document.getElementById(
-"elven-loader"
-);
+        const giornoAnnoAttuale =
+            Math.min(
+                durataAnno,
+                giornoAnno + 1
+            );
 
 
-setTimeout(
-()=>{
+        const percentualeAnno =
+            Math.min(
+                100,
+                (
+                    giornoAnnoAttuale /
+                    durataAnno
+                ) * 100
+            );
 
-loader.classList.add(
-"hidden"
-);
 
+        document.getElementById(
+            "loa"
+        ).textContent =
+            `Loa ${annoElfico}`;
 
-setTimeout(
-()=>{
-loader.remove();
-},
-900
-);
 
-},
-3000
-);
+        const annoQuartaEra =
+            annoGreg + 4021;
 
-});
 
-</script>
+        document.getElementById(
+            "quartaEra"
+        ).textContent =
+            `${annoQuartaEra} Q.E.`;
 
+
+        document.getElementById(
+            "tipoEnderi"
+        ).textContent =
+
+            enderi === 6
+
+                ? "✧ Enderi raddoppiati · 6 giorni"
+
+                : "✧ Enderi normali · 3 giorni";
+
+
+        document.getElementById(
+            "loaProgressFill"
+        ).style.width =
+            `${percentualeAnno}%`;
+
+
+        document.getElementById(
+            "loaProgressText"
+        ).textContent =
+
+            `${percentualeAnno.toLocaleString(
+                "it-IT",
+                {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                }
+            )}% dell'anno`;
+
+
+        document.getElementById(
+            "loaDayText"
+        ).textContent =
+            `${giornoAnnoAttuale}° giorno · ${durataAnno}`;
+
+
+        /* =========================================================
+           CARDS
+           ========================================================= */
+
+        document.getElementById(
+            "giornoElfico"
+        ).textContent =
+            nomeGiorno.nome;
+
+
+        document.getElementById(
+            "significatoGiorno"
+        ).textContent =
+            nomeGiorno.significato;
+
+
+        document.getElementById(
+            "luna"
+        ).textContent =
+            `${faseLunare.simbolo} ${faseLunare.nome}`;
+
+
+        document.getElementById(
+            "lunaItaliano"
+        ).textContent =
+            faseLunare.italiano;
+
+
+        /* =========================================================
+           ALBERO SACRO
+           ========================================================= */
+
+        document.getElementById(
+            "alberoSimbolo"
+        ).textContent =
+            alberoSacro.simbolo;
+
+
+        document.getElementById(
+            "albero"
+        ).textContent =
+            alberoSacro.nome;
+
+
+        document.getElementById(
+            "alberoDescrizione"
+        ).textContent =
+            alberoSacro.descrizione;
+
+
+        document.getElementById(
+            "alberoOrnamento"
+        ).textContent =
+            alberoSacro.ornamento;
+
+
+        /* =========================================================
+           STELLA
+           ========================================================= */
+
+        document.getElementById(
+            "stella"
+        ).textContent =
+            `⭐ ${stellaDelGiorno.nome}`;
+
+
+        document.getElementById(
+            "descrizioneStella"
+        ).textContent =
+            stellaDelGiorno.descrizione;
+
+
+        /* =========================================================
+           COSTELLAZIONE
+           ========================================================= */
+
+        document.getElementById(
+            "costellazione"
+        ).textContent =
+            `✨ ${costellazione}`;
+
+
+        document.getElementById(
+            "descrizioneCostellazione"
+        ).textContent =
+            descrizioniCostellazioni[
+                costellazione
+            ];
+
+
+        /* =========================================================
+           CRONACA
+           ========================================================= */
+
+        const cronaca =
+
+            `🍂 Oggi ricorre ${nomeGiorno.nome},
+            il ${giornoPeriodo}° giorno di ${periodo.nome},
+            ${periodo.sindarin
+                ? `chiamato ${periodo.sindarin} dagli Elfi Sindar, `
+                : ""}
+            nella stagione conosciuta tra gli Uomini come
+            ${periodo.significato},
+            in cui vengono registrati i moti del tempo e del cielo
+            secondo l'antico computo degli Eldar.
+
+            <br><br>
+
+            📖 Questo è il tempo denominato
+            ${nomePoetico},
+            quando le potenze della natura seguono il ciclo ordinato
+            posto in principio dai Valar e custodito nella memoria degli Elfi.
+
+            <br><br>
+
+            ${alberoSacro.simbolo}
+            Sotto la protezione di
+            ${alberoSacro.nome}
+            si svolge questa stagione:
+            ${alberoSacro.descrizione}.
+
+            <br><br>
+
+            🌑 ${faseLunare.nome},
+            ${faseLunare.italiano}.
+            Così appare Isil nei cieli di Arda,
+            mentre il suo corso continua immutabile attraverso le ere del mondo.
+
+            <br><br>
+
+            ⭐ La luce di
+            ${stellaDelGiorno.nome},
+            ${stellaDelGiorno.descrizione},
+            veglia su questo giorno,
+            guidando lo sguardo di coloro che cercano nei cieli
+            memoria, speranza e conoscenza.
+
+            <br><br>
+
+            ✨ Nelle alte regioni del firmamento risplende
+            ${costellazione};
+            ${descrizioniCostellazioni[costellazione]};
+            la sua presenza ricorda agli osservatori
+            la grande armonia delle stelle.
+
+            <br><br>
+
+            🌳 Questo giorno appartiene all'anno elfico
+            ${annoElfico}
+            e corrisponde all'anno
+            ${annoQuartaEra}
+            della Quarta Era secondo il computo del Reame Riunito.
+
+            <br><br>
+
+            Così viene annotato questo giorno negli annali degli Eldar,
+            affinché il ricordo del cielo,
+            delle stagioni e delle antiche luci
+            non venga meno finché durerà il mondo.`;
+
+
+        document.getElementById(
+            "testo"
+        ).innerHTML =
+            cronaca;
+
+
+        document.getElementById(
+            "citazione"
+        ).textContent =
+            periodo.simbolo;
+
+
+        document.getElementById(
+            "footer"
+        ).textContent =
+            `Loa ${annoElfico} · ${annoQuartaEra} Q.E.`;
+
+
+        document.title =
+            `Cronaca del Giorno — ${periodo.nome}`;
+
+
+        /* =========================================================
+           AGGIORNAMENTO ALL'ORA SUCCESSIVA
+           ========================================================= */
+
+        const prossimoAggiornamento =
+            new Date(data);
+
+
+        prossimoAggiornamento.setHours(
+            data.getHours() + 1,
+            0,
+            0,
+            0
+        );
+
+
+        setTimeout(
+            () => location.reload(),
+            prossimoAggiornamento - data
+        );
+
+
+        /* =========================================================
+           SERVICE WORKER
+           ========================================================= */
+
+        if (
+            "serviceWorker" in navigator
+        ) {
+
+            window.addEventListener(
+                "load",
+                () => {
+
+                    navigator.serviceWorker.register(
+                        "./sw.js"
+                    );
+
+                }
+            );
+        }
+
+
+        /* =========================================================
+           LOADER — 3 SECONDI
+           ========================================================= */
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                const loader =
+                    document.getElementById(
+                        "elven-loader"
+                    );
+
+
+                setTimeout(
+                    () => {
+
+                        loader.classList.add(
+                            "hidden"
+                        );
+
+
+                        setTimeout(
+                            () => loader.remove(),
+                            900
+                        );
+
+                    },
+                    3000
+                );
+
+            }
+        );
+
+    </script>
 
 </body>
+
 </html>
