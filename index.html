@@ -1605,7 +1605,6 @@
 
         <div class="grid">
 
-
             <!-- GIORNO -->
 
             <div class="card">
@@ -1620,6 +1619,10 @@
 
                 <div id="significatoGiorno"
                      class="secondary">
+                </div>
+                
+                <div id="alberoOrnamento"
+                     class="tree-ornament">
                 </div>
 
             </div>
@@ -1689,38 +1692,25 @@
                 <div id="lunaItaliano"
                      class="secondary">
                 </div>
+                
+                <div id="alberoOrnamento"
+                     class="tree-ornament">
+                </div>
 
             </div>
 
 
             <!-- ALBERO SACRO -->
-
-            <div class="card sacred-tree-card">
-
-                <div class="label">
-                    Albero Sacro
-                </div>
-
-
-                <div class="tree-display">
-
-                    <div id="alberoSimbolo"
-                         class="tree-symbol">
+                <div class="card">
+                    <div class="label">
+                        Albero Sacro
                     </div>
-
-
-                    <div class="tree-info">
-
-                        <div id="albero"
-                             class="value">
-                        </div>
-
-                        <div id="alberoDescrizione"
-                             class="tree-description">
-                        </div>
-
+                    <div id="albero"
+                         class="value">
                     </div>
-
+                    <div id="alberoDescrizione"
+                         class="secondary">
+                    </div>
                 </div>
 
 
@@ -1746,6 +1736,10 @@
                 <div id="descrizioneStella"
                      class="secondary">
                 </div>
+                
+                <div id="alberoOrnamento"
+                     class="tree-ornament">
+                </div>
 
             </div>
 
@@ -1764,6 +1758,10 @@
 
                 <div id="descrizioneCostellazione"
                      class="secondary">
+                </div>
+                
+                <div id="alberoOrnamento"
+                     class="tree-ornament">
                 </div>
 
             </div>
@@ -3075,18 +3073,13 @@
            ALBERO SACRO
            ========================================================= */
 
-        document.getElementById(
-            "alberoSimbolo"
-        ).textContent =
-            alberoSacro.simbolo;
-
-
+        /* =========================================================
+   ALBERO SACRO
+   ========================================================= */
         document.getElementById(
             "albero"
         ).textContent =
-            alberoSacro.nome;
-
-
+            `${alberoSacro.simbolo} ${alberoSacro.nome}`;
         document.getElementById(
             "alberoDescrizione"
         ).textContent =
