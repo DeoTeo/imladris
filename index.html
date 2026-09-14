@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+Formatta la card dell’albero sacro come quella della stella o costellazione <!DOCTYPE html>
 <html lang="it">
 
 <head>
@@ -1427,10 +1427,6 @@
             <div class="header-symbol">
                 ✦
             </div>
-            
-            <div id="alberoOrnamento"
-                class="tree-ornament">
-            </div>
 
             <div class="header-title">
                 Cronaca del Giorno
@@ -1576,25 +1572,41 @@
                 <div id="lunaItaliano"
                      class="secondary">
                 </div>
-            
+
             </div>
 
             <!-- ALBERO SACRO -->
 
-            <div class="card">
+            <div class="card sacred-tree-card">
 
                 <div class="label">
                     Albero Sacro
                 </div>
 
-                <div id="alberoCompleto"
-                     class="value">
+                <div class="tree-display">
+
+                    <div id="alberoSimbolo"
+                         class="tree-symbol">
+                    </div>
+
+                    <div class="tree-info">
+
+                        <div id="albero"
+                             class="value">
+                        </div>
+
+                        <div id="alberoDescrizione"
+                             class="tree-description">
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <div id="alberoDescrizione"
-                     class="secondary">
+                <div id="alberoOrnamento"
+                     class="tree-ornament">
                 </div>
-            
+
             </div>
 
             <!-- STELLA -->
@@ -1612,7 +1624,7 @@
                 <div id="descrizioneStella"
                      class="secondary">
                 </div>
-                
+
             </div>
 
             <!-- COSTELLAZIONE -->
@@ -1630,7 +1642,7 @@
                 <div id="descrizioneCostellazione"
                      class="secondary">
                 </div>
-                
+
             </div>
 
         </div>
@@ -2849,11 +2861,6 @@
             "albero"
         ).textContent =
             alberoSacro.nome;
-            
-        document.getElementById(
-            "alberoCompleto"
-        ).textContent =
-            `${alberoSacro.simbolo} `${alberoSacro.nome}`;
 
         document.getElementById(
             "alberoDescrizione"
