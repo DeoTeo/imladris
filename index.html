@@ -3073,13 +3073,18 @@
            ALBERO SACRO
            ========================================================= */
 
-        /* =========================================================
-   ALBERO SACRO
-   ========================================================= */
+        document.getElementById(
+            "alberoSimbolo"
+        ).textContent =
+            alberoSacro.simbolo;
+
+
         document.getElementById(
             "albero"
         ).textContent =
-            `${alberoSacro.simbolo} ${alberoSacro.nome}`;
+            alberoSacro.nome;
+
+
         document.getElementById(
             "alberoDescrizione"
         ).textContent =
@@ -3090,6 +3095,7 @@
             "alberoOrnamento"
         ).textContent =
             alberoSacro.ornamento;
+
 
 
         /* =========================================================
