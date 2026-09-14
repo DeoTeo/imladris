@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+Formatta la card dell’albero sacro come quella della stella o costellazione <!DOCTYPE html>
 <html lang="it">
 
 <head>
@@ -28,7 +28,6 @@
 
     <title>Cronaca del Giorno negli Annali degli Eldar</title>
 
-
     <!-- =========================================================
          CSS
          ========================================================= -->
@@ -45,18 +44,15 @@
             --border: rgba(232,199,90,.18);
         }
 
-
         * {
             box-sizing: border-box;
         }
-
 
         html {
             margin: 0;
             min-height: 100%;
             background: var(--bg1);
         }
-
 
         body {
             margin: 0;
@@ -97,14 +93,12 @@
                 color .8s ease;
         }
 
-
         .page {
             width: 100%;
             max-width: 760px;
             margin: auto;
             padding: 42px 22px 70px;
         }
-
 
         /* =========================================================
            HEADER
@@ -114,7 +108,6 @@
             text-align: center;
             padding: 0 8px;
         }
-
 
         .header-symbol {
             font-size: 34px;
@@ -130,14 +123,12 @@
                 );
         }
 
-
         .header-title {
             font-size: 29px;
             line-height: 1.2;
             font-weight: 650;
             letter-spacing: -.5px;
         }
-
 
         .header-subtitle {
             margin-top: 11px;
@@ -146,7 +137,6 @@
             color: var(--secondary);
             letter-spacing: .2px;
         }
-
 
         .divider {
             margin: 27px 0;
@@ -164,7 +154,6 @@
                     transparent
                 );
         }
-
 
         /* =========================================================
            HERO
@@ -205,7 +194,6 @@
             isolation: isolate;
         }
 
-
         .hero::before {
             content: "";
 
@@ -225,17 +213,14 @@
             pointer-events: none;
         }
 
-
         .hero::after {
             display: none;
         }
-
 
         .hero > * {
             position: relative;
             z-index: 3;
         }
-
 
         .hero-decoration {
             margin-bottom: 12px;
@@ -254,7 +239,6 @@
                     transparent
                 );
         }
-
 
         .hero-decoration span {
             display: inline-block;
@@ -276,14 +260,12 @@
                 transform .8s ease;
         }
 
-
         .hero-period {
             font-size: 30px;
             letter-spacing: .1px;
             font-weight: 650;
             line-height: 1.2;
         }
-
 
         .hero-day {
             margin-top: 8px;
@@ -293,7 +275,6 @@
 
             color: var(--secondary);
         }
-
 
         .hero-poetic {
             margin-top: 12px;
@@ -313,7 +294,6 @@
                 );
         }
 
-
         .hero-bottom-decoration {
             margin-top: 17px;
 
@@ -332,7 +312,6 @@
                 );
         }
 
-
         /* =========================================================
            PROGRESSO PERIODO
            ========================================================= */
@@ -344,7 +323,6 @@
             width: 100%;
             max-width: 360px;
         }
-
 
         .progress-track {
             display: flex;
@@ -359,7 +337,6 @@
             opacity: .9;
         }
 
-
         .progress-segment {
             font-size: 6px;
             line-height: 1;
@@ -371,18 +348,15 @@
             text-align: center;
         }
 
-
         .progress-filled {
             color: var(--accent);
             opacity: .9;
         }
 
-
         .progress-empty {
             color: var(--secondary);
             opacity: .25;
         }
-
 
         .progress-current {
             color: var(--accent);
@@ -398,7 +372,6 @@
                 );
         }
 
-
         .progress-number {
             margin-top: 11px;
 
@@ -412,7 +385,6 @@
 
             font-style: italic;
         }
-
 
         /* =========================================================
            GRID / CARD
@@ -428,7 +400,6 @@
 
             margin-top: 14px;
         }
-
 
         .card {
             position: relative;
@@ -462,7 +433,6 @@
                 border-color .5s ease;
         }
 
-
         .card::before {
             content: var(--season-symbol);
 
@@ -488,7 +458,6 @@
             pointer-events: none;
         }
 
-
         .card::after {
             content: var(--season-symbol);
 
@@ -506,11 +475,9 @@
             pointer-events: none;
         }
 
-
         .card:active {
             transform: scale(.985);
         }
-
 
         .label {
             font-size: 10px;
@@ -523,13 +490,11 @@
             margin-bottom: 8px;
         }
 
-
         .value {
             font-size: 16px;
             font-weight: 600;
             line-height: 1.4;
         }
-
 
         .secondary {
             margin-top: 5px;
@@ -540,11 +505,9 @@
             color: var(--secondary);
         }
 
-
         #quartaEra {
             margin-top: 3px;
         }
-
 
         #tipoEnderi {
             margin-top: 6px;
@@ -558,7 +521,6 @@
             opacity: .78;
         }
 
-
         /* =========================================================
            PROGRESSO ANNO ELFICO
            ========================================================= */
@@ -566,7 +528,6 @@
         .loa-progress {
             margin-top: 10px;
         }
-
 
         .loa-progress-track {
             height: 4px;
@@ -583,7 +544,6 @@
                     transparent
                 );
         }
-
 
         .loa-progress-fill {
             height: 100%;
@@ -605,7 +565,6 @@
                 width 1s ease;
         }
 
-
         .loa-progress-info {
             display: flex;
             justify-content: space-between;
@@ -621,11 +580,9 @@
             font-style: italic;
         }
 
-
         .loa-progress-info span:last-child {
             text-align: right;
         }
-
 
         /* =========================================================
            ALBERO SACRO
@@ -634,7 +591,6 @@
         .sacred-tree-card {
             min-height: 142px;
         }
-
 
         .tree-display {
             display: flex;
@@ -645,7 +601,6 @@
 
             margin-top: 2px;
         }
-
 
         .tree-symbol {
             width: 40px;
@@ -673,16 +628,13 @@
                 );
         }
 
-
         .tree-info {
             min-width: 0;
         }
 
-
         .tree-info .value {
             font-size: 16px;
         }
-
 
         .tree-description {
             margin-top: 4px;
@@ -692,7 +644,6 @@
 
             color: var(--secondary);
         }
-
 
         .tree-ornament {
             margin-top: 11px;
@@ -706,7 +657,6 @@
 
             opacity: .55;
         }
-
 
         /* =========================================================
            CRONACA
@@ -741,7 +691,6 @@
                 0 9px 30px rgba(0,0,0,.08);
         }
 
-
         .chronicle::before {
             content: "";
 
@@ -762,7 +711,6 @@
             pointer-events: none;
         }
 
-
         .chronicle-title {
             position: relative;
             z-index: 2;
@@ -778,7 +726,6 @@
 
             margin-bottom: 19px;
         }
-
 
         .chronicle p {
             position: relative;
@@ -797,7 +744,6 @@
             -webkit-hyphens: auto;
         }
 
-
         .chronicle p::first-letter {
             color: var(--accent);
 
@@ -811,7 +757,6 @@
             margin:
                 5px 7px 0 0;
         }
-
 
         .quote {
             position: relative;
@@ -838,7 +783,6 @@
             color: var(--primary);
         }
 
-
         /* =========================================================
            RISORSE
            ========================================================= */
@@ -853,7 +797,6 @@
 
             gap: 11px;
         }
-
 
         .resource {
             position: relative;
@@ -891,7 +834,6 @@
             text-decoration: none;
         }
 
-
         .resource::after {
             content: "✦";
 
@@ -906,16 +848,13 @@
             opacity: .3;
         }
 
-
         .resource:active {
             transform: scale(.97);
         }
 
-
         .resource-content {
             text-align: center;
         }
-
 
         .resource-icon {
             font-size: 24px;
@@ -933,14 +872,12 @@
                 );
         }
 
-
         .resource-title {
             font-size: 12px;
             font-weight: 600;
 
             line-height: 1.3;
         }
-
 
         .resource-subtitle {
             margin-top: 3px;
@@ -950,7 +887,6 @@
             color: var(--secondary);
             opacity: .75;
         }
-
 
         /* =========================================================
            FOOTER
@@ -973,7 +909,6 @@
             letter-spacing: .4px;
         }
 
-
         .footer::before {
             content: "✦  ·  ✧  ·  ✦";
 
@@ -990,7 +925,6 @@
             color: var(--accent);
             opacity: .55;
         }
-
 
         /* =========================================================
            LOADER
@@ -1024,13 +958,11 @@
                 visibility .8s ease;
         }
 
-
         #elven-loader.hidden {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
         }
-
 
         .loader-content {
             position: relative;
@@ -1045,7 +977,6 @@
 
             text-align: center;
         }
-
 
         .elven-orbit {
             position: absolute;
@@ -1064,7 +995,6 @@
                 orbitRotate 12s linear infinite;
         }
 
-
         .elven-orbit::before,
         .elven-orbit::after {
             content: "✦";
@@ -1080,7 +1010,6 @@
                 rgba(232,199,90,.75);
         }
 
-
         .elven-orbit::before {
             top: -8px;
             left: 50%;
@@ -1089,7 +1018,6 @@
                 translateX(-50%);
         }
 
-
         .elven-orbit::after {
             bottom: -8px;
             left: 50%;
@@ -1097,7 +1025,6 @@
             transform:
                 translateX(-50%);
         }
-
 
         .elven-symbol {
             position: relative;
@@ -1127,7 +1054,6 @@
                 forwards;
         }
 
-
         .elven-symbol::before {
             content: "✧";
 
@@ -1148,7 +1074,6 @@
                 infinite alternate;
         }
 
-
         .elven-symbol::after {
             content: "☾";
 
@@ -1168,7 +1093,6 @@
                 .4s
                 forwards;
         }
-
 
         .elven-star {
             position: absolute;
@@ -1191,7 +1115,6 @@
                 linear
                 infinite;
         }
-
 
         .loader-title {
             position: absolute;
@@ -1218,7 +1141,6 @@
 
             margin-top: 25px;
         }
-
 
         .loader-subtitle {
             position: absolute;
@@ -1247,7 +1169,6 @@
             margin-top: 50px;
         }
 
-
         /* =========================================================
            ANIMAZIONI
            ========================================================= */
@@ -1265,7 +1186,6 @@
             }
         }
 
-
         @keyframes orbitRotate {
 
             from {
@@ -1276,7 +1196,6 @@
                 rotate: 360deg;
             }
         }
-
 
         @keyframes symbolAppear {
 
@@ -1302,7 +1221,6 @@
             }
         }
 
-
         @keyframes symbolGlow {
 
             from {
@@ -1321,7 +1239,6 @@
                     scale(1);
             }
         }
-
 
         @keyframes moonAppear {
 
@@ -1342,7 +1259,6 @@
             }
         }
 
-
         @keyframes starOrbit {
 
             from {
@@ -1360,7 +1276,6 @@
             }
         }
 
-
         @keyframes textAppear {
 
             from {
@@ -1375,7 +1290,6 @@
                     translateY(0);
             }
         }
-
 
         /* =========================================================
            ACCESSIBILITÀ / MOBILE
@@ -1395,7 +1309,6 @@
             }
         }
 
-
         @media (max-width: 520px) {
 
             .page {
@@ -1405,16 +1318,13 @@
                     52px;
             }
 
-
             .header-title {
                 font-size: 24px;
             }
 
-
             .header-subtitle {
                 font-size: 13px;
             }
-
 
             .hero {
                 padding:
@@ -1423,32 +1333,26 @@
                     23px;
             }
 
-
             .hero-period {
                 font-size: 27px;
             }
-
 
             .hero-decoration span {
                 font-size: 27px;
             }
 
-
             .card {
                 padding: 15px;
             }
-
 
             .resources {
                 grid-template-columns: 1fr;
                 gap: 10px;
             }
 
-
             .resource {
                 min-height: 72px;
             }
-
 
             .resource-content {
                 display: flex;
@@ -1460,17 +1364,14 @@
                 text-align: left;
             }
 
-
             .resource-icon {
                 font-size: 22px;
                 margin-bottom: 0;
             }
 
-
             .loa-progress-info {
                 font-size: 9px;
             }
-
 
             .tree-symbol {
                 width: 36px;
@@ -1483,9 +1384,7 @@
 
 </head>
 
-
 <body>
-
 
     <!-- =========================================================
          LOADER
@@ -1515,13 +1414,11 @@
 
     </div>
 
-
     <!-- =========================================================
          PAGINA
          ========================================================= -->
 
     <div class="page">
-
 
         <!-- HEADER -->
 
@@ -1541,11 +1438,9 @@
 
         </header>
 
-
         <div class="divider">
             ✦ ─────── ✧ ─────── ✦
         </div>
-
 
         <!-- =====================================================
              HERO
@@ -1562,21 +1457,17 @@
 
             </div>
 
-
             <div id="periodo"
                  class="hero-period">
             </div>
-
 
             <div id="giorno"
                  class="hero-day">
             </div>
 
-
             <div id="poetico"
                  class="hero-poetic">
             </div>
-
 
             <div class="period-progress">
 
@@ -1586,18 +1477,15 @@
 
             </div>
 
-
             <div id="progressNumber"
                  class="progress-number">
             </div>
-
 
             <div class="hero-bottom-decoration">
                 ✧ · · · ✦ · · · ✧
             </div>
 
         </section>
-
 
         <!-- =====================================================
              CARDS
@@ -1620,13 +1508,8 @@
                 <div id="significatoGiorno"
                      class="secondary">
                 </div>
-                
-                <div id="alberoOrnamento"
-                     class="tree-ornament">
-                </div>
 
             </div>
-
 
             <!-- COMPUTO DEL LOA -->
 
@@ -1648,7 +1531,6 @@
                      class="secondary">
                 </div>
 
-
                 <!-- PROGRESSO ANNO -->
 
                 <div class="loa-progress">
@@ -1660,7 +1542,6 @@
                         </div>
 
                     </div>
-
 
                     <div class="loa-progress-info">
 
@@ -1675,7 +1556,6 @@
                 </div>
 
             </div>
-
 
             <!-- LUNA -->
 
@@ -1692,34 +1572,42 @@
                 <div id="lunaItaliano"
                      class="secondary">
                 </div>
-                
-                <div id="alberoOrnamento"
-                     class="tree-ornament">
-                </div>
 
             </div>
-
 
             <!-- ALBERO SACRO -->
-                <div class="card">
-                    <div class="label">
-                        Albero Sacro
-                    </div>
-                    <div id="albero"
-                         class="value">
-                    </div>
-                    <div id="alberoDescrizione"
-                         class="secondary">
-                    </div>
+
+            <div class="card sacred-tree-card">
+
+                <div class="label">
+                    Albero Sacro
                 </div>
 
+                <div class="tree-display">
+
+                    <div id="alberoSimbolo"
+                         class="tree-symbol">
+                    </div>
+
+                    <div class="tree-info">
+
+                        <div id="albero"
+                             class="value">
+                        </div>
+
+                        <div id="alberoDescrizione"
+                             class="tree-description">
+                        </div>
+
+                    </div>
+
+                </div>
 
                 <div id="alberoOrnamento"
                      class="tree-ornament">
                 </div>
 
             </div>
-
 
             <!-- STELLA -->
 
@@ -1736,13 +1624,8 @@
                 <div id="descrizioneStella"
                      class="secondary">
                 </div>
-                
-                <div id="alberoOrnamento"
-                     class="tree-ornament">
-                </div>
 
             </div>
-
 
             <!-- COSTELLAZIONE -->
 
@@ -1759,15 +1642,10 @@
                 <div id="descrizioneCostellazione"
                      class="secondary">
                 </div>
-                
-                <div id="alberoOrnamento"
-                     class="tree-ornament">
-                </div>
 
             </div>
 
         </div>
-
 
         <!-- =====================================================
              CRONACA
@@ -1788,18 +1666,15 @@
 
         </section>
 
-
         <div class="divider">
             ✦ ─────── ✧ ─────── ✦
         </div>
-
 
         <!-- =====================================================
              RISORSE
              ===================================================== -->
 
         <div class="resources">
-
 
             <a class="resource"
                href="https://lotrtree.com"
@@ -1827,7 +1702,6 @@
                 </div>
 
             </a>
-
 
             <a class="resource"
                href="https://www.istaroquettar.it/p/mappe-della-terra-di-mezzo.html?m=1"
@@ -1858,16 +1732,13 @@
 
         </div>
 
-
         <!-- FOOTER -->
 
         <div class="footer"
              id="footer">
         </div>
 
-
     </div>
-
 
     <!-- =========================================================
          JAVASCRIPT
@@ -1887,7 +1758,6 @@
             ora >= 22 ||
             ora < 7;
 
-
         /* =========================================================
            LUNA
            ========================================================= */
@@ -1899,18 +1769,15 @@
                     "2000-01-06T18:14:00Z"
                 );
 
-
             const giorni =
                 (data - riferimento) /
                 86400000;
-
 
             const eta =
                 (
                     (giorni % 29.530588) +
                     29.530588
                 ) % 29.530588;
-
 
             const fasi = [
 
@@ -1972,7 +1839,6 @@
 
             ];
 
-
             return (
                 fasi.find(
                     fase => eta < fase.max
@@ -1980,10 +1846,8 @@
             );
         }
 
-
         const faseLunare =
             getFaseLunareElfica();
-
 
         /* =========================================================
            GIORNI ELDAR
@@ -2023,14 +1887,12 @@
 
         ];
 
-
         /* =========================================================
            ANNO ELFICO
            ========================================================= */
 
         const annoGreg =
             data.getFullYear();
-
 
         let yestare =
             new Date(
@@ -2039,12 +1901,10 @@
                 21
             );
 
-
         let annoElfico =
             data >= yestare
                 ? annoGreg
                 : annoGreg - 1;
-
 
         if (data < yestare) {
 
@@ -2056,13 +1916,11 @@
                 );
         }
 
-
         /* =========================================================
            ENDERI
            ========================================================= */
 
         let enderi = 3;
-
 
         if (
             annoElfico % 12 === 0 &&
@@ -2071,7 +1929,6 @@
 
             enderi = 6;
         }
-
 
         /* =========================================================
            GIORNO DELL'ANNO
@@ -2083,12 +1940,10 @@
                 86400000
             );
 
-
         const nomeGiorno =
             giorniElfici[
                 ((giornoAnno % 6) + 6) % 6
             ];
-
 
         /* =========================================================
            STELLA DEL GIORNO
@@ -2131,12 +1986,10 @@
 
         };
 
-
         const stellaDelGiorno =
             stelleDelGiorno[
                 nomeGiorno.nome
             ];
-
 
         /* =========================================================
            CALENDARIO ELFICO
@@ -2232,7 +2085,6 @@
 
         ];
 
-
         /* =========================================================
            DETERMINAZIONE PERIODO
            ========================================================= */
@@ -2243,7 +2095,6 @@
         let periodo = null;
 
         let giornoPeriodo = 1;
-
 
         for (const elemento of calendario) {
 
@@ -2261,11 +2112,9 @@
                 break;
             }
 
-
             restante -=
                 elemento.durata;
         }
-
 
         /* =========================================================
            SIMBOLO STAGIONALE
@@ -2274,12 +2123,10 @@
         const hero =
             document.querySelector(".hero");
 
-
         const heroSymbol =
             document.getElementById(
                 "heroSymbol"
             );
-
 
         const seasonSymbols = {
 
@@ -2295,28 +2142,23 @@
 
         };
 
-
         const symbol =
             seasonSymbols[
                 periodo.nome
             ] || "✦";
 
-
         heroSymbol.textContent =
             symbol;
-
 
         hero.style.setProperty(
             "--season-symbol",
             `"${symbol}"`
         );
 
-
         document.documentElement.style.setProperty(
             "--season-symbol",
             `"${symbol}"`
         );
-
 
         /* =========================================================
            COSTELLAZIONI
@@ -2335,7 +2177,6 @@
 
         ];
 
-
         const costellazione =
             costellazioni[
                 Math.floor(
@@ -2343,7 +2184,6 @@
                 ) %
                 costellazioni.length
             ];
-
 
         const descrizioniCostellazioni = {
 
@@ -2373,14 +2213,12 @@
 
         };
 
-
         /* =========================================================
            TESTO POETICO
            ========================================================= */
 
         let nomePoetico =
             "Tempo degli Eldar";
-
 
         switch (periodo.nome) {
 
@@ -2391,14 +2229,12 @@
 
                 break;
 
-
             case "Tuilë":
 
                 nomePoetico =
                     "Tempo dei Primi Germogli";
 
                 break;
-
 
             case "Lairë":
 
@@ -2407,14 +2243,12 @@
 
                 break;
 
-
             case "Yávië":
 
                 nomePoetico =
                     "Tempo della Raccolta";
 
                 break;
-
 
             case "Enderi":
 
@@ -2423,14 +2257,12 @@
 
                 break;
 
-
             case "Quellë":
 
                 nomePoetico =
                     "Tempo delle Foglie Cadenti";
 
                 break;
-
 
             case "Hrívë":
 
@@ -2439,14 +2271,12 @@
 
                 break;
 
-
             case "Coirë":
 
                 nomePoetico =
                     "Tempo del Risveglio";
 
                 break;
-
 
             case "Mettarë":
 
@@ -2455,7 +2285,6 @@
 
                 break;
         }
-
 
         /* =========================================================
            ALBERI SACRI
@@ -2476,7 +2305,6 @@
                     "✦ · ✧ · ✦"
             },
 
-
             Tuilë: {
 
                 simbolo: "🌿",
@@ -2489,7 +2317,6 @@
                 ornamento:
                     "❧ · ❧ · ❧"
             },
-
 
             Lairë: {
 
@@ -2504,7 +2331,6 @@
                     "☼ · ✦ · ☼"
             },
 
-
             Yávië: {
 
                 simbolo: "🍎",
@@ -2517,7 +2343,6 @@
                 ornamento:
                     "❦ · ❧ · ❦"
             },
-
 
             Enderi: {
 
@@ -2532,7 +2357,6 @@
                     "✧ · ✦ · ✧"
             },
 
-
             Quellë: {
 
                 simbolo: "🍂",
@@ -2545,7 +2369,6 @@
                 ornamento:
                     "❋ · ❦ · ❋"
             },
-
 
             Hrívë: {
 
@@ -2560,7 +2383,6 @@
                     "❄ · ✧ · ❄"
             },
 
-
             Coirë: {
 
                 simbolo: "🌱",
@@ -2573,7 +2395,6 @@
                 ornamento:
                     "✿ · ❧ · ✿"
             },
-
 
             Mettarë: {
 
@@ -2590,12 +2411,10 @@
 
         };
 
-
         const alberoSacro =
             alberiSacri[
                 periodo.nome
             ];
-
 
         /* =========================================================
            PALETTE STAGIONALI
@@ -2623,7 +2442,6 @@
 
             },
 
-
             tuile: {
 
                 dark: {
@@ -2643,7 +2461,6 @@
                 }
 
             },
-
 
             laire: {
 
@@ -2665,7 +2482,6 @@
 
             },
 
-
             yavie: {
 
                 dark: {
@@ -2685,7 +2501,6 @@
                 }
 
             },
-
 
             enderi: {
 
@@ -2707,7 +2522,6 @@
 
             },
 
-
             quelle: {
 
                 dark: {
@@ -2727,7 +2541,6 @@
                 }
 
             },
-
 
             hrive: {
 
@@ -2749,7 +2562,6 @@
 
             },
 
-
             coire: {
 
                 dark: {
@@ -2769,7 +2581,6 @@
                 }
 
             },
-
 
             mettare: {
 
@@ -2793,7 +2604,6 @@
 
         };
 
-
         /* =========================================================
            APPLICA PALETTE
            ========================================================= */
@@ -2806,7 +2616,6 @@
                     ? "dark"
                     : "light"
             ];
-
 
         for (
             const k of [
@@ -2823,7 +2632,6 @@
                 palette[k]
             );
         }
-
 
         document.body.style.background =
 
@@ -2843,7 +2651,6 @@
                 ${palette.bg1} 100%
             )`;
 
-
         document.documentElement.style.setProperty(
             "--border",
             dark
@@ -2851,14 +2658,12 @@
                 : "rgba(90,70,30,.18)"
         );
 
-
         document.documentElement.style.setProperty(
             "--card",
             dark
                 ? "rgba(255,255,255,.055)"
                 : "rgba(255,255,255,.42)"
         );
-
 
         /* =========================================================
            HERO
@@ -2869,7 +2674,6 @@
         ).textContent =
             `${periodo.simbolo} ${periodo.nome} ${periodo.simbolo}`;
 
-
         document.getElementById(
             "giorno"
         ).textContent =
@@ -2878,12 +2682,10 @@
                 ? `${periodo.sindarin} · ${periodo.significato}`
                 : periodo.significato;
 
-
         document.getElementById(
             "poetico"
         ).textContent =
             nomePoetico;
-
 
         /* =========================================================
            PROGRESSO PERIODO
@@ -2894,15 +2696,12 @@
                 "progressTrack"
             );
 
-
         const progressNumber =
             document.getElementById(
                 "progressNumber"
             );
 
-
         const segmenti = 40;
-
 
         const posizione =
             Math.round(
@@ -2912,7 +2711,6 @@
                 ) *
                 (segmenti - 1)
             );
-
 
         for (
             let i = 0;
@@ -2925,10 +2723,8 @@
                     "span"
                 );
 
-
             s.className =
                 "progress-segment";
-
 
             if (i === posizione) {
 
@@ -2951,14 +2747,11 @@
                 );
             }
 
-
             progressTrack.appendChild(s);
         }
 
-
         progressNumber.textContent =
             `${giornoPeriodo}° giorno di ${periodo.durata}`;
-
 
         /* =========================================================
            PROGRESSO ANNO ELFICO
@@ -2971,13 +2764,11 @@
                 0
             );
 
-
         const giornoAnnoAttuale =
             Math.min(
                 durataAnno,
                 giornoAnno + 1
             );
-
 
         const percentualeAnno =
             Math.min(
@@ -2988,22 +2779,18 @@
                 ) * 100
             );
 
-
         document.getElementById(
             "loa"
         ).textContent =
             `Loa ${annoElfico}`;
 
-
         const annoQuartaEra =
             annoGreg + 4021;
-
 
         document.getElementById(
             "quartaEra"
         ).textContent =
             `${annoQuartaEra} Q.E.`;
-
 
         document.getElementById(
             "tipoEnderi"
@@ -3015,12 +2802,10 @@
 
                 : "✧ Enderi normali · 3 giorni";
 
-
         document.getElementById(
             "loaProgressFill"
         ).style.width =
             `${percentualeAnno}%`;
-
 
         document.getElementById(
             "loaProgressText"
@@ -3034,12 +2819,10 @@
                 }
             )}% dell'anno`;
 
-
         document.getElementById(
             "loaDayText"
         ).textContent =
             `${giornoAnnoAttuale}° giorno · ${durataAnno}`;
-
 
         /* =========================================================
            CARDS
@@ -3050,24 +2833,20 @@
         ).textContent =
             nomeGiorno.nome;
 
-
         document.getElementById(
             "significatoGiorno"
         ).textContent =
             nomeGiorno.significato;
-
 
         document.getElementById(
             "luna"
         ).textContent =
             `${faseLunare.simbolo} ${faseLunare.nome}`;
 
-
         document.getElementById(
             "lunaItaliano"
         ).textContent =
             faseLunare.italiano;
-
 
         /* =========================================================
            ALBERO SACRO
@@ -3078,25 +2857,20 @@
         ).textContent =
             alberoSacro.simbolo;
 
-
         document.getElementById(
             "albero"
         ).textContent =
             alberoSacro.nome;
-
 
         document.getElementById(
             "alberoDescrizione"
         ).textContent =
             alberoSacro.descrizione;
 
-
         document.getElementById(
             "alberoOrnamento"
         ).textContent =
             alberoSacro.ornamento;
-
-
 
         /* =========================================================
            STELLA
@@ -3107,12 +2881,10 @@
         ).textContent =
             `⭐ ${stellaDelGiorno.nome}`;
 
-
         document.getElementById(
             "descrizioneStella"
         ).textContent =
             stellaDelGiorno.descrizione;
-
 
         /* =========================================================
            COSTELLAZIONE
@@ -3123,14 +2895,12 @@
         ).textContent =
             `✨ ${costellazione}`;
 
-
         document.getElementById(
             "descrizioneCostellazione"
         ).textContent =
             descrizioniCostellazioni[
                 costellazione
             ];
-
 
         /* =========================================================
            CRONACA
@@ -3200,28 +2970,23 @@
             delle stagioni e delle antiche luci
             non venga meno finché durerà il mondo.`;
 
-
         document.getElementById(
             "testo"
         ).innerHTML =
             cronaca;
-
 
         document.getElementById(
             "citazione"
         ).textContent =
             periodo.simbolo;
 
-
         document.getElementById(
             "footer"
         ).textContent =
             `Loa ${annoElfico} · ${annoQuartaEra} Q.E.`;
 
-
         document.title =
             `Cronaca del Giorno — ${periodo.nome}`;
-
 
         /* =========================================================
            AGGIORNAMENTO ALL'ORA SUCCESSIVA
@@ -3230,7 +2995,6 @@
         const prossimoAggiornamento =
             new Date(data);
 
-
         prossimoAggiornamento.setHours(
             data.getHours() + 1,
             0,
@@ -3238,12 +3002,10 @@
             0
         );
 
-
         setTimeout(
             () => location.reload(),
             prossimoAggiornamento - data
         );
-
 
         /* =========================================================
            SERVICE WORKER
@@ -3265,7 +3027,6 @@
             );
         }
 
-
         /* =========================================================
            LOADER — 3 SECONDI
            ========================================================= */
@@ -3279,14 +3040,12 @@
                         "elven-loader"
                     );
 
-
                 setTimeout(
                     () => {
 
                         loader.classList.add(
                             "hidden"
                         );
-
 
                         setTimeout(
                             () => loader.remove(),
