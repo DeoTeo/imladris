@@ -1346,7 +1346,49 @@
             }
             
             .loa-card {
-                grid-column: span 2;
+                grid-column:span 2;
+                display:grid;
+                grid-template-columns:1.2fr 1fr 1fr;
+                grid-template-rows:auto auto auto;
+                column-gap:20px;
+                row-gap:10px;
+                align-items:center;
+                min-height:150px;
+            }
+            
+            .loa-card .label {
+                grid-column:1;
+                grid-row:1;
+                margin:0;
+            }
+            
+            .loa-card #loa {
+                grid-column:1;
+                grid-row:2;
+                font-size:30px;
+                font-weight:600;
+                line-height:1;
+            }
+            
+            .loa-card #quartaEra {
+                grid-column:2;
+                grid-row:1 / span 2;
+                text-align:center;
+                padding:0 8px;
+            }
+            
+            .loa-card #tipoEnderi {
+                grid-column:3;
+                grid-row:1 / span 2;
+                text-align:center;
+                padding:0 8px;
+            }
+            
+            .loa-card .loa-progress {
+                grid-column:1 / -1;
+                grid-row:3;
+                width:100%;
+                margin-top:4px;
             }
 
             .resources {
