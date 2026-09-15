@@ -1344,7 +1344,7 @@
                 display: grid;
                 grid-template-columns: 1fr 0.8fr 1.8fr;
                 column-gap: 14px;
-                row-gap: 0px;
+                row-gap: 0;
                 align-items: center;
                 min-height: 145px;
             }
@@ -1358,6 +1358,7 @@
             .loa-card #loa {
                 grid-column: 1;
                 grid-row: 2;
+                line-height: 1;
                 font-size: 16px;
                 font-weight: 600;
                 white-space: nowrap;
@@ -3162,7 +3163,7 @@
         document.getElementById(
             "footer"
         ).textContent =
-            `Loa ${annoElfico} · ${annoQuartaEra} Q.E.aaaaaaaaaaaaaaa`;
+            `Loa ${annoElfico} · ${annoQuartaEra} Q.E.bbbbbbbbb`;
 
         document.title =
             `Cronaca del Giorno — ${periodo.nome}`;
