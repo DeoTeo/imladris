@@ -1380,11 +1380,28 @@
             }
         }
 
+        #stars {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .page,
+        #elven-loader {
+            position: relative;
+            z-index: 1;
+        }
+
     </style>
 
 </head>
 
 <body>
+
+    <canvas id="stars"></canvas>
 
     <!-- =========================================================
          LOADER
@@ -1509,6 +1526,22 @@
                      class="secondary">
                 </div>
 
+            </div>
+
+            <div class="card">
+
+                <div class="label">
+                    Ora Elfica
+                </div>
+            
+                <div id="oraElfica"
+                     class="value">
+                </div>
+            
+                <div id="descrizioneOra"
+                     class="secondary">
+                </div>
+            
             </div>
 
             <!-- COMPUTO DEL LOA -->
@@ -2159,6 +2192,64 @@
             "--season-symbol",
             `"${symbol}"`
         );
+
+        /* =========================================================
+           ORA ELFICA
+           ========================================================= */
+
+        const oreElfice = [
+
+            {
+                nome: "Aurë",
+                descrizione: "Le prime luci del mattino",
+                start: 5,
+                end: 11
+            },
+        
+            {
+                nome: "Arin",
+                descrizione: "Il pieno splendore del giorno",
+                start: 11,
+                end: 17
+            },
+        
+            {
+                nome: "Andúnë",
+                descrizione: "L'ora del tramonto dorato",
+                start: 17,
+                end: 21
+            },
+        
+            {
+                nome: "Lómë",
+                descrizione: "La quiete della notte stellata",
+                start: 21,
+                end: 24
+            },
+        
+            {
+                nome: "Lómë",
+                descrizione: "La quiete della notte stellata",
+                start: 0,
+                end: 5
+            }
+        
+        ];
+        
+        const oraElfica =
+            oreElfice.find(
+                o => ora >= o.start && ora < o.end
+            );
+        
+        document.getElementById(
+            "oraElfica"
+        ).textContent =
+            oraElfica.nome;
+        
+        document.getElementById(
+            "descrizioneOra"
+        ).textContent =
+            oraElfica.descrizione;
 
         /* =========================================================
            COSTELLAZIONI
@@ -2890,17 +2981,21 @@
            COSTELLAZIONE
            ========================================================= */
 
+        const simboliCostellazioni = {
+            Menelmacar: "⚔️",
+            Valacirca: "🌙",
+            Wilwarin: "🦋",
+            Remmirath: "✨",
+            Soronúmë: "🦅",
+            Telumendil: "🌠",
+            Anarríma: "☀️",
+            Elenath: "⭐"
+        };
+        
         document.getElementById(
             "costellazione"
         ).textContent =
-            `✨ ${costellazione}`;
-
-        document.getElementById(
-            "descrizioneCostellazione"
-        ).textContent =
-            descrizioniCostellazioni[
-                costellazione
-            ];
+            `${simboliCostellazioni[costellazione]} ${costellazione}`;
 
         /* =========================================================
            CRONACA
@@ -3057,6 +3152,83 @@
                 );
 
             }
+        );
+
+        /* =========================================================
+           SFONDO STELLATO
+           ========================================================= */
+        
+        const canvas = document.getElementById("stars");
+        const ctx = canvas.getContext("2d");
+        
+        let stelle = [];
+        
+        function resizeStars() {
+        
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        
+            stelle = [];
+        
+            for (let i = 0; i < 160; i++) {
+        
+                stelle.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() < 0.1
+                        ? Math.random() * 2 + 2
+                        : Math.random() * 1.6 + 0.3,
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.01 + 0.002
+                });
+            }
+        }
+        
+        function drawStars() {
+        
+            ctx.clearRect(
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
+        
+            stelle.forEach(stella => {
+        
+                stella.alpha += stella.speed;
+        
+                if (
+                    stella.alpha > 1 ||
+                    stella.alpha < 0.2
+                ) {
+                    stella.speed *= -1;
+                }
+        
+                ctx.beginPath();
+        
+                ctx.arc(
+                    stella.x,
+                    stella.y,
+                    stella.r,
+                    0,
+                    Math.PI * 2
+                );
+        
+                ctx.fillStyle =
+                    `rgba(245,231,178,${stella.alpha})`;
+        
+                ctx.fill();
+            });
+        
+            requestAnimationFrame(drawStars);
+        }
+        
+        resizeStars();
+        drawStars();
+        
+        window.addEventListener(
+            "resize",
+            resizeStars
         );
 
     </script>
