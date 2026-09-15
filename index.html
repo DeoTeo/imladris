@@ -1344,6 +1344,10 @@
             .card {
                 padding: 15px;
             }
+            
+            .loa-card {
+                grid-column: span 2;
+            }
 
             .resources {
                 grid-template-columns: 1fr;
@@ -1380,19 +1384,63 @@
             }
         }
 
+        /* =========================================================
+           LIVELLI DELLA PAGINA
+           ========================================================= */
+        
         #stars {
             position: fixed;
             inset: 0;
+        
             width: 100%;
             height: 100%;
+        
             z-index: 0;
+        
             pointer-events: none;
         }
         
-        .page,
-        #elven-loader {
+        /* Tutto il contenuto sopra le stelle */
+        
+        .page {
             position: relative;
-            z-index: 1;
+            z-index: 2;
+        }
+        
+        /* Loader sempre sopra tutto */
+        
+        #elven-loader {
+            position: fixed;
+        
+            inset: 0;
+        
+            z-index: 99999;
+        
+            display: flex;
+        
+            align-items: center;
+            justify-content: center;
+        
+            background:
+                radial-gradient(
+                    circle at center,
+                    #302845 0%,
+                    #171521 70%,
+                    #10101a 100%
+                );
+        
+            opacity: 1;
+            visibility: visible;
+        
+            transition:
+                opacity .8s ease,
+                visibility .8s ease;
+        }
+        
+        #elven-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
         }
 
     </style>
@@ -1546,7 +1594,7 @@
 
             <!-- COMPUTO DEL LOA -->
 
-            <div class="card">
+            <div class="card loa-card">
 
                 <div class="label">
                     Computo del Loa
