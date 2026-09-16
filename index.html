@@ -1483,6 +1483,145 @@
             visibility: hidden;
             pointer-events: none;
         }
+        
+        /* =========================================================
+   ATMOSFERA STAGIONALE
+   ========================================================= */
+
+body {
+    transition:
+        background 1.8s ease,
+        color 1.2s ease;
+}
+
+.card,
+.hero {
+    transition:
+        background 1.4s ease,
+        border-color 1.4s ease,
+        box-shadow 1.4s ease;
+}
+
+#heroSymbol {
+    transition:
+        opacity .8s ease,
+        transform 1s ease,
+        filter 1.2s ease;
+}
+
+
+/* ---------------------------------------------------------
+   BAGLIORE STAGIONALE
+   --------------------------------------------------------- */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: -20%;
+    pointer-events: none;
+    z-index: 1;
+
+    background:
+        radial-gradient(
+            circle at 50% 20%,
+            var(--atmosphere-glow),
+            transparent 42%
+        );
+
+    opacity: var(--atmosphere-opacity, .25);
+
+    transition:
+        opacity 1.8s ease,
+        background 1.8s ease;
+}
+
+
+/* ---------------------------------------------------------
+   DECORAZIONI DELLE CARD
+   --------------------------------------------------------- */
+
+.card::before,
+.card::after {
+    transition:
+        color 1.4s ease,
+        opacity 1.4s ease,
+        transform 1.4s ease;
+}
+
+.card::before {
+    color: var(--accent);
+    opacity: .10;
+}
+
+.card::after {
+    color: var(--accent);
+    opacity: .07;
+}
+
+
+/* ---------------------------------------------------------
+   HERO
+   --------------------------------------------------------- */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            var(--atmosphere-glow),
+            transparent 55%
+        );
+
+    opacity: .25;
+    pointer-events: none;
+
+    transition:
+        background 1.8s ease,
+        opacity 1.8s ease;
+}
+
+
+/* ---------------------------------------------------------
+   PARTICELLE
+   --------------------------------------------------------- */
+
+#particles {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    pointer-events: none;
+
+    z-index: 1;
+}
+
+
+/* ---------------------------------------------------------
+   PICCOLO BAGLIORE SULL'ACCENTO
+   --------------------------------------------------------- */
+
+.label,
+#heroPeriod {
+    transition:
+        color 1.4s ease,
+        text-shadow 1.4s ease;
+}
+
+body.atmosphere-active .label,
+body.atmosphere-active #heroPeriod {
+    text-shadow:
+        0 0 12px var(--accent-glow);
+}
 
     </style>
 
@@ -1491,6 +1630,7 @@
 <body>
 
     <canvas id="stars"></canvas>
+    <canvas id="particles"></canvas>
 
     <!-- =========================================================
          LOADER
@@ -3004,6 +3144,564 @@
         ).textContent =
             `${giornoAnnoAttuale}° giorno di ${durataAnno}`;
 
+/* =========================================================
+   ATMOSFERE DEI PERIODI ELFICI
+   ========================================================= */
+
+const atmosfere = {
+
+    Yestarë: {
+        simbolo: "✦",
+        nome: "Yestarë",
+        descrizione: "Il Primo Giorno",
+
+        bg1: "#15131D",
+        bg2: "#332744",
+
+        primary: "#F7EBC4",
+        secondary: "#CBBED8",
+        accent: "#E8C75A",
+
+        glow: "rgba(232,199,90,.22)",
+        accentGlow: "rgba(232,199,90,.45)",
+
+        particelle: "stelle",
+        densita: 115,
+        velocita: 0.15
+    },
+
+    Tuilë: {
+        simbolo: "🌱",
+        nome: "Tuilë",
+        descrizione: "Il Risveglio della Primavera",
+
+        bg1: "#13201A",
+        bg2: "#294236",
+
+        primary: "#EAF0D8",
+        secondary: "#B9CCB6",
+        accent: "#A8C96F",
+
+        glow: "rgba(126,177,117,.18)",
+        accentGlow: "rgba(168,201,111,.38)",
+
+        particelle: "foglie",
+        densita: 45,
+        velocita: 0.35
+    },
+
+    Lairë: {
+        simbolo: "☀️",
+        nome: "Lairë",
+        descrizione: "La Pienezza dell'Estate",
+
+        bg1: "#211B12",
+        bg2: "#493B21",
+
+        primary: "#FFF1C2",
+        secondary: "#D9C99A",
+        accent: "#E8C75A",
+
+        glow: "rgba(232,199,90,.22)",
+        accentGlow: "rgba(232,199,90,.48)",
+
+        particelle: "lucciole",
+        densita: 40,
+        velocita: 0.20
+    },
+
+    Yávië: {
+        simbolo: "🍂",
+        nome: "Yávië",
+        descrizione: "La Raccolta dell'Autunno",
+
+        bg1: "#241A16",
+        bg2: "#473128",
+
+        primary: "#F2DFC0",
+        secondary: "#CDB29A",
+        accent: "#C98F58",
+
+        glow: "rgba(201,143,88,.17)",
+        accentGlow: "rgba(201,143,88,.40)",
+
+        particelle: "foglieAutunno",
+        densita: 48,
+        velocita: 0.45
+    },
+
+    Enderi: {
+        simbolo: "✧",
+        nome: "Enderi",
+        descrizione: "I Giorni Centrali",
+
+        bg1: "#171521",
+        bg2: "#302845",
+
+        primary: "#F5E7B2",
+        secondary: "#C8BEDA",
+        accent: "#E8C75A",
+
+        glow: "rgba(232,199,90,.26)",
+        accentGlow: "rgba(232,199,90,.55)",
+
+        particelle: "stelle",
+        densita: 150,
+        velocita: 0.12
+    },
+
+    Quellë: {
+        simbolo: "🌾",
+        nome: "Quellë",
+        descrizione: "Il Declino dell'Anno",
+
+        bg1: "#1D1A1A",
+        bg2: "#3C302D",
+
+        primary: "#E9DCC7",
+        secondary: "#C1B0A4",
+        accent: "#B98A63",
+
+        glow: "rgba(185,138,99,.16)",
+        accentGlow: "rgba(185,138,99,.36)",
+
+        particelle: "semi",
+        densita: 35,
+        velocita: 0.25
+    },
+
+    Hrívë: {
+        simbolo: "❄️",
+        nome: "Hrívë",
+        descrizione: "Il Silenzio dell'Inverno",
+
+        bg1: "#111822",
+        bg2: "#263449",
+
+        primary: "#E6EEF5",
+        secondary: "#AFBFCE",
+        accent: "#B9D8E8",
+
+        glow: "rgba(185,216,232,.18)",
+        accentGlow: "rgba(185,216,232,.45)",
+
+        particelle: "neve",
+        densita: 65,
+        velocita: 0.55
+    },
+
+    Coirë: {
+        simbolo: "🌿",
+        nome: "Coirë",
+        descrizione: "Il Risveglio della Vita",
+
+        bg1: "#14211D",
+        bg2: "#294039",
+
+        primary: "#E0EBD7",
+        secondary: "#B4C9B7",
+        accent: "#9FC27B",
+
+        glow: "rgba(159,194,123,.18)",
+        accentGlow: "rgba(159,194,123,.40)",
+
+        particelle: "germogli",
+        densita: 38,
+        velocita: 0.30
+    },
+
+    Mettarë: {
+        simbolo: "✺",
+        nome: "Mettarë",
+        descrizione: "Il Giorno Finale",
+
+        bg1: "#18141C",
+        bg2: "#38253D",
+
+        primary: "#F6E8C8",
+        secondary: "#CDB8D4",
+        accent: "#E3B95B",
+
+        glow: "rgba(227,185,91,.24)",
+        accentGlow: "rgba(227,185,91,.55)",
+
+        particelle: "stelleFinali",
+        densita: 130,
+        velocita: 0.16
+    }
+};
+
+/* =========================================================
+   APPLICA ATMOSFERA
+   ========================================================= */
+
+const atmosfera =
+    atmosfere[periodo.nome] ||
+    atmosfere.Yestarë;
+
+const root =
+    document.documentElement;
+
+root.style.setProperty(
+    "--bg1",
+    atmosfera.bg1
+);
+
+root.style.setProperty(
+    "--bg2",
+    atmosfera.bg2
+);
+
+root.style.setProperty(
+    "--primary",
+    atmosfera.primary
+);
+
+root.style.setProperty(
+    "--secondary",
+    atmosfera.secondary
+);
+
+root.style.setProperty(
+    "--accent",
+    atmosfera.accent
+);
+
+root.style.setProperty(
+    "--atmosphere-glow",
+    atmosfera.glow
+);
+
+root.style.setProperty(
+    "--accent-glow",
+    atmosfera.accentGlow
+);
+
+root.style.setProperty(
+    "--season-symbol",
+    `"${atmosfera.simbolo}"`
+);
+
+document.body.classList.add(
+    "atmosphere-active"
+);
+
+/* =========================================================
+   PARTICELLE ATMOSFERICHE
+   ========================================================= */
+
+const canvasParticles =
+    document.getElementById("particles");
+
+const ctxParticles =
+    canvasParticles.getContext("2d");
+
+let particelle = [];
+
+function ridimensionaParticles() {
+
+    canvasParticles.width =
+        window.innerWidth *
+        window.devicePixelRatio;
+
+    canvasParticles.height =
+        window.innerHeight *
+        window.devicePixelRatio;
+
+    canvasParticles.style.width =
+        window.innerWidth + "px";
+
+    canvasParticles.style.height =
+        window.innerHeight + "px";
+
+    ctxParticles.setTransform(
+        window.devicePixelRatio,
+        0,
+        0,
+        window.devicePixelRatio,
+        0,
+        0
+    );
+}
+
+ridimensionaParticles();
+
+window.addEventListener(
+    "resize",
+    ridimensionaParticles
+);
+
+
+/* ---------------------------------------------------------
+   CREAZIONE
+   --------------------------------------------------------- */
+
+function creaParticella() {
+
+    return {
+        x: Math.random() *
+            window.innerWidth,
+
+        y: Math.random() *
+            window.innerHeight,
+
+        size:
+            Math.random() * 2.2 + .5,
+
+        alpha:
+            Math.random() * .45 + .15,
+
+        speed:
+            atmosfera.velocita *
+            (Math.random() * .8 + .6),
+
+        drift:
+            (Math.random() - .5) * .35,
+
+        rotation:
+            Math.random() * Math.PI * 2,
+
+        rotationSpeed:
+            (Math.random() - .5) * .02
+    };
+}
+
+
+/* ---------------------------------------------------------
+   INIZIALIZZA
+   --------------------------------------------------------- */
+
+for (
+    let i = 0;
+    i < atmosfera.densita;
+    i++
+) {
+
+    particelle.push(
+        creaParticella()
+    );
+}
+
+
+/* ---------------------------------------------------------
+   DISEGNO
+   --------------------------------------------------------- */
+
+function disegnaParticella(p) {
+
+    ctxParticles.save();
+
+    ctxParticles.translate(
+        p.x,
+        p.y
+    );
+
+    ctxParticles.rotate(
+        p.rotation
+    );
+
+    ctxParticles.globalAlpha =
+        p.alpha;
+
+    ctxParticles.fillStyle =
+        getComputedStyle(root)
+            .getPropertyValue("--accent")
+            .trim();
+
+
+    /* STELLE */
+
+    if (
+        atmosfera.particelle === "stelle" ||
+        atmosfera.particelle === "stelleFinali"
+    ) {
+
+        ctxParticles.beginPath();
+
+        ctxParticles.arc(
+            0,
+            0,
+            p.size,
+            0,
+            Math.PI * 2
+        );
+
+        ctxParticles.fill();
+    }
+
+
+    /* NEVE */
+
+    else if (
+        atmosfera.particelle === "neve"
+    ) {
+
+        ctxParticles.beginPath();
+
+        ctxParticles.arc(
+            0,
+            0,
+            p.size * .8,
+            0,
+            Math.PI * 2
+        );
+
+        ctxParticles.fill();
+    }
+
+
+    /* FOGLIE */
+
+    else if (
+        atmosfera.particelle === "foglie" ||
+        atmosfera.particelle === "foglieAutunno"
+    ) {
+
+        ctxParticles.beginPath();
+
+        ctxParticles.ellipse(
+            0,
+            0,
+            p.size * 1.4,
+            p.size * .7,
+            0,
+            0,
+            Math.PI * 2
+        );
+
+        ctxParticles.fill();
+    }
+
+
+    /* LUCCIOLE */
+
+    else if (
+        atmosfera.particelle === "lucciole"
+    ) {
+
+        ctxParticles.shadowBlur = 10;
+
+        ctxParticles.shadowColor =
+            getComputedStyle(root)
+                .getPropertyValue("--accent")
+                .trim();
+
+        ctxParticles.beginPath();
+
+        ctxParticles.arc(
+            0,
+            0,
+            p.size * .8,
+            0,
+            Math.PI * 2
+        );
+
+        ctxParticles.fill();
+    }
+
+
+    /* SEMI / GERMOGLI */
+
+    else {
+
+        ctxParticles.beginPath();
+
+        ctxParticles.ellipse(
+            0,
+            0,
+            p.size,
+            p.size * 1.5,
+            0,
+            0,
+            Math.PI * 2
+        );
+
+        ctxParticles.fill();
+    }
+
+    ctxParticles.restore();
+}
+
+
+/* ---------------------------------------------------------
+   ANIMAZIONE
+   --------------------------------------------------------- */
+
+function animaParticles() {
+
+    ctxParticles.clearRect(
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+    );
+
+    particelle.forEach(p => {
+
+        p.y += p.speed;
+
+        p.x +=
+            p.drift;
+
+        p.rotation +=
+            p.rotationSpeed;
+
+
+        /* movimento circolare leggerissimo */
+
+        if (
+            atmosfera.particelle === "stelle" ||
+            atmosfera.particelle === "stelleFinali"
+        ) {
+
+            p.alpha +=
+                Math.sin(
+                    Date.now() * .001 +
+                    p.x
+                ) * .002;
+        }
+
+
+        /* quando esce dallo schermo */
+
+        if (
+            p.y >
+            window.innerHeight + 10
+        ) {
+
+            p.y = -10;
+
+            p.x =
+                Math.random() *
+                window.innerWidth;
+        }
+
+        if (
+            p.x >
+            window.innerWidth + 10
+        ) {
+
+            p.x = -10;
+        }
+
+        if (
+            p.x < -10
+        ) {
+
+            p.x =
+                window.innerWidth + 10;
+        }
+
+        disegnaParticella(p);
+    });
+
+    requestAnimationFrame(
+        animaParticles
+    );
+}
+
+animaParticles();
+
         /* =========================================================
            CARDS
            ========================================================= */
@@ -3085,6 +3783,11 @@
             "costellazione"
         ).textContent =
             `${simboliCostellazioni[costellazione]} ${costellazione}`;
+            
+        document.getElementById(
+            "descrizioneCostellazione"
+        ).textContent =
+            descrizioniCostellazioni[costellazione];
 
         /* =========================================================
            CRONACA
