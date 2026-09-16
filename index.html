@@ -58,7 +58,8 @@
             margin: 0;
             min-height: 100vh;
             min-height: 100dvh;
-
+            position: relative;
+            isolation: isolate;
             background:
                 radial-gradient(
                     ellipse at 50% 110%,
@@ -3166,7 +3167,7 @@
         document.getElementById(
             "footer"
         ).textContent =
-            `Loa ${annoElfico} · ${annoQuartaEra} Q.E.`;
+            `Loa ${annoElfico} · ${annoQuartaEra} Q.E.aaaaa`;
 
         document.title =
             `Cronaca del Giorno — ${periodo.nome}`;
