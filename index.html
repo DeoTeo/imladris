@@ -3086,6 +3086,11 @@
         ).textContent =
             `${simboliCostellazioni[costellazione]} ${costellazione}`;
 
+        document.getElementById(
+            "descrizioneCostellazione"
+        ).textContent =
+            descrizioniCostellazioni[costellazione];
+
         /* =========================================================
            CRONACA
            ========================================================= */
@@ -3134,8 +3139,7 @@
             <br><br>
 
             ✨ Nelle alte regioni del firmamento risplende
-            ${costellazione};
-            ${descrizioniCostellazioni[costellazione]};
+            ${costellazione}, ${descrizioniCostellazioni[costellazione]};
             la sua presenza ricorda agli osservatori
             la grande armonia delle stelle.
 
