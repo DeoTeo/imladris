@@ -1328,6 +1328,46 @@
         text-shadow:
             0 0 12px var(--accent-glow);
     }
+
+        #stars,
+        #particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+        }
+        
+        #stars {
+            z-index: -2;
+        }
+        
+        #particles {
+            z-index: -1;
+        }
+        
+        .page {
+            position: relative;
+            z-index: 10;
+        }
+        
+        .hero,
+        .card,
+        .chronicle,
+        .resources,
+        .footer {
+            position: relative;
+            z-index: 11;
+        }
+
+        body::before {
+            z-index: 0;
+        }
+
+        .card,
+        .hero,
+        .chronicle {
+            backdrop-filter: blur(6px);
+        }
+        
         </style>
     
     </head>
@@ -3027,8 +3067,7 @@ animaParticles();
             <br><br>
 
             ✨ Nelle alte regioni del firmamento risplende
-            ${costellazione};
-            ${descrizioniCostellazioni[costellazione]};
+            ${costellazione}, ${descrizioniCostellazioni[costellazione]};
             la sua presenza ricorda agli osservatori
             la grande armonia delle stelle.
 
