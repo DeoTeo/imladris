@@ -1994,12 +1994,16 @@
                 }
 
             ];
-
-            return (
+            
+            const fase =
                 fasi.find(
-                    fase => eta < fase.max
-                ) || fasi[0]
-            );
+                    elemento => eta < elemento.max
+                ) || fasi[0];
+
+            return {
+                ...fase,
+                eta
+            };
         }
 
         const faseLunare =
