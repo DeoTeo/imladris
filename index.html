@@ -1502,7 +1502,6 @@
         .isil-stat-value {
             margin-top: 6px;
             font-size: 16px;
-            font-weight: 600;
         }
 
     </style>
@@ -1715,19 +1714,11 @@
                 <div id="lunaItaliano"
                      class="secondary">
                 </div>
-                
-                    <div class="isil-stat">
-
-                        <div class="isil-stat-label">
-                            Età lunare
-                        </div>
 
                         <div
                             class="isil-stat-value"
                             id="isilEta">
                         </div>
-
-                    </div>
 
             </div>
 
@@ -3067,7 +3058,7 @@
             faseLunare.italiano;
             
         document.getElementById("isilEta").textContent =
-    `${faseLunare.eta.toFixed(1).replace(".", ",")} giorni`;
+    `Età lunare: ${faseLunare.eta.toFixed(1).replace(".", ",")} giorni`;
 
         /* =========================================================
            ALBERO SACRO
