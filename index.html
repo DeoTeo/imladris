@@ -2532,10 +2532,20 @@ return {
            ========================================================= */
 
         const giornoAnno =
-            Math.floor(
-                (data - yestare) /
-                86400000
-            );
+    Math.round(
+        (
+            Date.UTC(
+                data.getFullYear(),
+                data.getMonth(),
+                data.getDate()
+            ) -
+            Date.UTC(
+                yestare.getFullYear(),
+                yestare.getMonth(),
+                yestare.getDate()
+            )
+        ) / 86400000
+    );
 
         const nomeGiorno =
             giorniElfici[
