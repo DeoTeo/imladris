@@ -3762,78 +3762,86 @@ document.getElementById("isilCicloTesto").textContent =
            SFONDO STELLATO
            ========================================================= */
         
-        const canvas = document.getElementById("stars");
-        const ctx = canvas.getContext("2d");
-        
-        let stelle = [];
-        
-        function resizeStars() {
-        
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        
-            stelle = [];
-        
-            for (let i = 0; i < 90; i++) {
-        
-                stelle.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    r: Math.random() < 0.1
-                        ? Math.random() * 2 + 2
-                        : Math.random() * 1.6 + 0.3,
-                    alpha: Math.random(),
-                    speed: Math.random() * 0.01 + 0.002
-                });
-            }
-        }
-        
-        function drawStars() {
-        
-            ctx.clearRect(
-                0,
-                0,
-                canvas.width,
-                canvas.height
-            );
-        
-            stelle.forEach(stella => {
-        
-                stella.alpha += stella.speed;
-        
-                if (
-                    stella.alpha > 1 ||
-                    stella.alpha < 0.2
-                ) {
-                    stella.speed *= -1;
-                }
-        
-                ctx.beginPath();
-        
-                ctx.arc(
-                    stella.x,
-                    stella.y,
-                    stella.r,
-                    0,
-                    Math.PI * 2
-                );
-        
-                ctx.fillStyle =
-                    `rgba(245,231,178,${stella.alpha})`;
-        
-                ctx.fill();
+        /* =========================================================
+   SFONDO STELLATO
+   ========================================================= */
+
+const canvas = document.getElementById("stars");
+
+if (canvas) {
+
+    const ctx = canvas.getContext("2d");
+
+    let stelle = [];
+
+    function resizeStars() {
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        stelle = [];
+
+        for (let i = 0; i < 90; i++) {
+
+            stelle.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() < 0.1
+                    ? Math.random() * 2 + 2
+                    : Math.random() * 1.6 + 0.3,
+                alpha: Math.random(),
+                speed: Math.random() * 0.01 + 0.002
             });
-        
-            requestAnimationFrame(drawStars);
         }
-        
-        resizeStars();
-        drawStars();
-        
-        window.addEventListener(
-            "resize",
-            resizeStars
+    }
+
+    function drawStars() {
+
+        ctx.clearRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
         );
+
+        stelle.forEach(stella => {
+
+            stella.alpha += stella.speed;
+
+            if (
+                stella.alpha > 1 ||
+                stella.alpha < 0.2
+            ) {
+                stella.speed *= -1;
+            }
+
+            ctx.beginPath();
+
+            ctx.arc(
+                stella.x,
+                stella.y,
+                stella.r,
+                0,
+                Math.PI * 2
+            );
+
+            ctx.fillStyle =
+                `rgba(245,231,178,${stella.alpha})`;
+
+            ctx.fill();
+        });
+
+        requestAnimationFrame(drawStars);
+    }
+
+    resizeStars();
+    drawStars();
+
+    window.addEventListener(
+        "resize",
+        resizeStars
+    );
+}
 
     </script>
 
