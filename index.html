@@ -1942,7 +1942,7 @@
 
             </div>
 
-            <!-- LUNA -->
+            <!-- LUNA 
 
             <div class="card">
 
@@ -1958,7 +1958,7 @@
                      class="secondary">
                 </div>
 
-            </div>
+            </div>-->
             
                         <!-- =================================================
                  PICCOLO OSSERVATORIO DI ISIL
@@ -1968,7 +1968,7 @@
                      style="grid-column: 1 / -1;">
 
                 <div class="isil-heading">
-                    ✧ Piccolo Osservatorio di Isil ✧
+                    ✧ Osservatorio di Isil ✧
                 </div>
 
                 <div class="isil-main">
@@ -2044,12 +2044,6 @@
 
                     </div>
 
-                </div>
-
-                <div class="isil-note">
-                    Il ciclo di Isil è calcolato in modo astronomico
-                    approssimato a partire dall’epoca di riferimento.
-                    L’illuminazione è una stima teorica.
                 </div>
 
             </section>
@@ -2340,15 +2334,6 @@ document.getElementById("dataConsultata").textContent =
         year: "numeric"
     });
 
-// Disabilita il pulsante "Giorno dopo" se si è già su oggi.
-// In questo modo la navigazione non procede accidentalmente nel futuro.
-document.getElementById("giornoSuccessivo").disabled =
-    consultandoOggi;
-
-if (consultandoOggi) {
-    document.getElementById("giornoSuccessivo").style.opacity = ".4";
-    document.getElementById("giornoSuccessivo").style.cursor = "default";
-}
 
         const dark =
             ora >= 22 ||
