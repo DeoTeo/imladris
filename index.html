@@ -1484,6 +1484,26 @@
             visibility: hidden;
             pointer-events: none;
         }
+        
+        .isil-stat {
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: color-mix(in srgb, var(--card) 75%, transparent);
+        }
+        
+        .isil-stat-label {
+            font-size: 9px;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+        
+        .isil-stat-value {
+            margin-top: 6px;
+            font-size: 16px;
+            font-weight: 600;
+        }
 
     </style>
 
@@ -1695,6 +1715,19 @@
                 <div id="lunaItaliano"
                      class="secondary">
                 </div>
+                
+                    <div class="isil-stat">
+
+                        <div class="isil-stat-label">
+                            Età lunare
+                        </div>
+
+                        <div
+                            class="isil-stat-value"
+                            id="isilEta">
+                        </div>
+
+                    </div>
 
             </div>
 
@@ -3028,6 +3061,9 @@
             "lunaItaliano"
         ).textContent =
             faseLunare.italiano;
+            
+        document.getElementById("isilEta").textContent =
+    `${faseLunare.eta.toFixed(1).replace(".", ",")} giorni`;
 
         /* =========================================================
            ALBERO SACRO
