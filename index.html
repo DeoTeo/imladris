@@ -1696,10 +1696,15 @@
                      class="secondary">
                 </div>
 
-                        <div
-                            class="secondary"
-                            id="isilEta">
-                        </div>
+                <div
+                    class="secondary"
+                    id="isilEta">
+                </div>
+                
+                 <div
+                     class="secondary"
+                     id="isilIlluminazione">
+                 </div>
 
             </div>
 
@@ -1971,10 +1976,13 @@
                 fasi.find(
                     elemento => eta < elemento.max
                 ) || fasi[0];
+                
+            const illuminazione = ((1 - Math.cos(2 * Math.PI * eta / 29.530588)) / 2) * 100;
 
             return {
                 ...fase,
-                eta
+                eta,
+                illuminazione
             };
         }
 
@@ -3040,6 +3048,9 @@
             
         document.getElementById("isilEta").textContent =
     `Età lunare: ${faseLunare.eta.toFixed(1).replace(".", ",")} giorni`;
+    
+        document.getElementById("isilIlluminazione").textContent =
+    `Illuminazione: ${Math.round(faseLunare.illuminazione)}%`;
 
         /* =========================================================
            ALBERO SACRO
